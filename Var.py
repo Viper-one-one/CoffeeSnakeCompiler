@@ -12,4 +12,4 @@ class Var(Token):
         return "Var"
     
     def __hash__(self):
-        return hash(self)
+        return 5
