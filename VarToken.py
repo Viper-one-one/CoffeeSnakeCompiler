@@ -1,6 +1,6 @@
 import Token
 
-class Var(Token):
+class VarToken(Token):
     
     def __init__(self, value):
         pass

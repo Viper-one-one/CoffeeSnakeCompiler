@@ -3,13 +3,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>538d6056-2fd8-46ab-aa66-586052a3044b</ProjectGuid>
-    <ProjectHome>.</ProjectHome>
+    <ProjectHome>
+    </ProjectHome>
     <StartupFile>SnakeScriptCompiler.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>SnakeScriptCompiler</Name>
+    <Name>CoffeeSnakeCompiler</Name>
     <RootNamespace>SnakeScriptCompiler</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -21,8 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Var.py" />
     <Compile Include="IdentifierToken.py" />
+    <Compile Include="IntegerLiteralToken.py" />
+    <Compile Include="LeftParenToken.py" />
     <Compile Include="lexer.py" />
     <Compile Include="SnakeScriptCompiler.py" />
     <Compile Include="Token.py" />
