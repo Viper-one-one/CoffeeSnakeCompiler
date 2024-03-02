@@ -1,1 +1,1 @@
-# SnakeScriptCompiler
+# CoffeeSnakeCompiler
