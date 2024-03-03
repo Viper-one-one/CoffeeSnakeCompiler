@@ -23,6 +23,8 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\LeftCurlyBracketToken.py" />
+    <Compile Include="Tokenizer\RightCurlyBracketToken.py" />
     <Compile Include="Tokenizer\MethodToken.py" />
     <Compile Include="Tokenizer\PrintlnToken.py" />
     <Compile Include="Tokenizer\SingleEqualsToken.py" />

@@ -1,0 +1,6 @@
+class LeftCurlyBracketToken(object):
+    pass
+
+
+
+
