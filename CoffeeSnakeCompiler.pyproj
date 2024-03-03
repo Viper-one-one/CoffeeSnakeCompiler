@@ -23,6 +23,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\MethodToken.py" />
+    <Compile Include="Tokenizer\PrintlnToken.py" />
+    <Compile Include="Tokenizer\SingleEqualsToken.py" />
     <Compile Include="Tokenizer\AdditionToken.py" />
     <Compile Include="Tokenizer\BreakToken.py" />
     <Compile Include="Tokenizer\DotToken.py" />

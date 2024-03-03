@@ -1,0 +1,6 @@
+class SingleEqualsToken(object):
+    pass
+
+
+
+
