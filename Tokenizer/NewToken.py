@@ -1,0 +1,6 @@
+class NewToken(object):
+    pass
+
+
+
+

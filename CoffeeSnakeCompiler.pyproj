@@ -23,6 +23,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\AdditionToken.py" />
+    <Compile Include="Tokenizer\BreakToken.py" />
+    <Compile Include="Tokenizer\DotToken.py" />
+    <Compile Include="Tokenizer\FalseToken.py" />
+    <Compile Include="Tokenizer\IfToken.py" />
+    <Compile Include="Tokenizer\InitToken.py" />
+    <Compile Include="Tokenizer\MultiplicationToken.py" />
+    <Compile Include="Tokenizer\NewToken.py" />
+    <Compile Include="Tokenizer\ReturnToken.py" />
+    <Compile Include="Tokenizer\SuperToken.py" />
+    <Compile Include="Tokenizer\ThisToken.py" />
     <Compile Include="Tokenizer\BooleanToken.py" />
     <Compile Include="Tokenizer\ClassToken.py" />
     <Compile Include="CoffeeSnakeCompiler.py" />
@@ -34,6 +45,8 @@
     <Compile Include="Tokenizer\Token.py" />
     <Compile Include="Tokenizer\VoidToken.py" />
     <Compile Include="Tokenizer\VarToken.py" />
+    <Compile Include="Tokenizer\TrueToken.py" />
+    <Compile Include="Tokenizer\WhileToken.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tokenizer\" />

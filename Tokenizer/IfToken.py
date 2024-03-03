@@ -1,0 +1,6 @@
+class IfToken(object):
+    pass
+
+
+
+

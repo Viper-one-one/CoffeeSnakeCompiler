@@ -1,0 +1,6 @@
+class InitToken(object):
+    pass
+
+
+
+

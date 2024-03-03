@@ -1,0 +1,6 @@
+class WhileToken(object):
+    pass
+
+
+
+

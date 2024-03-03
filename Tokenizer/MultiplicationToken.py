@@ -1,0 +1,6 @@
+class MultiplicationToken(object):
+    pass
+
+
+
+
