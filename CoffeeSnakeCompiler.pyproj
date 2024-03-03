@@ -22,11 +22,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CoffeeSnakeCompiler.py" />
     <Compile Include="IdentifierToken.py" />
     <Compile Include="IntegerLiteralToken.py" />
     <Compile Include="LeftParenToken.py" />
     <Compile Include="lexer.py" />
-    <Compile Include="SnakeScriptCompiler.py" />
     <Compile Include="Token.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
