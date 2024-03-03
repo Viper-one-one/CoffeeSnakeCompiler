@@ -5,13 +5,14 @@
     <ProjectGuid>538d6056-2fd8-46ab-aa66-586052a3044b</ProjectGuid>
     <ProjectHome>
     </ProjectHome>
-    <StartupFile>SnakeScriptCompiler.py</StartupFile>
+    <StartupFile>CoffeeSnakeCompiler.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>CoffeeSnakeCompiler</Name>
     <RootNamespace>SnakeScriptCompiler</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,8 +30,10 @@
     <Compile Include="Tokenizer\IntegerLiteralToken.py" />
     <Compile Include="Tokenizer\IntToken.py" />
     <Compile Include="Tokenizer\LeftParenToken.py" />
+    <Compile Include="Tokenizer\RightParenToken.py" />
     <Compile Include="Tokenizer\Token.py" />
     <Compile Include="Tokenizer\VoidToken.py" />
+    <Compile Include="Tokenizer\VarToken.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tokenizer\" />
