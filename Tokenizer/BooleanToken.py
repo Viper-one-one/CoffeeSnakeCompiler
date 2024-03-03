@@ -1,0 +1,6 @@
+class BooleanToken(object):
+    pass
+
+
+
+

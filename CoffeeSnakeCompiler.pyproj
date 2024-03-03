@@ -22,12 +22,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\BooleanToken.py" />
+    <Compile Include="Tokenizer\ClassToken.py" />
     <Compile Include="CoffeeSnakeCompiler.py" />
-    <Compile Include="IdentifierToken.py" />
-    <Compile Include="IntegerLiteralToken.py" />
-    <Compile Include="LeftParenToken.py" />
-    <Compile Include="lexer.py" />
-    <Compile Include="Token.py" />
+    <Compile Include="Tokenizer\IdentifierToken.py" />
+    <Compile Include="Tokenizer\IntegerLiteralToken.py" />
+    <Compile Include="Tokenizer\IntToken.py" />
+    <Compile Include="Tokenizer\LeftParenToken.py" />
+    <Compile Include="Tokenizer\Token.py" />
+    <Compile Include="Tokenizer\VoidToken.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tokenizer\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

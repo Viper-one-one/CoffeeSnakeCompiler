@@ -1,0 +1,6 @@
+class ClassToken(object):
+    pass
+
+
+
+
