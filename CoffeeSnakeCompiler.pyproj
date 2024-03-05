@@ -23,6 +23,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\CommaToken.py" />
+    <Compile Include="Tokenizer\DivisionToken.py" />
+    <Compile Include="Tokenizer\ElseToken.py" />
+    <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
+    <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
+    <Compile Include="Tokenizer\SemiColonToken.py" />
+    <Compile Include="Tokenizer\SubtractionToken.py" />
     <Compile Include="Tokenizer\LeftCurlyBracketToken.py" />
     <Compile Include="Tokenizer\RightCurlyBracketToken.py" />
     <Compile Include="Tokenizer\MethodToken.py" />
