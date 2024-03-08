@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class LeftParenToken(Token):
     
@@ -12,4 +12,4 @@ class LeftParenToken(Token):
         return "LeftParenToken"
     
     def __hash__(self):
-        return 4
+        return 16

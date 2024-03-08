@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class CommaToken(Token):
     
@@ -12,7 +12,7 @@ class CommaToken(Token):
         return "CommaToken"
 
     def __hash__(self):
-        return 3
+        return 5
 
 
 

@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class MultiplicationToken(Token):
 
@@ -12,7 +12,7 @@ class MultiplicationToken(Token):
         return "MultiplicationToken"
 
     def __hash__(self):
-        return 13 
+        return 18
 
 
 

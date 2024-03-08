@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class InitToken(Token):
     
@@ -12,7 +12,7 @@ class InitToken(Token):
         return "InitToken"
 
     def __hash__(self):
-        return 9
+        return 12
 
 
 

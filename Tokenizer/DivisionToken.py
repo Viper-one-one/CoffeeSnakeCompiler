@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class DivisionToken(Token):
 
@@ -12,7 +12,7 @@ class DivisionToken(Token):
         return "DivisionToken"
 
     def __hash__(self):
-        return 4
+        return 6
 
 
 

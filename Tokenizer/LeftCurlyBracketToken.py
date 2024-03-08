@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class LeftCurlyBracketToken(Token):
 
@@ -12,8 +12,9 @@ class LeftCurlyBracketToken(Token):
         return "LeftCurlyBracketToken"
 
     def __hash__(self):
-        return 12
+        return 15
 
 
 
+    # Bracket is 15, brace is 14
 

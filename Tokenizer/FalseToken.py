@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class FalseToken(Token):
     
@@ -12,7 +12,7 @@ class FalseToken(Token):
         return "FalseToken"
 
     def __hash__(self):
-        return 7
+        return 9
 
 
 

@@ -1,5 +1,5 @@
 import string
-import Token
+from Tokenizer import Token
 
 class IdentifierToken(Token):
     def __init__(self, name):
@@ -14,4 +14,4 @@ class IdentifierToken(Token):
         return f"IdentifierToken({self.name})"
         
     def __hash__(self):
-        return hash(self.name)
+        return 10

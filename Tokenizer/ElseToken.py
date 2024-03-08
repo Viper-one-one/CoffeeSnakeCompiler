@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class ElseToken(Token):
 
@@ -12,7 +12,7 @@ class ElseToken(Token):
         return "ElseToken"
 
     def __hash__(self):
-        return 6
+        return 8
 
 
 

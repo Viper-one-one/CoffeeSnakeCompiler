@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class IfToken(Token):
     
@@ -12,7 +12,7 @@ class IfToken(Token):
         return "IfToken"
 
     def __hash__(self):
-        return 8
+        return 11
 
 
 

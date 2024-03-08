@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class IntToken(Token):
     
@@ -12,7 +12,9 @@ class IntToken(Token):
         return "IntToken"
 
     def __hash__(self):
-        return 10
+        return 34 
+
+    # no code assigned in ListOfHashCodes.txt so used 34
 
 
 
