@@ -1,9 +1,6 @@
 from Tokenizer import Token
 
 class LeftCurlyBraceToken(Token):
-    
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, LeftCurlyBraceToken)
