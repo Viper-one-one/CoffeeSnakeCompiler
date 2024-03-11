@@ -1,5 +1,6 @@
 import string
-from Tokenizer import Token
+#importing as a class
+from Tokenizer.Token import Token
 
 class IdentifierToken(Token):
     def __init__(self, name):

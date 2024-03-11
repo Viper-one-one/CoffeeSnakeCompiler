@@ -1,4 +1,4 @@
-import Tokenizer
+from Tokenizer.AdditionToken import AdditionToken
 
 def main():
     print("CoffeeSnake")

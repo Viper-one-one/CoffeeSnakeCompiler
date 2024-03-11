@@ -1,5 +1,5 @@
-from Tokenizer import Token
-
+#importing as a class
+from Tokenizer.Token import Token
 
 class ClassToken(Token):
     def __eq__(self, __value: object) -> bool:

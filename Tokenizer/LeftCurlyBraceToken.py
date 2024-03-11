@@ -1,4 +1,5 @@
-from Tokenizer import Token
+#importing as a class
+from Tokenizer.Token import Token
 
 class LeftCurlyBraceToken(Token):
 

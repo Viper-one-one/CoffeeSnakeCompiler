@@ -1,4 +1,6 @@
-import Token
+#importing as a class
+from Tokenizer.Token import Token
+
 class TrueToken(Token):
     def __eq__(self, other):
         return isinstance(other, TrueToken)
