@@ -1,6 +1,5 @@
 from Tokenizer import Token
 
-
 class BreakToken(Token):
     
     def __eq__(self, other):

@@ -10,9 +10,3 @@ class DotToken(Token):
 
     def __hash__(self):
         return 7
-
-
-
-
-
-

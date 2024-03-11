@@ -1,4 +1,5 @@
-import Token
+from Tokenizer import Token
+
 class VoidToken(Token):
     def __eq__(self, other):
         return isinstance(other, VoidToken)
@@ -7,8 +8,4 @@ class VoidToken(Token):
         return "VoidToken"
 
     def __hash__(self):
-        return hash("VoidToken")
-
-
-
-
+        return 30

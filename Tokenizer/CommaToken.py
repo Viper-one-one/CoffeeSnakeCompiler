@@ -10,6 +10,3 @@ class CommaToken(Token):
 
     def __hash__(self):
         return 5
-
-
-

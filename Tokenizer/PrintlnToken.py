@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class PrintlnToken(Token):
 
@@ -9,9 +9,4 @@ class PrintlnToken(Token):
         return "PrintlnToken"
 
     def __hash__(self):
-        return hash("PrintlnToken")
-
-
-
-
-
+        return 20
