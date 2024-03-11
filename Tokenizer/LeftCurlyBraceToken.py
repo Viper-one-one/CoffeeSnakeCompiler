@@ -9,8 +9,4 @@ class LeftCurlyBraceToken(Token):
         return "LeftCurlyBraceToken"
 
     def __hash__(self):
-        return 14
-
-
-
-
+        return 15

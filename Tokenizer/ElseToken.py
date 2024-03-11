@@ -10,7 +10,3 @@ class ElseToken(Token):
 
     def __hash__(self):
         return 8
-
-
-
-

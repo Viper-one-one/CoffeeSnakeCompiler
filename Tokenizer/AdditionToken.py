@@ -1,8 +1,7 @@
 from Tokenizer import Token
 
-
 class AdditionToken(Token):
-
+    
     def __eq__(self, other):
         return isinstance(other, AdditionToken)
 
@@ -11,9 +10,3 @@ class AdditionToken(Token):
 
     def __hash__(self):
         return 1
-
-    # testing commit
-
-
-
-

@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class RightCurlyBraceToken(Token):
 
@@ -9,4 +9,4 @@ class RightCurlyBraceToken(Token):
         return "RightCurlyBraceToken"
 
     def __hash__(self):
-        return hash("RightCurlyBraceToken")
+        return 22

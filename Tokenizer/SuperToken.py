@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class SuperToken(Token):
 
@@ -9,4 +9,4 @@ class SuperToken(Token):
         return "SuperToken"
 
     def __hash__(self):
-        return hash("SuperToken")
+        return 27

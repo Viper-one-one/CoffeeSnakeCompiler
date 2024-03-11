@@ -1,4 +1,5 @@
-import Token
+from Tokenizer import Token
+
 class TrueToken(Token):
     def __eq__(self, other):
         return isinstance(other, TrueToken)
@@ -7,8 +8,4 @@ class TrueToken(Token):
         return "TrueToken"
 
     def __hash__(self):
-        return hash("TrueToken")
-
-
-
-
+        return 29

@@ -1,4 +1,3 @@
-import string
 from Tokenizer import Token
 
 class IdentifierToken(Token):
@@ -6,7 +5,7 @@ class IdentifierToken(Token):
         self.name = name
     
     def __eq__(self, other):
-        if (isinstance(self, other)):
+        if (isinstance(other, IdentifierToken)):
             return self.name == other.name
         return False
     

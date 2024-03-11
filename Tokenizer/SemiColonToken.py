@@ -1,4 +1,4 @@
-import Token
+from Tokenizer import Token
 
 class SemiColonToken(Token):
 
@@ -9,4 +9,4 @@ class SemiColonToken(Token):
         return "SemiColonToken"
 
     def __hash__(self):
-        return hash("SemiColonToken")
+        return 24

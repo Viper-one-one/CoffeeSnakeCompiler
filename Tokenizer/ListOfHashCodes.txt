@@ -11,7 +11,7 @@ IdentifierToken			10
 IfToken					11
 InitToken				12
 IntegerLiteralToken		13
-LeftCurlyBraceToken		14
+IntToken				14
 LeftCurlyBraceToken		15
 LeftParenToken			16
 MethodToken				17
@@ -20,15 +20,13 @@ NewToken				19
 PrintlnToken			20
 ReturnToken				21
 RightCurlyBraceToken	22
-RightCurlyBraketToken	23
-RightParenToken			24
-SemiColonToken			25
-SingleEqualsToken		26
-SubtractionToken		27
-SuperToken				28
-ThisToken				29
+RightParenToken			23
+SemiColonToken			24
+SingleEqualsToken		25
+SubtractionToken		26
+SuperToken				27
+ThisToken				28
 Token					base type, no hash
-TrueToken				30
-VarToken				31
-VoidToken				32
-WhileToken				33
+TrueToken				29
+VoidToken				30
+WhileToken				31

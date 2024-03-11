@@ -1,6 +1,5 @@
 from Tokenizer import Token
 
-
 class BooleanToken(Token):
     
     def __eq__(self, other):
