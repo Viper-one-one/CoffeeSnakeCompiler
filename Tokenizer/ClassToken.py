@@ -1,4 +1,4 @@
-from Tokenizer import Token
+from Tokenizer.Token import Token
 
 class ClassToken(Token):
     def __eq__(self, other: object) -> bool:
