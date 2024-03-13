@@ -29,6 +29,7 @@ from Tokenizer.ThisToken import ThisToken
 from Tokenizer.TrueToken import TrueToken
 from Tokenizer.VoidToken import VoidToken
 from Tokenizer.WhileToken import WhileToken
+from Tokenizer.SymbolPair import SymbolPair
 
 class Tokenizer(object):
 
@@ -86,3 +87,42 @@ class Tokenizer(object):
             return IntegerLiteralToken(int(digits))
         else:
             return None
+
+    def readSymbolToken(self):
+        for symbol, token in symbols.items(): # Similar to for(final Pair<String, Token> pair : SYMBOLS) ?
+            if self.input.startswith(symbol, position):
+               position += len(symbol)
+               return token
+        return None
+
+    def readReservedWordOrIdentifier(self):
+        digits: str = ""
+        if self.input.isalpha():
+            digits += self.input[self.position]
+            self.position += 1
+            while self.position < len(self.input) and self.input[self.position].isalpha():
+                digits += self.input[self.position]
+                self.position += 1
+            pass # TO DO: translate final Token Candidate = RESERVED_WORDS.get(characters) to python 
+
+
+    def tokenizeSingle(self):
+        if self.position < len(self.input): # Similar to assert(position < input.length) ?
+            retVal = readIntegerLiteral()
+            if retVal != None:
+                return retVal
+
+            retVal = readSymbolToken()
+            if retVal != None:
+                return retVal
+
+            retVal = readReservedWordOrIdentifier()
+            if retVal != None:
+                return retVal
+            else:
+                pass # Should throw an exception here 
+
+
+    def Tokenize(self):
+        pass 
+
