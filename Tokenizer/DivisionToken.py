@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class DivisionToken(Token):
-
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, DivisionToken)
@@ -12,8 +9,4 @@ class DivisionToken(Token):
         return "DivisionToken"
 
     def __hash__(self):
-        return 4
-
-
-
-
+        return 6

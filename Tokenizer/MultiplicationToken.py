@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class MultiplicationToken(Token):
-
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, MultiplicationToken)
@@ -12,8 +9,4 @@ class MultiplicationToken(Token):
         return "MultiplicationToken"
 
     def __hash__(self):
-        return 13 
-
-
-
-
+        return 18

@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class NewToken(Token):
-    
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, NewToken)
@@ -12,8 +9,4 @@ class NewToken(Token):
         return "NewToken"
 
     def __hash__(self):
-        return 14 
-
-
-
-
+        return 19

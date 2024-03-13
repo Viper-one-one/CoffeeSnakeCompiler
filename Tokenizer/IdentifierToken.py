@@ -1,12 +1,11 @@
-import string
-import Token
+from Tokenizer.Token import Token
 
 class IdentifierToken(Token):
     def __init__(self, name):
         self.name = name
     
     def __eq__(self, other):
-        if (isinstance(self, other)):
+        if (isinstance(other, IdentifierToken)):
             return self.name == other.name
         return False
     
@@ -14,4 +13,4 @@ class IdentifierToken(Token):
         return f"IdentifierToken({self.name})"
         
     def __hash__(self):
-        return hash(self.name)
+        return 10

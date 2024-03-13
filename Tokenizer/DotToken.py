@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class DotToken(Token):
-    
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, DotToken)
@@ -12,10 +9,4 @@ class DotToken(Token):
         return "DotToken"
 
     def __hash__(self):
-        return 5
-
-
-
-
-
-
+        return 7

@@ -1,6 +1,0 @@
-class RightCurlyBracketToken(object):
-    pass
-
-
-
-

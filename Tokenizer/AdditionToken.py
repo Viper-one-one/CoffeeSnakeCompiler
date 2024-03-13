@@ -1,10 +1,7 @@
-import Token
+from Tokenizer.Token import Token
 
 class AdditionToken(Token):
-
-    def __init__(self):
-        pass
-
+    
     def __eq__(self, other):
         return isinstance(other, AdditionToken)
 
@@ -12,8 +9,4 @@ class AdditionToken(Token):
         return "AdditionToken"
 
     def __hash__(self):
-        return 2
-
-
-
-
+        return 1

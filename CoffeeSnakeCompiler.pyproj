@@ -23,6 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tokenizer\Tokenizer.py" />
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
@@ -30,8 +31,6 @@
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
     <Compile Include="Tokenizer\SubtractionToken.py" />
-    <Compile Include="Tokenizer\LeftCurlyBracketToken.py" />
-    <Compile Include="Tokenizer\RightCurlyBracketToken.py" />
     <Compile Include="Tokenizer\MethodToken.py" />
     <Compile Include="Tokenizer\PrintlnToken.py" />
     <Compile Include="Tokenizer\SingleEqualsToken.py" />
@@ -56,12 +55,14 @@
     <Compile Include="Tokenizer\RightParenToken.py" />
     <Compile Include="Tokenizer\Token.py" />
     <Compile Include="Tokenizer\VoidToken.py" />
-    <Compile Include="Tokenizer\VarToken.py" />
     <Compile Include="Tokenizer\TrueToken.py" />
     <Compile Include="Tokenizer\WhileToken.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tokenizer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tokenizer\ListOfHashCodes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

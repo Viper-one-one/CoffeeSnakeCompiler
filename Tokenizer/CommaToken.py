@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class CommaToken(Token):
-    
-    def __init__(self):
-        pass
     
     def __eq__(self, other):
         return isinstance(other, CommaToken)
@@ -12,7 +9,4 @@ class CommaToken(Token):
         return "CommaToken"
 
     def __hash__(self):
-        return 3
-
-
-
+        return 5

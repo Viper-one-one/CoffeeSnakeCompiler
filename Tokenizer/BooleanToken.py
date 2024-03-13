@@ -1,7 +1,12 @@
-class BooleanToken(object):
-    pass
+from Tokenizer.Token import Token
 
-# TO DO
-
-
-
+class BooleanToken(Token):
+    
+    def __eq__(self, other):
+        return isinstance(other, BooleanToken)
+    
+    def __str__():
+        return "BooleanToken"
+    
+    def __hash__(self) -> int:
+        return 2

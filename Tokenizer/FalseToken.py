@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class FalseToken(Token):
-    
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, FalseToken)
@@ -12,8 +9,4 @@ class FalseToken(Token):
         return "FalseToken"
 
     def __hash__(self):
-        return 7
-
-
-
-
+        return 9

@@ -1,5 +1,11 @@
-class ClassToken(object):
-    pass
+from Tokenizer.Token import Token
 
-# TO DO
-
+class ClassToken(Token):
+    def __eq__(self, other: object) -> bool:
+        isinstance(other, ClassToken)
+    
+    def __str__():
+        return "ClassToken"
+    
+    def __hash__(self):
+        return 4

@@ -1,4 +1,4 @@
-import Token
+from Tokenizer.Token import Token
 
 class IntegerLiteralToken(Token):
     
@@ -15,4 +15,4 @@ class IntegerLiteralToken(Token):
         return f"IntegerLiteralToken({self.value})"
     
     def __hash__(self):
-        return self.value
+        return 13

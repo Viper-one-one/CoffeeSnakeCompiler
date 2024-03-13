@@ -1,9 +1,6 @@
-import Token
+from Tokenizer.Token import Token
 
 class LeftCurlyBraceToken(Token):
-    
-    def __init__(self):
-        pass
 
     def __eq__(self, other):
         return isinstance(other, LeftCurlyBraceToken)
@@ -12,8 +9,4 @@ class LeftCurlyBraceToken(Token):
         return "LeftCurlyBraceToken"
 
     def __hash__(self):
-        return 11
-
-
-
-
+        return 15
