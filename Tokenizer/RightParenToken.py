@@ -7,6 +7,9 @@ class RightParenToken(Token):
 
     def __str__(self):
         return "RightParenToken"
+    
+    def __repr__(self):
+        return "RightParenToken"
 
     def __hash__(self):
         return 23

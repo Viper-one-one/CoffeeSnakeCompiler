@@ -7,6 +7,9 @@ class WhileToken(Token):
 
     def __str__(self):
         return "WhileToken"
+    
+    def __repr__(self):
+        return "WhileToken"
 
     def __hash__(self):
-        return 31
+        return 32

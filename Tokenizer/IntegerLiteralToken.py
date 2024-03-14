@@ -6,10 +6,12 @@ class IntegerLiteralToken(Token):
         self.value = value
         
     def __eq__(self, other):
-        if (isinstance(other, IntegerLiteralToken)):
+        if isinstance(other, IntegerLiteralToken):
             return self.value == other.value
-        else:
-            return False
+        return False
+        
+    def __repr__(self):
+        return f"IntegerLiteralToken({self.value})"
         
     def __str__(self):
         return f"IntegerLiteralToken({self.value})"

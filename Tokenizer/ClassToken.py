@@ -7,5 +7,8 @@ class ClassToken(Token):
     def __str__():
         return "ClassToken"
     
+    def __repr__(self):
+        return "ClassToken"  
+    
     def __hash__(self):
         return 4

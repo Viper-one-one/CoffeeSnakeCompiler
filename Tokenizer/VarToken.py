@@ -3,14 +3,14 @@ from Tokenizer.Token import Token
 
 class VarToken(Token):
     
-    def __init__(self, value):
-        pass
-    
     def __eq__(self, other):
-        return isinstance(self, other)
+        return isinstance(other, VarToken)
     
     def __str__(self):
-        return "Var"
+        return "VarToken"
+    
+    def __repr__(self):
+        return "VarToken"
     
     def __hash__(self):
-        return 5
+        return 30

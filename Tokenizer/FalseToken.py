@@ -7,6 +7,9 @@ class FalseToken(Token):
 
     def __str__(self):
         return "FalseToken"
+    
+    def __repr__(self):
+        return "FalseToken" 
 
     def __hash__(self):
         return 9

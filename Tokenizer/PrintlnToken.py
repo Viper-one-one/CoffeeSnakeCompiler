@@ -7,6 +7,9 @@ class PrintlnToken(Token):
 
     def __str__(self):
         return "PrintlnToken"
+    
+    def __repr__(self):
+        return "PrintlnToken"
 
     def __hash__(self):
         return 20

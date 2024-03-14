@@ -6,6 +6,9 @@ class VoidToken(Token):
 
     def __str__(self):
         return "VoidToken"
+    
+    def __repr__(self):
+        return "VoidToken"
 
     def __hash__(self):
-        return 30
+        return 31

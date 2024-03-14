@@ -7,6 +7,9 @@ class IfToken(Token):
 
     def __str__(self):
         return "IfToken"
+    
+    def __repr__(self):
+        return "IfToken"
 
     def __hash__(self):
         return 11

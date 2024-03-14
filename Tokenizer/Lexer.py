@@ -30,6 +30,7 @@ from Tokenizer.TrueToken import TrueToken
 from Tokenizer.VoidToken import VoidToken
 from Tokenizer.WhileToken import WhileToken
 from Tokenizer.SymbolPair import SymbolPair
+from Tokenizer.VarToken import VarToken
 
 class Tokenizer(object):
 
@@ -49,6 +50,7 @@ class Tokenizer(object):
         "super": SuperToken(),
         "this": ThisToken(),
         "true": TrueToken(),
+        "var": VarToken(),
         "void": VoidToken(),
         "while": WhileToken()
     }
@@ -71,12 +73,6 @@ class Tokenizer(object):
     def __init__(self, input_str: str):
         self.input = input_str
         self.position = 0
-
-    def charAt(self):
-        if self.position < len(self.input):
-            return self.input[self.position]
-        else:
-            return None
 
 
     def skipWhitespace(self): #switched to camelCase for consistency
@@ -107,7 +103,7 @@ class Tokenizer(object):
             read = []
             read.append(self.input[self.position])
             self.position += 1
-            while (self.position < len(self.input) and (self.input.isdigit() or self.input.isalpha())):
+            while (self.position < len(self.input) and (self.input[self.position].isdigit() or self.input[self.position].isalpha())):
                 read.append(self.input[self.position])
                 self.position += 1
             asString = ''.join(read) # convert read into a string
@@ -138,7 +134,11 @@ class Tokenizer(object):
     def tokenize(self):
         tokens = []
         token = None
-        while token is not None:
-            tokens.append(token)
+        while True:
+            token = self.tokenizeSingle()
+            if (token != None):
+                tokens.append(token)
+            else:
+                break
         return tokens
 

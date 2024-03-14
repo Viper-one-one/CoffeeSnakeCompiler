@@ -1,6 +1,8 @@
 import pytest
 
+from Tokenizer.Lexer import Tokenizer
 from Tokenizer.Token import Token
+from Tokenizer.VarToken import VarToken
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -37,3 +39,33 @@ def testIdentifierEquals():
     token1 = IdentifierToken("foo")
     token2 = IdentifierToken("foo")
     assert token1 == token2
+
+# use underscore to ignore function in test
+def _testSingleToken(input_str: str, expected: Token):
+    tokenizer = Tokenizer(input_str)
+    tokens = tokenizer.tokenize()
+    assert 1 == len(tokens) # check size of token array
+    assert expected == tokens[0]
+
+def testIf():
+    _testSingleToken("if", IfToken())
+
+# I don't like looking at errors so ignore for now
+def _testIfWhitespaceAtEnd():
+    _testSingleToken("if ", IfToken())
+
+def testSingleDigitInteger():
+    _testSingleToken("1", IntegerLiteralToken(1))
+
+def testMultipleDigitInteger():
+    _testSingleToken("123", IntegerLiteralToken(123))
+
+def testTokenizeIdentifier():
+    tokens = Tokenizer("bar").tokenize()
+    expected = [IdentifierToken("bar")]
+    assert expected == tokens
+
+def testTokenizeVarDeclaration():
+    tokens = Tokenizer("var x = 7").tokenize()
+    expected = [VarToken(), IdentifierToken("x"), SingleEqualsToken(), IntegerLiteralToken(7)]
+    assert expected == tokens
