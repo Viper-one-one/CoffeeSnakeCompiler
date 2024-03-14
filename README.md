@@ -24,3 +24,7 @@ Team:
 * Thomas Dinh
 * Bryan Avila
 * Andrew Hurley
+
+## How to Run Tests
+
+1. python -m pytest
