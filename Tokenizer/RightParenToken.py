@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class RightParenToken(Token):
@@ -10,4 +9,4 @@ class RightParenToken(Token):
         return "RightParenToken"
 
     def __hash__(self):
-        return hash("RightParenToken")
+        return 23

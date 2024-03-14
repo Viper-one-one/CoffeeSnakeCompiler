@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class TrueToken(Token):
@@ -9,8 +8,4 @@ class TrueToken(Token):
         return "TrueToken"
 
     def __hash__(self):
-        return hash("TrueToken")
-
-
-
-
+        return 29

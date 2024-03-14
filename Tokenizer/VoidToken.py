@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class VoidToken(Token):
@@ -9,8 +8,4 @@ class VoidToken(Token):
         return "VoidToken"
 
     def __hash__(self):
-        return hash("VoidToken")
-
-
-
-
+        return 30

@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class SubtractionToken(Token):
@@ -10,8 +9,4 @@ class SubtractionToken(Token):
         return "SubtractionToken"
 
     def __hash__(self):
-        return hash("SubtractionToken")
-
-
-
-
+        return 26

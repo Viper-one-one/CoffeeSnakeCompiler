@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class IntegerLiteralToken(Token):

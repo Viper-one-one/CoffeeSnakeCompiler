@@ -1,9 +1,8 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class ClassToken(Token):
-    def __eq__(self, __value: object) -> bool:
-        return isinstance(__value, ClassToken)
+    def __eq__(self, other: object) -> bool:
+        isinstance(other, ClassToken)
     
     def __str__():
         return "ClassToken"

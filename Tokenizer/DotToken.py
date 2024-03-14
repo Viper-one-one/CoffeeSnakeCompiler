@@ -1,4 +1,3 @@
-#importing as a class
 from Tokenizer.Token import Token
 
 class DotToken(Token):
@@ -11,9 +10,3 @@ class DotToken(Token):
 
     def __hash__(self):
         return 7
-
-
-
-
-
-
