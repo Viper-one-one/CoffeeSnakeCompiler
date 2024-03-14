@@ -45,7 +45,7 @@ class Tokenizer(object):
         "method": MethodToken(),
         "new": NewToken(),
         "println": PrintlnToken(),
-        "return": ReturnToken(0),
+        "return": ReturnToken(),
         "super": SuperToken(),
         "this": ThisToken(),
         "true": TrueToken(),
@@ -71,9 +71,16 @@ class Tokenizer(object):
     def __init__(self, input_str: str):
         self.input = input_str
         self.position = 0
-        
-    def skip_whitespace(self):
-        while self.position < len(input) and self.input[self.position].isspace():
+
+    def charAt(self):
+        if self.position < len(self.input):
+            return self.input[self.position]
+        else:
+            return None
+
+
+    def skipWhitespace(self): #switched to camelCase for consistency
+        while self.position < len(self.input) and self.input[self.position].isspace():
             self.position += 1
             
     def readIntLiteralToken(self):
@@ -89,40 +96,49 @@ class Tokenizer(object):
             return None
 
     def readSymbolToken(self):
-        for symbol, token in symbols.items(): # Similar to for(final Pair<String, Token> pair : SYMBOLS) ?
-            if self.input.startswith(symbol, position):
-               position += len(symbol)
+        for symbol, token in self.symbols.items(): # Similar to for(final Pair<String, Token> pair : SYMBOLS) ?
+            if self.input.startswith(symbol, self.position):
+               self.position += len(symbol)
                return token
         return None
 
     def readReservedWordOrIdentifier(self):
-        digits: str = ""
-        if self.input.isalpha():
-            digits += self.input[self.position]
+        if self.input[self.position].isalpha():
+            read = []
+            read.append(self.input[self.position])
             self.position += 1
-            while self.position < len(self.input) and self.input[self.position].isalpha():
-                digits += self.input[self.position]
+            while (self.position < len(self.input) and (self.input.isdigit() or self.input.isalpha())):
+                read.append(self.input[self.position])
                 self.position += 1
-            pass # TO DO: translate final Token Candidate = RESERVED_WORDS.get(characters) to python 
+            asString = ''.join(read) # convert read into a string
+            reservedWord = self.reserved_words.get(asString)
+            if reservedWord != None:
+                return reservedWord
+            else: 
+                return IdentifierToken(asString)
+        else:
+            return None
 
 
     def tokenizeSingle(self):
-        if self.position < len(self.input): # Similar to assert(position < input.length) ?
-            retVal = readIntegerLiteral()
-            if retVal != None:
-                return retVal
-
-            retVal = readSymbolToken()
-            if retVal != None:
-                return retVal
-
-            retVal = readReservedWordOrIdentifier()
-            if retVal != None:
-                return retVal
-            else:
-                pass # Should throw an exception here 
+        self.skipWhitespace()
+        if self.position < len(self.input):
+            token = None
+            # Attempt to tokenize the input in different ways
+            if (token := self.readReservedWordOrIdentifier()) is None:
+                if (token := self.readSymbolToken()) is None: # works
+                    if (token := self.readIntLiteralToken()) is None: # works
+                        # Unrecognized character
+                        raise Exception("Boom")
+            return token
+        else:
+            return None
 
 
-    def Tokenize(self):
-        pass 
+    def tokenize(self):
+        tokens = []
+        token = None
+        while token is not None:
+            tokens.append(token)
+        return tokens
 
