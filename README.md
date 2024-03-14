@@ -28,3 +28,4 @@ Team:
 ## How to Run Tests
 
 1. python -m pytest
+2. For code coverage report: python -m coverage report
