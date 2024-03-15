@@ -27,6 +27,7 @@
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
     <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
+    <Compile Include="Tokenizer\Lexer.py" />
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
     <Compile Include="Tokenizer\SubtractionToken.py" />
