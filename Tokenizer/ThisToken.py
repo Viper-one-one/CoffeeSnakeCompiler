@@ -12,4 +12,4 @@ class ThisToken(Token):
         return "ThisToken"
 
     def __hash__(self):
-        return 28
+        return 29

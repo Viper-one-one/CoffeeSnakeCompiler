@@ -9,11 +9,11 @@ class IdentifierToken(Token):
             return self.name == other.name
         return False
     
+    def __repr__(self):
+        return f"IdentifierToken({self.name})"
+
     def __str__(self):
         return f"IdentifierToken({self.name})"
         
     def __hash__(self):
-        return 10
-    
-    def __repr__(self):
-        return f"IdentifierToken({self.name})"
+        return 11

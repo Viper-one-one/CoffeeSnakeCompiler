@@ -12,4 +12,4 @@ class LeftCurlyBraceToken(Token):
         return "LeftCurlyBraceToken"
 
     def __hash__(self):
-        return 15
+        return 16

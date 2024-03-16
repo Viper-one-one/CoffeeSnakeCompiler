@@ -17,4 +17,4 @@ class IntegerLiteralToken(Token):
         return f"IntegerLiteralToken({self.value})"
     
     def __hash__(self):
-        return 13
+        return 14

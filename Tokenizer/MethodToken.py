@@ -12,4 +12,4 @@ class MethodToken(object):
         return "MethodToken"
 
     def __hash__(self):
-        return 17
+        return 18

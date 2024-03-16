@@ -12,4 +12,4 @@ class SuperToken(Token):
         return "SuperToken"
 
     def __hash__(self):
-        return 27
+        return 28

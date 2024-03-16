@@ -12,4 +12,4 @@ class ReturnToken(Token):
         return "ReturnToken"
 
     def __hash__(self):
-        return 21
+        return 22

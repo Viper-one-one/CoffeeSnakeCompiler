@@ -1,4 +1,3 @@
-import tokenize
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -7,6 +6,7 @@ from Tokenizer.CommaToken import CommaToken
 from Tokenizer.DivisionToken import DivisionToken
 from Tokenizer.DotToken import DotToken
 from Tokenizer.ElseToken import ElseToken
+from Tokenizer.ExtendsToken import ExtendsToken
 from Tokenizer.FalseToken import FalseToken
 from Tokenizer.IdentifierToken import IdentifierToken
 from Tokenizer.IfToken import IfToken
@@ -40,6 +40,7 @@ class Tokenizer(object):
         "break": BreakToken(),
         "class": ClassToken(),
         "else": ElseToken(),
+        "extends": ExtendsToken(),
         "false": FalseToken(),
         "init": InitToken(),
         "int": IntToken(),
@@ -52,7 +53,7 @@ class Tokenizer(object):
         "this": ThisToken(),
         "true": TrueToken(),
         "var": VarToken(),
-        "void": VoidToken(),
+        "Void": VoidToken(),
         "while": WhileToken()
     }
 
@@ -124,7 +125,7 @@ class Tokenizer(object):
                 if (token := self.readSymbolToken()) is None: # works
                     if (token := self.readIntLiteralToken()) is None: # works
                         # Unrecognized character
-                        raise Exception("Boom")
+                        raise Exception("Unrecognized character")
             return token
         else:
             return None
@@ -140,9 +141,6 @@ class Tokenizer(object):
                 break
         return tokens
     
-    def tokenize(self, input_str: str):
-        return Tokenizer(input_str).tokenize()
-    
-    def tokenize(self, file):
-        with open(file, 'r') as f:
-            return tokenize(self, f.read())
+    def tokenize_file(self):
+        with open(self.input, 'r') as f:
+            return Tokenizer(f.read()).tokenize()

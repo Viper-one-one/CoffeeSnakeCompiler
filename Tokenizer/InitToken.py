@@ -12,7 +12,7 @@ class InitToken(Token):
         return "InitToken"
 
     def __hash__(self):
-        return 12
+        return 13
 
 
 

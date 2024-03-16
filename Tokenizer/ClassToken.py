@@ -1,7 +1,7 @@
 from Tokenizer.Token import Token
 
 class ClassToken(Token):
-    def __eq__(self, other: object) -> bool:
+    def __eq__(self, other):
         isinstance(other, ClassToken)
     
     def __str__():

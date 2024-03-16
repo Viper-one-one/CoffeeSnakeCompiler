@@ -12,4 +12,4 @@ class MultiplicationToken(Token):
         return "MultiplicationToken"
 
     def __hash__(self):
-        return 18
+        return 19

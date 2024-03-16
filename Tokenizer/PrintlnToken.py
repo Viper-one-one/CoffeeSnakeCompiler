@@ -12,4 +12,4 @@ class PrintlnToken(Token):
         return "PrintlnToken"
 
     def __hash__(self):
-        return 20
+        return 21

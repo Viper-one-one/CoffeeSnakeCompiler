@@ -12,4 +12,4 @@ class FalseToken(Token):
         return "FalseToken" 
 
     def __hash__(self):
-        return 9
+        return 10

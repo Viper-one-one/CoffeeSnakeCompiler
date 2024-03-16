@@ -12,4 +12,4 @@ class IntToken(Token):
         return "IntToken"
 
     def __hash__(self):
-        return 14
+        return 15

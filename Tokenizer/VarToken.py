@@ -13,4 +13,4 @@ class VarToken(Token):
         return "VarToken"
     
     def __hash__(self):
-        return 30
+        return 31

@@ -12,4 +12,4 @@ class RightParenToken(Token):
         return "RightParenToken"
 
     def __hash__(self):
-        return 23
+        return 24

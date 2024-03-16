@@ -11,4 +11,4 @@ class TrueToken(Token):
         return "TrueToken"
 
     def __hash__(self):
-        return 29
+        return 30

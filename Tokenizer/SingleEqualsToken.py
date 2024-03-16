@@ -12,4 +12,4 @@ class SingleEqualsToken(Token):
         return "SingleEqualsToken"
 
     def __hash__(self):
-        return 25
+        return 26

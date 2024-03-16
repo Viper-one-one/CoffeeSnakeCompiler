@@ -8,18 +8,18 @@ class SymbolPair:
 
     def __eq__(self, other):
         if(isinstance(other, SymbolPair)):
-            return (asString.eq(other.asString) and asToken.eq(other.asToken))
+            return (self.asString.eq(other.asString) and self.asToken.eq(other.asToken))
         else:
             return False
 
     def __str__(self):
-        return ("SymbolPair(" + asString + ", " + asToken.str() + ")")
+        return ("SymbolPair(" + self.asString + ", " + self.asToken.str() + ")")
     
     def __repr__(self):
-        return ("SymbolPair(" + asString + ", " + asToken.str() + ")")
+        return ("SymbolPair(" + self.asString + ", " + self.asToken.str() + ")")
 
     def __hash__(self):
-        return hash(asString) + hash(asToken)
+        return hash(self.asString) + hash(self.asToken)
 
 
     # Bryan A

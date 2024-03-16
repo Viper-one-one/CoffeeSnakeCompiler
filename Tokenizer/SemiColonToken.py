@@ -12,4 +12,4 @@ class SemiColonToken(Token):
         return "SemiColonToken"
 
     def __hash__(self):
-        return 24
+        return 25
