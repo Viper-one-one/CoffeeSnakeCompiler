@@ -26,6 +26,9 @@ Team:
 * Andrew Hurley
 
 ## How to Run Tests
-
-1. python -m pytest
-2. For code coverage report: python -m coverage report
+1. pip install pytest
+2. pip install coverage
+3. pip install pytest-cov
+4. Run test with python -m pytest
+5. For code coverage report: python -m coverage report
+6. To run coverage with pytest: python -m pytest --cov
