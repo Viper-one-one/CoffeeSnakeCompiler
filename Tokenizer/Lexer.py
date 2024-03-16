@@ -1,3 +1,4 @@
+import tokenize
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -74,7 +75,6 @@ class Tokenizer(object):
         self.input = input_str
         self.position = 0
 
-
     def skipWhitespace(self): #switched to camelCase for consistency
         while self.position < len(self.input) and self.input[self.position].isspace():
             self.position += 1
@@ -92,7 +92,7 @@ class Tokenizer(object):
             return None
 
     def readSymbolToken(self):
-        for symbol, token in self.symbols.items(): # Similar to for(final Pair<String, Token> pair : SYMBOLS) ?
+        for symbol, token in self.symbols.items():
             if self.input.startswith(symbol, self.position):
                self.position += len(symbol)
                return token
@@ -101,10 +101,10 @@ class Tokenizer(object):
     def readReservedWordOrIdentifier(self):
         if self.input[self.position].isalpha():
             read = []
-            read.append(self.input[self.position])
+            read.append(self.input[self.position])      # append the first character of the identifier to the list
             self.position += 1
-            while (self.position < len(self.input) and (self.input[self.position].isdigit() or self.input[self.position].isalpha())):
-                read.append(self.input[self.position])
+            while (self.position < len(self.input) and (self.input[self.position].isdigit() or self.input[self.position].isalpha())):       # while the next character is alphanumeric
+                read.append(self.input[self.position])      # valid identifiers are alphanumeric and reserved words are all letters
                 self.position += 1
             asString = ''.join(read) # convert read into a string
             reservedWord = self.reserved_words.get(asString)
@@ -114,7 +114,6 @@ class Tokenizer(object):
                 return IdentifierToken(asString)
         else:
             return None
-
 
     def tokenizeSingle(self):
         self.skipWhitespace()
@@ -130,7 +129,6 @@ class Tokenizer(object):
         else:
             return None
 
-
     def tokenize(self):
         tokens = []
         token = None
@@ -141,4 +139,10 @@ class Tokenizer(object):
             else:
                 break
         return tokens
-
+    
+    def tokenize(self, input_str: str):
+        return Tokenizer(input_str).tokenize()
+    
+    def tokenize(self, file):
+        with open(file, 'r') as f:
+            return tokenize(self, f.read())
