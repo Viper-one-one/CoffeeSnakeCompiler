@@ -23,6 +23,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tests\test_tokenizer.py" />
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
@@ -59,6 +60,7 @@
     <Compile Include="Tokenizer\WhileToken.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\" />
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>
