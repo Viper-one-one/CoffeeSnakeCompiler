@@ -8,7 +8,6 @@ from Tokenizer.VarToken import VarToken
 def main():
     tokenizer = Tokenizer("CoffeeSnakeSampleCode.txt")
     tokens = tokenizer.tokenize_file()
-    print(tokens)
     print("CoffeeSnake")
     
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module

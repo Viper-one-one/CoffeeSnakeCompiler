@@ -8,8 +8,5 @@ class NewToken(Token):
     def __str__(self):
         return "NewToken"
 
-    def __repr__(self):
-        return "NewToken"
-
     def __hash__(self):
         return 20

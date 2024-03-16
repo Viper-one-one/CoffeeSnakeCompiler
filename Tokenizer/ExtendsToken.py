@@ -7,9 +7,6 @@ class ExtendsToken(Token):
 
     def __str__(self):
         return "ExtendsToken"
-    
-    def __repr__(self):
-        return "ExtendsToken" 
 
     def __hash__(self):
         return 9

@@ -7,8 +7,5 @@ class TrueToken(Token):
     def __str__(self):
         return "TrueToken"
 
-    def __repr__(self):
-        return "TrueToken"
-
     def __hash__(self):
         return 30

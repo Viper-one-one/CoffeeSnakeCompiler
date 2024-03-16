@@ -14,9 +14,6 @@ class SymbolPair:
 
     def __str__(self):
         return ("SymbolPair(" + self.asString + ", " + self.asToken.str() + ")")
-    
-    def __repr__(self):
-        return ("SymbolPair(" + self.asString + ", " + self.asToken.str() + ")")
 
     def __hash__(self):
         return hash(self.asString) + hash(self.asToken)

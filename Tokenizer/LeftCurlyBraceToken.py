@@ -7,9 +7,6 @@ class LeftCurlyBraceToken(Token):
 
     def __str__(self):
         return "LeftCurlyBraceToken"
-    
-    def __repr__(self):
-        return "LeftCurlyBraceToken"
 
     def __hash__(self):
         return 16

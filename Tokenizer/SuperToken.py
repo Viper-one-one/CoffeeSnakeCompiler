@@ -8,8 +8,5 @@ class SuperToken(Token):
     def __str__(self):
         return "SuperToken"
 
-    def __repr__(self):
-        return "SuperToken"
-
     def __hash__(self):
         return 28

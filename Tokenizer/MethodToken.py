@@ -7,9 +7,6 @@ class MethodToken(object):
 
     def __str__(self):
         return "MethodToken"
-    
-    def __repr__(self):
-        return "MethodToken"
 
     def __hash__(self):
         return 18

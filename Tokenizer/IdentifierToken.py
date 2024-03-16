@@ -8,9 +8,6 @@ class IdentifierToken(Token):
         if (isinstance(other, IdentifierToken)):
             return self.name == other.name
         return False
-    
-    def __repr__(self):
-        return f"IdentifierToken({self.name})"
 
     def __str__(self):
         return f"IdentifierToken({self.name})"

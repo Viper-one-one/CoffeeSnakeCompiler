@@ -10,9 +10,6 @@ class IntegerLiteralToken(Token):
             return self.value == other.value
         return False
         
-    def __repr__(self):
-        return f"IntegerLiteralToken({self.value})"
-        
     def __str__(self):
         return f"IntegerLiteralToken({self.value})"
     

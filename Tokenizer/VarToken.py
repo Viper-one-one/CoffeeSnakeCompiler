@@ -9,8 +9,5 @@ class VarToken(Token):
     def __str__(self):
         return "VarToken"
     
-    def __repr__(self):
-        return "VarToken"
-    
     def __hash__(self):
         return 31

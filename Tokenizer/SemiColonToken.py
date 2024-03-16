@@ -7,9 +7,6 @@ class SemiColonToken(Token):
 
     def __str__(self):
         return "SemiColonToken"
-    
-    def __repr__(self):
-        return "SemiColonToken"
 
     def __hash__(self):
         return 25

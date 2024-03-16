@@ -7,9 +7,6 @@ class AdditionToken(Token):
 
     def __str__(self):
         return "AdditionToken"
-    
-    def __repr__(self):
-        return "AdditionToken"
 
     def __hash__(self):
         return 1

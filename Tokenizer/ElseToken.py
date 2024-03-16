@@ -7,9 +7,6 @@ class ElseToken(Token):
 
     def __str__(self):
         return "ElseToken"
-    
-    def __repr__(self):
-        return "ElseToken" 
 
     def __hash__(self):
         return 8

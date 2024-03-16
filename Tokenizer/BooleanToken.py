@@ -7,9 +7,6 @@ class BooleanToken(Token):
     
     def __str__(self):
         return "BooleanToken"
-    
-    def __repr__(self):
-        return "BooleanToken"  
       
     def __hash__(self) -> int:
         return 2
