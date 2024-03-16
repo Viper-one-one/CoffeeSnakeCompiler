@@ -5,7 +5,7 @@ class BooleanToken(Token):
     def __eq__(self, other):
         return isinstance(other, BooleanToken)
     
-    def __str__():
+    def __str__(self):
         return "BooleanToken"
     
     def __repr__(self):

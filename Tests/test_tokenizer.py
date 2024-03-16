@@ -71,6 +71,20 @@ def testTokenizeVarDeclaration():
     expected = [VarToken(), IdentifierToken("x"), SingleEqualsToken(), IntegerLiteralToken(7)]
     assert expected == tokens
 
+def testTokenizeClass():
+    tokens = Tokenizer("class").tokenize()
+    expected = [ClassToken()]
+    actual = [type(token) for token in tokens]
+    actual_expected = [type(token) for token in expected]
+    print(actual)
+    print(actual_expected)
+    assert expected == tokens
+
+def testTokenizeBreak():
+    tokens = Tokenizer("break").tokenize()
+    expected = [BreakToken()]
+    assert expected == tokens
+
 def testTokenizeSampleCode():
     code = """
         class Animal {

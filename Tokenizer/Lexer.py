@@ -120,6 +120,7 @@ class Tokenizer(object):
         self.skipWhitespace()
         if self.position < len(self.input):
             token = None
+            print(self.input[self.position])
             # Attempt to tokenize the input in different ways
             if (token := self.readReservedWordOrIdentifier()) is None:
                 if (token := self.readSymbolToken()) is None: # works

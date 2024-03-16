@@ -5,7 +5,7 @@ class BreakToken(Token):
     def __eq__(self, other):
         return isinstance(other, BreakToken)
     
-    def __str__():
+    def __str__(self):
         return "BreakToken"
     
     def __repr__(self):
