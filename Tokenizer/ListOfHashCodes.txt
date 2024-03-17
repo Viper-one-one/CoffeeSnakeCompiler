@@ -28,5 +28,6 @@ SuperToken				27
 ThisToken				28
 Token					base type, no hash
 TrueToken				29
-VoidToken				30
-WhileToken				31
+VarToken                30
+VoidToken				31
+WhileToken				32

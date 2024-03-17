@@ -7,6 +7,9 @@ class CommaToken(Token):
 
     def __str__(self):
         return "CommaToken"
+    
+    def __repr__(self):
+        return "CommaToken"  
 
     def __hash__(self):
         return 5

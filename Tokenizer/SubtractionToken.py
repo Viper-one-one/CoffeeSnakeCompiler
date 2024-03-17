@@ -8,5 +8,8 @@ class SubtractionToken(Token):
     def __str__(self):
         return "SubtractionToken"
 
+    def __repr__(self):
+        return "SubtractionToken"
+
     def __hash__(self):
         return 26

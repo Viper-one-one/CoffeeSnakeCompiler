@@ -8,5 +8,8 @@ class BreakToken(Token):
     def __str__():
         return "BreakToken"
     
+    def __repr__(self):
+        return "BreakToken"  
+    
     def __hash__(self):
         return 3

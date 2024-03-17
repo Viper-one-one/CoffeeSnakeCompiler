@@ -1,4 +1,9 @@
-import Tokenizer
+from Tokenizer.IdentifierToken import IdentifierToken
+from Tokenizer.IntegerLiteralToken import IntegerLiteralToken
+from Tokenizer.Lexer import Tokenizer
+from Tokenizer.IfToken import IfToken
+from Tokenizer.SingleEqualsToken import SingleEqualsToken
+from Tokenizer.VarToken import VarToken
 
 def main():
     print("CoffeeSnake")

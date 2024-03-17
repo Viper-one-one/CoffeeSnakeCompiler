@@ -7,6 +7,9 @@ class InitToken(Token):
 
     def __str__(self):
         return "InitToken"
+    
+    def __repr__(self):
+        return "InitToken"
 
     def __hash__(self):
         return 12

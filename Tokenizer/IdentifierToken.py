@@ -14,3 +14,6 @@ class IdentifierToken(Token):
         
     def __hash__(self):
         return 10
+    
+    def __repr__(self):
+        return f"IdentifierToken({self.name})"

@@ -7,6 +7,9 @@ class SingleEqualsToken(Token):
 
     def __str__(self):
         return "SingleEqualsToken"
+    
+    def __repr__(self):
+        return "SingleEqualsToken"
 
     def __hash__(self):
         return 25

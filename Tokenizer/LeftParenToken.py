@@ -7,6 +7,9 @@ class LeftParenToken(Token):
     
     def __str__(self):
         return "LeftParenToken"
+
+    def __repr__(self):
+        return "LeftParenToken"    
     
     def __hash__(self):
         return 16
