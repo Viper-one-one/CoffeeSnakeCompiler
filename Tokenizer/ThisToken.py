@@ -8,8 +8,5 @@ class ThisToken(Token):
     def __str__(self):
         return "ThisToken"
 
-    def __repr__(self):
-        return "ThisToken"
-
     def __hash__(self):
-        return 28
+        return 29

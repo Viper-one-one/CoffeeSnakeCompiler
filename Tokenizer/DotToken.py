@@ -7,9 +7,6 @@ class DotToken(Token):
 
     def __str__(self):
         return "DotToken"
-    
-    def __repr__(self):
-        return "DotToken" 
 
     def __hash__(self):
         return 7
