@@ -1,3 +1,4 @@
+from io import TextIOWrapper
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -132,7 +133,7 @@ class Tokenizer(object):
         else:
             return None
 
-    def tokenize(self):
+    def driver_tokenize(self):
         tokens = []
         token = None
         while True:
@@ -143,16 +144,13 @@ class Tokenizer(object):
                 break
         return tokens
     
-    def tokenize(input_str: str):
-        return Tokenizer(input_str).tokenize()
+    def object_creation_tokenize(input_str: str):
+        return Tokenizer(input_str).driver_tokenize()
     
-    def tokenize(file):
+    def file_to_string_tokenize(file):
         try: 
-            with open(file, 'r') as f:
-                return Tokenizer.tokenize(f.read())
+            file_read_ouput = file.read()
+            return Tokenizer.object_creation_tokenize(file_read_ouput)      # read() does not exist on string
         except FileNotFoundError as e:
-            print(f"*\n*\n*\nLexer failed because of\nFile {e} not found\n*\n*\n*{file}")
-            return None
-        except FileExistsError as e:
-            print(f"*\n*\n*\nLexer failed because of\nFile {e} exists\n*\n*\n*")
+            print(f"*\n*\n*\nLexer failed because of FileNotFound\nFile {e} not found\n*\n*\n*{file}")
             return None
