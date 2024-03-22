@@ -140,9 +140,9 @@ class Tokenizer(object):
                 break
         return tokens
     
-    def tokenize(self, input_str: str):
+    def tokenize(input_str: str):
         return Tokenizer(input_str).tokenize()
     
-    def tokenize(self, file):
+    def tokenize(file):
         with open(file, 'r') as f:
-            return tokenize(self, f.read())
+            return Tokenizer.tokenize(f.read())
