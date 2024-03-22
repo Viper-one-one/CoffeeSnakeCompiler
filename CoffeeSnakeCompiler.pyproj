@@ -13,6 +13,7 @@
     <Name>CoffeeSnakeCompiler</Name>
     <RootNamespace>SnakeScriptCompiler</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -64,6 +65,7 @@
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Tests\sample_program.coffeesnake" />
     <Content Include="Tokenizer\ListOfHashCodes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
