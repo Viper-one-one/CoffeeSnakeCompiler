@@ -33,6 +33,8 @@ from Tokenizer.WhileToken import WhileToken
 from Tokenizer.SymbolPair import SymbolPair
 from Tokenizer.VarToken import VarToken
 
+# changed file name because Lexer was too burried in the file structure, _Lexer is now at the root of the Tokenizer folder
+
 class Tokenizer(object):
 
     reserved_words = {
@@ -145,5 +147,12 @@ class Tokenizer(object):
         return Tokenizer(input_str).tokenize()
     
     def tokenize(file):
-        with open(file, 'r') as f:
-            return Tokenizer.tokenize(f.read())
+        try: 
+            with open(file, 'r') as f:
+                return Tokenizer.tokenize(f.read())
+        except FileNotFoundError as e:
+            print(f"*\n*\n*\nLexer failed because of\nFile {e} not found\n*\n*\n*{file}")
+            return None
+        except FileExistsError as e:
+            print(f"*\n*\n*\nLexer failed because of\nFile {e} exists\n*\n*\n*")
+            return None
