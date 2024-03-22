@@ -23,10 +23,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Tests\test_tokenizer.py" />
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
     <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
+    <Compile Include="Tokenizer\Lexer.py" />
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
     <Compile Include="Tokenizer\SubtractionToken.py" />
@@ -58,6 +60,7 @@
     <Compile Include="Tokenizer\WhileToken.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Tests\" />
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>

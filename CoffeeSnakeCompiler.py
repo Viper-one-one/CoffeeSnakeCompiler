@@ -6,7 +6,8 @@ from Tokenizer.SingleEqualsToken import SingleEqualsToken
 from Tokenizer.VarToken import VarToken
 
 def main():
-    print("CoffeeSnake")
+    # take a file as input and run the tokenizer code on it
+    
     
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module
 if (__name__ == "__main__"):
