@@ -1,7 +1,7 @@
 
 class TestClass {
     init() {
-        var a = 10;
+        Int a = 10;
         println("Variable 'a' initialized with value: " + a);
     }
 
@@ -42,7 +42,7 @@ class TestClass {
     }
 
     method whileLoop() {
-        var i = 0;
+        Int i = 0;
         while (i < 5) {
             println("Value of i: " + i);
             i = i + 1;
@@ -68,9 +68,9 @@ class TestClass {
     }
 
     method main() {
-        var a = 10;
-        var b = 5;
-        var result;
+        Int a = 10;
+        Int b = 5;
+        Int result;
 
         result = this.add(a, b);
         println("Addition result: " + result);
@@ -84,8 +84,8 @@ class TestClass {
         result = this.divide(a, b);
         println("Division result: " + result);
 
-        var isEqual = this.isEqual(a, b);
-        var isGreater = this.isGreater(a, b);
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
 
         this.whileLoop();
 
