@@ -1,0 +1,2 @@
+class BoolType():
+    pass
