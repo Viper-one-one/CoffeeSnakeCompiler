@@ -1,6 +1,6 @@
 import pytest
 
-from Tokenizer.Lexer import Tokenizer
+from Tokenizer._Lexer import Tokenizer
 from Tokenizer.Token import Token
 from Tokenizer.VarToken import VarToken
 from Tokenizer.BooleanToken import BooleanToken

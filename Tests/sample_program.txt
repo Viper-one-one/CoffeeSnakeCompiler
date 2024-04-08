@@ -1,0 +1,110 @@
+
+class TestClass {
+    init() {
+        Int a = 10;
+        println("Variable 'a' initialized with value: " + a);
+    }
+
+    method add(a, b) Int {
+        return a + b;
+    }
+
+    method subtract(a, b) Int {
+        return a - b;
+    }
+
+    method multiply(a, b) Int {
+        return a * b;
+    }
+
+    method divide(a, b) Int {
+        return a / b;
+    }
+
+    method isEqual(a, b) Boolean {
+        if (a == b) {
+            println("Values are equal");
+            return true;
+        } else {
+            println("Values are not equal");
+            return false;
+        }
+    }
+
+    method isGreater(a, b) Boolean {
+        if (a > b) {
+            println(a + " is greater than " + b);
+            return true;
+        } else {
+            println(a + " is not greater than " + b);
+            return false;
+        }
+    }
+
+    method whileLoop() {
+        Int i = 0;
+        while (i < 5) {
+            println("Value of i: " + i);
+            i = i + 1;
+            if(i == 3) {
+            break;
+        }
+    }
+}
+
+    method ifElse(a) {
+        if (a > 0) {
+            println("Value of a is positive");
+        } else if (a < 0) {
+            println("Value of a is negative");
+        } else {
+            println("Value of a is zero");
+        }
+    }
+
+    method superMethod() Void {
+        super.methodToOvverride();
+        println("This is the super method");
+    }
+
+    method main() {
+        Int a = 10;
+        Int b = 5;
+        Int result;
+
+        result = this.add(a, b);
+        println("Addition result: " + result);
+
+        result = this.subtract(a, b);
+        println("Subtraction result: " + result);
+
+        result = this.multiply(a, b);
+        println("Multiplication result: " + result);
+
+        result = this.divide(a, b);
+        println("Division result: " + result);
+
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
+
+        this.whileLoop();
+
+        this.ifElse(a);
+
+        this.superMethod();
+    }
+}
+
+class SubTestClass extends TestClass {
+    methodToOverride() {
+        println("This is the overridden method");
+    }
+
+    method main() {
+        super.main();
+        println("Executing main methods through SubTestClass");
+    }
+}
+
+var test = new SubTestClass();
+test.main();
