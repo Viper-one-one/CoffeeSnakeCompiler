@@ -1,4 +1,5 @@
-from Parser import Exp
+from Exp import Exp
+
 
 class BooleanLiteralExp(Exp):
 
@@ -14,11 +15,7 @@ class BooleanLiteralExp(Exp):
         return f"BooleanLiteralExp({self.value})"
 
     def __hash__(self):
-        if(self.value):
+        if (self.value):
             return 1
         else:
             return 0
-
-
-
-

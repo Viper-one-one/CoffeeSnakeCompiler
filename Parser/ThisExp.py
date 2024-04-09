@@ -1,4 +1,5 @@
-from Parser import Exp
+from Exp import Exp
+
 
 class ThisExp(Exp):
 
@@ -9,7 +10,8 @@ class ThisExp(Exp):
         return "ThisExp"
 
     def __hash__(self):
-        pass # Needs hash number
+        pass
+        # todo Needs hash number
 
 
 

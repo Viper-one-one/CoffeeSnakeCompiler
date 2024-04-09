@@ -3,10 +3,13 @@ from Tokenizer.IntToken import IntToken
 from Tokenizer.IdentifierToken import IdentifierToken
 from BoolType import BoolType
 from IntType import IntType
-class Parser():
+
+
+class Parser:
 
     def __init__(self, tokens):
         self.tokens = tokens
+
     def parse_program(self):
         pass
 

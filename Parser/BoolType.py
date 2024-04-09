@@ -1,4 +1,4 @@
-from Parser import Type
+from Type import Type
 
 class BoolType(Type):
 
