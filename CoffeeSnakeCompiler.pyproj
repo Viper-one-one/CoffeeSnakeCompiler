@@ -13,6 +13,7 @@
     <Name>CoffeeSnakeCompiler</Name>
     <RootNamespace>SnakeScriptCompiler</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
+    <TestFramework>Pytest</TestFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,7 +29,6 @@
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
     <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
-    <Compile Include="Tokenizer\Lexer.py" />
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
     <Compile Include="Tokenizer\SubtractionToken.py" />
@@ -58,12 +58,14 @@
     <Compile Include="Tokenizer\VoidToken.py" />
     <Compile Include="Tokenizer\TrueToken.py" />
     <Compile Include="Tokenizer\WhileToken.py" />
+    <Compile Include="Tokenizer\_Lexer.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Tests\sample_program.txt" />
     <Content Include="Tokenizer\ListOfHashCodes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

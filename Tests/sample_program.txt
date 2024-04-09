@@ -1,0 +1,86 @@
+
+class TestClass {
+    init() {
+        Int a = 10;
+        println(a);
+    }
+
+    method add(a, b) Int {
+        return a + b;
+    }
+
+    method subtract(a, b) Int {
+        return a - b;
+    }
+
+    method multiply(a, b) Int {
+        return a * b;
+    }
+
+    method divide(a, b) Int {
+        return a / b;
+    }
+
+    method isEqual(a, b) Boolean {
+        return false;
+    }
+
+    method isGreater(a, b) Boolean {
+        return true;
+    }
+
+    method whileLoop() {
+        Int i = 0;
+        println(i);
+    }
+}
+
+    method ifElse(a) {
+        println(a);
+    }
+
+    method superMethod() Void {
+        super.methodToOvverride();
+    }
+
+    method main() {
+        Int a = 10;
+        Int b = 5;
+        Int result;
+
+        result = this.add(a, b);
+        println(result);
+
+        result = this.subtract(a, b);
+        println(result);
+
+        result = this.multiply(a, b);
+        println(result);
+
+        result = this.divide(a, b);
+        println(result);
+
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
+
+        this.whileLoop();
+
+        this.ifElse(a);
+
+        this.superMethod();
+    }
+}
+
+class SubTestClass extends TestClass {
+    methodToOverride() {
+        Int a = 10;
+        a = a + 1;
+    }
+
+    method main() {
+        super.main();
+    }
+}
+
+var test = new SubTestClass();
+test.main();
