@@ -83,7 +83,7 @@
   <ItemGroup>
     <Content Include="Parser\_HowToUnderstandTheParser.txt" />
     <Content Include="Tests\sample_program.txt" />
-    <Content Include="Tokenizer\ListOfHashCodes.txt" />
+    <Content Include="Tokenizer\_ListOfHashCodes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
