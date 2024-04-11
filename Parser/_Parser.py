@@ -15,11 +15,26 @@ from Parser.Vardec import Vardec
 
 class Parser:
     
+    reserved_words = {
+        "class": ClassDef(),
+        "Int": Type(),  # break these off into their subclasses later
+        "Boolean": Type(),
+        "Void": Type(),
+        "if": Statement(),
+        "while": Statement(),
+        "return": Statement(),
+        "break": Statement(),
+        "this": PrimaryExp(),
+        "new": PrimaryExp(),
+        "true": PrimaryExp(),
+        "false": PrimaryExp(),
+        "println": PrimaryExp(),
+        "super": Constructor(),
+        
+    }
+    
     def __init__(self, tokens):
         self.tokens = tokens
-
-    def parse_program(self):
-        pass
     
     def get_next_token(self, position):
         if (0 <= position < len(self.tokens)):
@@ -27,3 +42,9 @@ class Parser:
         else:
             raise Exception("Index out of bounds", position)
         
+    def parse_program(self):
+        while (True):
+            if (self.get_next_token(0).value == "class"):
+                self.parse_classdef()
+            else:
+                raise Exception("Expected class definition", self.get_next_token(0))
