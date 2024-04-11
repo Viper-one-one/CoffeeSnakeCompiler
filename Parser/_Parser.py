@@ -13,9 +13,17 @@ from Parser.Statement import Statement
 from Parser.Type import Type
 from Parser.Vardec import Vardec
 
-class Parser():
-    pass
+class Parser:
+    
+    def __init__(self, tokens):
+        self.tokens = tokens
 
-
-
-
+    def parse_program(self):
+        pass
+    
+    def get_next_token(self, position):
+        if (0 <= position < len(self.tokens)):
+            return self.tokens[position]
+        else:
+            raise Exception("Index out of bounds", position)
+        
