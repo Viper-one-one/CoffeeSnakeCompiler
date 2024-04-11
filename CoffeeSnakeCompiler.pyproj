@@ -24,6 +24,21 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Parser\AddExp.py" />
+    <Compile Include="Parser\Program.py" />
+    <Compile Include="Parser\ClassDef.py" />
+    <Compile Include="Parser\Constructor.py" />
+    <Compile Include="Parser\MethodDef.py" />
+    <Compile Include="Parser\CommaVardec.py" />
+    <Compile Include="Parser\Statement.py" />
+    <Compile Include="Parser\Exp.py" />
+    <Compile Include="Parser\Vardec.py" />
+    <Compile Include="Parser\MultExp.py" />
+    <Compile Include="Parser\PrimaryExp.py" />
+    <Compile Include="Parser\CallExp.py" />
+    <Compile Include="Parser\Type.py" />
+    <Compile Include="Parser\CommaExp.py" />
+    <Compile Include="Parser\_Parser.py" />
     <Compile Include="Tests\test_tokenizer.py" />
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
@@ -61,10 +76,12 @@
     <Compile Include="Tokenizer\_Lexer.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Parser\" />
     <Folder Include="Tests\" />
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Parser\_HowToUnderstandTheParser.txt" />
     <Content Include="Tests\sample_program.txt" />
     <Content Include="Tokenizer\ListOfHashCodes.txt" />
   </ItemGroup>
