@@ -2,7 +2,10 @@ from abc import ABC
 
 
 class ClassDef(ABC):
-    pass
+    def __init__(self, className):
+        this.className = className
+
+
 
 
 
