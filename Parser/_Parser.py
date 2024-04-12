@@ -24,13 +24,28 @@ class Parser:
     # Parsing 
     def parse(self, input_str : str):
         self.input = input_str
-        self.Toeknizer = Tokenizer.__init__(str)
+        self.Tokenizer = Tokenizer.__init__(str)
+        parse_program() # Should start parse from here ?
 
-        return Program() # Recursive Descent Parsing starts here
+    # program ::= classdef* stmt+ 
+    def parse_program():
+        pass 
 
-    # Root Node of AST
-    parse_program = Program()  # Should return classdef and 1 or more statements
+    # classdef ::= 'class' classname ['extends' classname] '{' (vardec ';')* constructor methodddef* '}'
 
+    # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | etc....
+
+    # exp ::= add_exp
+
+    # add_exp ::= mult_exp (( '+' | '-' ) mult_exp)*
+
+    # mult_exp ::= call_exp (( '*' | '/' ) call_exp)*
+
+    # call_exp ::= primary_exp('.' methodname '(' comma_exp ')' )*
+
+    # primary_exp ::= var | str | i | etc....
+
+    # comma_exp ::= exp (',' exp)*
 
 
 
