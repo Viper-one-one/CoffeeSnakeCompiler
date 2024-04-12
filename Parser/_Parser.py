@@ -19,6 +19,7 @@ from Tokenizer.LeftCurlyBraceToken import LeftCurlyBraceToken
 from Tokenizer.RightCurlyBraceToken import RightCurlyBraceToken
 from Tokenizer.IntToken import IntToken
 from Tokenizer.BooleanToken import BooleanToken
+from Tokenizer.VarToken import VarToken
 from Tokenizer.VoidToken import VoidToken
 
 
@@ -72,9 +73,7 @@ class Parser:
         else:
             raise Exception("No type token found while parsing vardec")
 
-        pos += 1
-        var = self.tokens[pos]
-
+        var, pos = self.parser_assert(pos, VarToken)
         vardec = Vardec(vartype, var)
         return vardec, pos + 1
 
@@ -97,7 +96,7 @@ class Parser:
         extendsname = None
 
         try:
-            pos = self.parser_assert(pos, ExtendsToken)
+            extendsname, pos = self.parser_assert(pos, ExtendsToken)
         except:
             pass
 
@@ -136,4 +135,4 @@ class Parser:
         if not isinstance(token, type):
             raise Exception(f"Unexpected Token during Parsing: Expected {str(type)} received {str(token)}")
 
-        return pos + 1
+        return token, pos + 1
