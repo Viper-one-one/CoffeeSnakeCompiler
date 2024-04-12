@@ -25,11 +25,9 @@ class Parser:
     def parse(self, input_str : str):
         self.input = input_str
         self.Tokenizer = Tokenizer.__init__(str)
-        Program() # Should start parse from here ?
+        Program() # Prime the tokenizer to get the first token. Should classdef/return Statements?
 
     # program ::= classdef* stmt+ 
-    def parse_program():
-        pass 
 
     # classdef ::= 'class' classname ['extends' classname] '{' (vardec ';')* constructor methodddef* '}'
 
@@ -46,6 +44,20 @@ class Parser:
     # primary_exp ::= var | str | i | etc....
 
     # comma_exp ::= exp (',' exp)*
+
+
+
+    #                     AST Example: 2 + 2
+    #                          Program
+    #                             |
+    #                             |
+    #                         Statement
+    #                             |
+    #                             |
+    #                       Binary Expression ( + )
+    #                            /  \
+    #                           /    \
+    #                        (2)      (2)    
 
 
 
