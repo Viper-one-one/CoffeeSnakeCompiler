@@ -44,7 +44,4 @@ class Parser:
         
     def parse_program(self):
         while (True):
-            if (self.get_next_token(0).value == "class"):
-                self.parse_classdef()
-            else:
-                raise Exception("Expected class definition", self.get_next_token(0))
+            node = self.parse_tokens()

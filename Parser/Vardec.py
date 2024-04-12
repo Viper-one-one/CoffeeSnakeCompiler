@@ -4,7 +4,7 @@ from abc import ABC
 class Vardec(ABC):
     pass
 
-class varType(VarDec):
+class varType(Vardec):
     pass
 
 
