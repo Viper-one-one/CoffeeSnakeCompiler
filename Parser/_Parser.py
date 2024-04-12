@@ -76,7 +76,7 @@ class Parser:
         var = self.tokens[pos]
 
         vardec = Vardec(vartype, var)
-        return vardec, pos
+        return vardec, pos + 1
 
     def parse_stmt(self, pos):
         pass
@@ -91,20 +91,18 @@ class Parser:
         pass
 
     def parse_classdef(self, pos):
-        self.parser_assert(pos, ClassToken)
+        pos = self.parser_assert(pos, ClassToken)
 
-        pos += 1
         classname = self.tokens[pos]
         extendsname = None
 
-        pos += 1
-        if isinstance(self.tokens[pos], ExtendsToken):
-            extendsname = self.tokens[pos]
-            pos += 1
+        try:
+            pos = self.parser_assert(pos, ExtendsToken)
+        except:
+            pass
 
-        self.parser_assert(pos, LeftCurlyBraceToken)
+        pos = self.parser_assert(pos, LeftCurlyBraceToken)
 
-        pos += 1
         vardecs = []
         try:
             while True:
@@ -123,7 +121,11 @@ class Parser:
         except:
             pass
 
+        pos = self.parser_assert(pos, RightCurlyBraceToken)
+
         classdef = ClassDef(classname, extendsname, vardecs, constructor, methoddefs)
+
+        return classdef, pos + 1
 
 
     def parse_program(self, pos):
@@ -133,3 +135,5 @@ class Parser:
         token = self.tokens[pos]
         if not isinstance(token, type):
             raise Exception(f"Unexpected Token during Parsing: Expected {str(type)} received {str(token)}")
+
+        return pos + 1
