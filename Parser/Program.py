@@ -5,12 +5,12 @@ from Parser.Statement import Statement
 
 class Program(ABC):
     classDef: ClassDef
-    statement:  Statement 
+    statements:  Statement 
 
-    def __init__(self, classDef: ClassDef, statement: Statement):
+    def __init__(self, classDef: ClassDef, statements: List[Statement]):
        self.classDef = classDef
-       self.statement = statement
-       # Might need to have an array of statements?
+       self.statements = statements
+
 
 
 
