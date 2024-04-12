@@ -1,9 +1,9 @@
-from abc import ABC
 from Parser.CommaExp import CommaExp
 from Parser.PrimaryExp import PrimaryExp
 
-
-class CallExp(ABC):
+# should this be the super class of CallExp?
+# what is the super class of CallExp?
+class CallExp(PrimaryExp, CommaExp):
     left: PrimaryExp
     methodName: str
     right: CommaExp

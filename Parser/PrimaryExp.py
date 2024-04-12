@@ -4,7 +4,7 @@ from Parser.CommaExp import CommaExp
 from Parser.Exp import Exp
 
 class PrimaryExp(ABC):
-    pass
+    raise NotImplementedError("PrimaryExp is an abstract class, it should not be instantiated")
 
 class Variable(PrimaryExp):
     name: str

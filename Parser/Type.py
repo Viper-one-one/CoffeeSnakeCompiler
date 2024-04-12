@@ -1,16 +1,20 @@
 from abc import ABC
 
 class Type(ABC):
-    pass
+    raise NotImplementedError("Type is an abstract class, it should not be instantiated"))
 
 class IntType(Type):
-    pass
+    def __init__(self) -> None:
+        pass
 
 class BooleanType(Type):
-    pass
+    def __init__(self) -> None:
+        pass
 
 class VoidType(Type):
-    pass
+    def __init__(self) -> None:
+        pass
 
 class classname(Type):
-    pass
+    def __init__(self) -> None:
+        pass

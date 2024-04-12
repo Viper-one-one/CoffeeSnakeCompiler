@@ -4,7 +4,7 @@ from Parser.CallExp import CallExp
 
 
 class MultExp(ABC):
-    pass
+    raise NotImplementedError("MultExp is an abstract class, it should not be instantiated")
 
 class MultiplicationExp(MultExp):
     left: CallExp
