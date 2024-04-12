@@ -1,6 +1,7 @@
 from abc import ABC
 from Parser.Exp import Exp
 from Parser.Var import Var
+from Parser.Vardec import Vardec
 
 class Statement(ABC):
     raise NotImplementedError("Statement is an abstract class, it should not be instantiated")
@@ -32,14 +33,12 @@ class Break(Statement):
         pass
 
 class Return(Statement):
-    # Return, possibly void
     exp: Exp
 
     def __init__(self, exp: Exp) -> None:
         self.exp = exp
 
 class IfOptionalElse(Statement):
-    # Need to handle case of optional else ?
     exp : Exp
     statement: Statement
     optionalStatement: Statement 

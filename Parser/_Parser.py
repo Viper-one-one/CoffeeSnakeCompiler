@@ -25,7 +25,7 @@ class Parser:
     def parse(self, input_str : str):
         self.input = input_str
         self.Tokenizer = Tokenizer.__init__(str)
-        parse_program() # Should start parse from here ?
+        Program() # Should start parse from here ?
 
     # program ::= classdef* stmt+ 
     def parse_program():

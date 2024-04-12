@@ -1,5 +1,6 @@
 from abc import ABC
 from Parser.CommaExp import CommaExp
+from Parser.ClassName import ClassName
 
 from Parser.Exp import Exp
 
@@ -43,9 +44,9 @@ class PrintlnExp(PrimaryExp):
         self.expression = expression
 
 class NewObjectExp(PrimaryExp):
-    classname: str
+    classname: ClassName
     variables: CommaExp
     
-    def __init__(self, classname: str, variables: CommaExp):
+    def __init__(self, classname: ClassName, variables: CommaExp):
         self.classname = classname
         self.variables = variables
