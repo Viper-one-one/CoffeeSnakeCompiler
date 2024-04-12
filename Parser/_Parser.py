@@ -100,8 +100,8 @@ class Parser:
         pos += 1
         if isinstance(self.tokens[pos], ExtendsToken):
             extendsname = self.tokens[pos]
+            pos += 1
 
-        pos += 1
         self.parser_assert(pos, LeftCurlyBraceToken)
 
         pos += 1
