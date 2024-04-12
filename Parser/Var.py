@@ -1,6 +1,6 @@
 from Parser.Type import Type
 
-class Var(object):
+class Var:
     name: str
     varType: Type
 

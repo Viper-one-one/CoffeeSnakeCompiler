@@ -1,6 +1,6 @@
 from abc import ABC
 from Parser.Exp import Exp
-from Parser.Vardec import Vardec
+from Parser.Var import Var
 
 class Statement(ABC):
     raise NotImplementedError("Statement is an abstract class, it should not be instantiated")
@@ -13,14 +13,23 @@ class VariableDec(Statement):
         
 class Assignment(Statement):
     exp: Exp
-    pass
+    var: Var
+    
+    def __init__(self, exp: Exp, var: Var) -> None:
+        self.exp = exp
+        self.var = var
 
 class WhileLoop(Statement):
     exp: Exp
-    pass
+    stmt: Statement
+    
+    def __init__(self, exp: Exp, stmt: Statement) -> None:
+        self.exp = exp
+        self.stmt = stmt
 
 class Break(Statement):
-    pass
+    def __init__(self) -> None:
+        pass
 
 class Return(Statement):
     # Return, possibly void
@@ -35,10 +44,14 @@ class IfOptionalElse(Statement):
     statement: Statement
     optionalStatement: Statement 
 
-    def __init__(self, exp: Exp, statement: Statement, optionalStatement : None):
+    def __init__(self, exp: Exp, statement: Statement, optionalStatement: Statement) -> None:
         self.exp = exp
         self.statement = statement
+        self.optionalStatement = optionalStatement
 
 
 class Block(Statement):
-    pass
+    stmt: Statement
+    
+    def __init__(self, stmt: Statement) -> None:
+        self.stmt = stmt
