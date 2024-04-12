@@ -13,5 +13,5 @@ class VariableDec(Statement):
         self.vardec = vardec
         
 class Assignment(Statement):
-    
+    left: Var
 
