@@ -43,6 +43,7 @@
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
+    <Compile Include="Tokenizer\ExtendsToken.py" />
     <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
@@ -60,6 +61,7 @@
     <Compile Include="Tokenizer\NewToken.py" />
     <Compile Include="Tokenizer\ReturnToken.py" />
     <Compile Include="Tokenizer\SuperToken.py" />
+    <Compile Include="Tokenizer\SymbolPair.py" />
     <Compile Include="Tokenizer\ThisToken.py" />
     <Compile Include="Tokenizer\BooleanToken.py" />
     <Compile Include="Tokenizer\ClassToken.py" />
