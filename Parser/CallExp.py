@@ -1,9 +1,8 @@
-from abc import ABC
 from Parser.CommaExp import CommaExp
 from Parser.PrimaryExp import PrimaryExp
 
-
-class CallExp(ABC):
+# CallExp may need a superclass
+class CallExp:
     left: PrimaryExp
     methodName: str
     right: CommaExp

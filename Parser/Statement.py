@@ -1,30 +1,17 @@
 from abc import ABC
 
+from Parser.Vardec import Vardec
+
 
 class Statement(ABC):
-    pass
+    raise NotImplementedError("Statement is an abstract class, it should not be instantiated")
 
-class varDecStmt(Statement):
-    pass
-
-class assignmentStmt(Statement):
-    pass
-
-class whileStmt(Statement):
-    pass
-
-class breakStmt(Statement):
-    pass
-
-class returnStmt(Statement):
-    pass
-
-class ifStatement(Statement):
-    pass
-
-class blockStatement(Statement):
-    pass
-
-
-
+class VariableDec(Statement):
+    vardec: Vardec
+    
+    def __init__(self, vardec: Vardec) -> None:
+        self.vardec = vardec
+        
+class Assignment(Statement):
+    
 

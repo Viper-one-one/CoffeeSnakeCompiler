@@ -1,9 +1,9 @@
-from abc import ABC
+from Parser.Vardec import Vardec
 
+class CommaVardec:
+    left: Vardec
+    right: Vardec
 
-class CommaVardec(ABC):
-    pass
-
-
-
-
+    def __init__(self, left: Vardec, right: Vardec) -> None:
+        self.left = left
+        self.right = right
