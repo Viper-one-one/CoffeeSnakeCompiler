@@ -1,7 +1,7 @@
 from Parser.Exp import Exp
 
 
-class commaExp(Exp):
+class CommaExp(Exp):
     pass
     
 
