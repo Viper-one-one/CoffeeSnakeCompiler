@@ -1,6 +1,5 @@
 from abc import ABC
 
-
 class Type(ABC):
     pass
 
@@ -13,3 +12,5 @@ class BooleanType(Type):
 class VoidType(Type):
     pass
 
+class classname(Type):
+    pass
