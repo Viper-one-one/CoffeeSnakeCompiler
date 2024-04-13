@@ -8,8 +8,8 @@ def main():
         with open(sample_program_location, 'r') as file_handle:
             tokens = Tokenizer.file_to_string_tokenize(file_handle)
         print(f"Tokens: {tokens}")
-        parser = Tokenizer.parse(tokens)
-        program = parser.parse_program()
+        #parser = Tokenizer.parse(tokens)
+        #program = parser.parse_program()
         #type checker to be implemented below
     except Exception as e:          # general error catch, print error message and return
         print(f"*\n*\n*\nLexer failed because of generic failure\nError: {e}\n*\n*\n*")

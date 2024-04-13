@@ -2,7 +2,7 @@
 class TestClass {
     init() {
         Int a = 10;
-        println("Variable 'a' initialized with value: " + a);
+        println(a);
     }
 
     method add(a, b) Int {
@@ -22,29 +22,19 @@ class TestClass {
     }
 
     method isEqual(a, b) Boolean {
-        if (a == b) {
-            println("Values are equal");
-            return true;
-        } else {
-            println("Values are not equal");
-            return false;
-        }
+        if (true) {
+            println(1);
+		}
     }
 
     method isGreater(a, b) Boolean {
-        if (a > b) {
-            println(a + " is greater than " + b);
-            return true;
-        } else {
-            println(a + " is not greater than " + b);
-            return false;
-        }
+        println(1);
     }
 
     method whileLoop() {
         Int i = 0;
-        while (i < 5) {
-            println("Value of i: " + i);
+        while (false) {
+            println(i);
             i = i + 1;
             if(i == 3) {
             break;
@@ -53,18 +43,12 @@ class TestClass {
 }
 
     method ifElse(a) {
-        if (a > 0) {
-            println("Value of a is positive");
-        } else if (a < 0) {
-            println("Value of a is negative");
-        } else {
-            println("Value of a is zero");
-        }
+        println(1);
     }
 
     method superMethod() Void {
         super.methodToOvverride();
-        println("This is the super method");
+        println(1);
     }
 
     method main() {
@@ -73,19 +57,16 @@ class TestClass {
         Int result;
 
         result = this.add(a, b);
-        println("Addition result: " + result);
+        println(result);
 
         result = this.subtract(a, b);
-        println("Subtraction result: " + result);
+        println(result);
 
         result = this.multiply(a, b);
-        println("Multiplication result: " + result);
+        println(result);
 
         result = this.divide(a, b);
-        println("Division result: " + result);
-
-        Boolean isEqual = this.isEqual(a, b);
-        Boolean isGreater = this.isGreater(a, b);
+        println(result);
 
         this.whileLoop();
 
@@ -97,12 +78,12 @@ class TestClass {
 
 class SubTestClass extends TestClass {
     methodToOverride() {
-        println("This is the overridden method");
+        println(2);
     }
 
     method main() {
         super.main();
-        println("Executing main methods through SubTestClass");
+        println(5);
     }
 }
 

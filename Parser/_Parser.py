@@ -6,16 +6,15 @@ from Parser.CommaExp import CommaExp
 from Parser.CommaVardec import CommaVardec
 from Parser.Constructor import Constructor
 from Parser.Exp import Exp
-from Parser.TypesAndNames.IntegerLiteral import IntegerLiteral
+from Parser.PrimaryExp import IntegerLiteral
 from Parser.MethodDef import MethodDef
 from Parser.TypesAndNames.MethodName import MethodName
 from Parser.MultExp import MultExp
 from Parser.PrimaryExp import PrimaryExp
 from Parser.Program import Program
 from Parser.Statement import Statement
-from Parser.String import String
 from Parser.TypesAndNames.Type import Type
-from Parser.Var import Var
+from Parser.PrimaryExp import Variable
 from Parser.Vardec import Vardec
 from Tokenizer._Lexer import Tokenizer
 from Tokenizer.Token import Token
@@ -141,8 +140,3 @@ class Parser:
     #                            /  \
     #                           /    \
     #                        (2)      (2)    
-
-
-
-
-
