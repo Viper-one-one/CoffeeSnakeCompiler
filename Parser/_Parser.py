@@ -24,8 +24,52 @@ class Parser:
     # Parsing 
     def parse(self, input_str : str):
         self.input = input_str
-        self.Tokenizer = Tokenizer.__init__(str)
-        Program() # Prime the tokenizer to get the first token. Should classdef/return Statements?
+        self.tokenizer = Tokenizer.__init__(str)
+
+        
+        # Potential Pattern Matching ?
+        match self.tokenzer:
+            case(ClassDef, *statements):
+                return Program()
+            
+            case(ClassName, Vardec, Constructor, MethodDef):
+                return ClassDef()
+            
+            case Vardec(): # or assignment or while loops or break or return, etc. 
+                return Statement
+            
+            case (Type, Var):
+                return Vardec
+            
+            case(CommaVardec, CommaExp, Statement):
+                return Constructor()
+            
+            case(Vardec, *otherVarDecs):
+                return CommaVardec()
+            
+            case(CommaVardec, Statement):
+                return MethodDef()
+            
+            case(AddExp):
+                return Exp()
+            
+            case(MultExp, *otherMultExps):
+                return AddExp()
+            
+            case(CallExp, *otherCallExps):
+                return MultExp()
+            
+            case(PrimaryExp, MethodName, CommaExp):
+                return CallExp()
+            
+            case Var() | String() | IntegerLiteral(): # Or Paranthesized, Or This, Or True, Or PrintLn, or new Object
+                return PrimaryExp()
+            
+            case(Exp, *otherExps):
+                return CommaExp
+            case _:
+                return "Error Parsing"
+
 
     # program ::= classdef* stmt+ 
 
