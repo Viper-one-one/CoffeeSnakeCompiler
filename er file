@@ -1,0 +1,255 @@
+[33mcommit 08e39a51f99a948af0dce61ff8e033312f61fe67[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mparser_sample_test_with_errors[m[33m, [m[1;31morigin/parser_sample_test_with_errors[m[33m)[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 22:55:36 2024 -0700
+
+    Added Parsing Type Tokens, might be off track
+
+Parser/_Parser.py
+
+[33mcommit 91ed825b0253bed66dec8872b1b0991ffb98ced5[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 21:44:44 2024 -0700
+
+    Changes to pattern match
+
+Parser/_Parser.py
+
+[33mcommit 26d28385b4c275df870b72900b653c4a70b90d3b[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 19:24:50 2024 -0700
+
+    Structural Pattern Matching
+
+Parser/_Parser.py
+
+[33mcommit e5145e96b037b741c63222929f789e2943f36a80[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 15:56:49 2024 -0700
+
+    _Parser.py AST structure in comments
+
+Parser/_Parser.py
+
+[33mcommit 224854aeabf09c42fdaef144c6ddcabf4afe1254[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 15:43:50 2024 -0700
+
+    Created String & InterLiteral.py. Edited other files to have correct things like methodName: MethodName
+
+Parser/CallExp.py
+Parser/IntegerLiteral.py
+Parser/PrimaryExp.py
+Parser/Statement.py
+Parser/String.py
+Parser/_Parser.py
+
+[33mcommit 6474ac72c500086ea0d7064fb6b170156e123d50[m
+Merge: bb29165 aa5e420
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 15:19:23 2024 -0700
+
+    Merge branch 'parser_sample_test_with_errors' of https://github.com/Viper-one-one/CoffeeSnakeCompiler into parser_sample_test_with_errors
+
+[33mcommit bb2916553a1bff6d114f3a3b6105740aff018483[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 15:19:18 2024 -0700
+
+    _Parser.py structuring
+
+Parser/_Parser.py
+
+[33mcommit 4a56cb0645a85a5d2773f6df001c5d55d85328a2[m
+Merge: 9289774 9118380
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 14:20:10 2024 -0700
+
+    Merge branch 'parser_sample_test_with_errors' of https://github.com/Viper-one-one/CoffeeSnakeCompiler into parser_sample_test_with_errors
+
+[33mcommit 9289774f42e00e94eb447a7f7736695f72adfebb[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 14:19:55 2024 -0700
+
+    Reworked _Parser.py to be Recusrive Descent WIP
+
+Parser/ClassDef.py
+Parser/Program.py
+Parser/_Parser.py
+
+[33mcommit 2d6b27326375d1d9bd22f4797c798965d55403c2[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Apr 12 09:25:17 2024 -0700
+
+    Worked on Constructor, MethodDef, Program, Statement & Type files
+
+Parser/Constructor.py
+Parser/MethodDef.py
+Parser/Program.py
+Parser/Statement.py
+Parser/Type.py
+
+[33mcommit e49aef795a2f3538c4ce9af3228affb3da44ae51[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Thu Apr 11 20:12:00 2024 -0700
+
+    Fixed capitlization for CommaExp
+
+Parser/CommaExp.py
+Parser/_Parser.py
+
+[33mcommit 248fe8ad97c0bcb07013992ed7c9928a77d310fa[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Thu Apr 11 17:41:29 2024 -0700
+
+    Added subclasses to PrimaryExp and Statement. Fixed 'this' declaration
+
+Parser/ClassDef.py
+Parser/PrimaryExp.py
+Parser/Statement.py
+Parser/Vardec.py
+
+[33mcommit bb22b542989061b6b9985121aea12e3b1e94cbe5[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Thu Apr 11 17:10:22 2024 -0700
+
+    Added classname type and removed PrimaryExp stuff
+
+Parser/PrimaryExp.py
+Parser/Type.py
+
+[33mcommit 7938a78b76b90c542af6d43baa6c789c63e9301f[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Thu Apr 11 14:53:14 2024 -0700
+
+    WIP LHS Grammar Rules
+
+Parser/CallExp.py
+Parser/ClassDef.py
+Parser/CommaExp.py
+Parser/Exp.py
+Parser/PrimaryExp.py
+
+[33mcommit 906dfee27f4c03784396913c7bc42e9e50110bbf[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Mon Apr 8 11:57:17 2024 -0700
+
+    Added Parser Files. No Hash Codes given to any yet
+
+Parser/BoolType.py
+Parser/BooleanLiteralExp.py
+Parser/ClassName.py
+Parser/IntLiteralExp.py
+Parser/IntType.py
+Parser/LessThanOp.py
+Parser/MethodName.py
+Parser/MultOp.py
+Parser/Parser.py
+Parser/PlusOp.py
+Parser/ThisExp.py
+
+[33mcommit d3ba967575962147285f3f579cea2347bc2c0497[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Wed Apr 3 13:54:45 2024 -0700
+
+    Sample program that contains errors
+
+Tests/assets/style.css
+Tests/sample_program_with_errors.txt
+
+[33mcommit d86c859369ca6168c231b6d7ea2b981d1b99d984[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Wed Mar 13 15:09:40 2024 -0700
+
+    Added code to readSymbolToken, readReservedWordOrIdentifierToken (WIP), and tokenizeSingle.
+
+Tokenizer/Tokenizer.py
+
+[33mcommit f0eee9dd311f364190ce01eac5497a69599bf655[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Wed Mar 13 13:02:25 2024 -0700
+
+    Added SymbolPair.py
+
+Tokenizer/SymbolPair.py
+
+[33mcommit 30d33137064d13a0be20ba8fcbc2f0b0f4a81dd1[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Mar 8 17:02:04 2024 -0800
+
+    Removed __init__ methods from some Tokens
+
+Tokenizer/CommaToken.py
+Tokenizer/DivisionToken.py
+Tokenizer/DotToken.py
+Tokenizer/ElseToken.py
+Tokenizer/FalseToken.py
+Tokenizer/IfToken.py
+Tokenizer/InitToken.py
+Tokenizer/IntToken.py
+Tokenizer/LeftCurlyBraceToken.py
+Tokenizer/LeftCurlyBracketToken.py
+Tokenizer/LeftParenToken.py
+Tokenizer/MultiplicationToken.py
+Tokenizer/NewToken.py
+
+[33mcommit e93b64fec8392cb177dc7cdddd6db7204ca58f9d[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Mar 8 07:31:24 2024 -0800
+
+    Update MethodToken; Updated CommaToken thru NewToken to have hash codes from the guide
+
+Tokenizer/CommaToken.py
+Tokenizer/DivisionToken.py
+Tokenizer/DotToken.py
+Tokenizer/ElseToken.py
+Tokenizer/FalseToken.py
+Tokenizer/IdentifierToken.py
+Tokenizer/IfToken.py
+Tokenizer/InitToken.py
+Tokenizer/IntToken.py
+Tokenizer/IntegerLiteralToken.py
+Tokenizer/LeftCurlyBraceToken.py
+Tokenizer/LeftCurlyBracketToken.py
+Tokenizer/LeftParenToken.py
+Tokenizer/MethodToken.py
+Tokenizer/MultiplicationToken.py
+Tokenizer/NewToken.py
+
+[33mcommit b717bce2dec46f02fe4289323e58ea94c06dbbd7[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Fri Mar 8 07:18:44 2024 -0800
+
+    testing in this branch
+
+Tokenizer/AdditionToken.py
+
+[33mcommit ebb45525a29b3e62f2e3717456d451235434c25b[m[33m ([m[1;32mmaster[m[33m)[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Tue Mar 5 11:18:59 2024 -0800
+
+    Added init, eq, str, and hash to tokens starting from AdditionToken to NewToken. Method, Boolean, Break, Class token not yet finished.
+
+Tokenizer/AdditionToken.py
+Tokenizer/BooleanToken.py
+Tokenizer/BreakToken.py
+Tokenizer/ClassToken.py
+Tokenizer/CommaToken.py
+Tokenizer/DivisionToken.py
+Tokenizer/DotToken.py
+Tokenizer/ElseToken.py
+Tokenizer/FalseToken.py
+Tokenizer/IfToken.py
+Tokenizer/InitToken.py
+Tokenizer/IntToken.py
+Tokenizer/LeftCurlyBraceToken.py
+Tokenizer/LeftCurlyBracketToken.py
+Tokenizer/MethodToken.py
+Tokenizer/MultiplicationToken.py
+Tokenizer/NewToken.py
+
+[33mcommit 78fb70de2e261984d440a8f96dc58eebfca2b698[m
+Author: [1;31mratherbefishingrightnow[m <bryan.avila.467@my.csun.edu>
+Date:   Tue Mar 5 10:36:18 2024 -0800
+
+    testing
+
+Tokenizer/AdditionToken.py

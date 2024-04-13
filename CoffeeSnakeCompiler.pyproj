@@ -25,7 +25,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Parser\AddExp.py" />
-    <Compile Include="Parser\ClassName.py" />
+    <Compile Include="Parser\TypesAndNames\ClassName.py" />
+    <Compile Include="Parser\TypesAndNames\IntegerLiteral.py" />
+    <Compile Include="Parser\TypesAndNames\MethodName.py" />
     <Compile Include="Parser\Program.py" />
     <Compile Include="Parser\ClassDef.py" />
     <Compile Include="Parser\Constructor.py" />
@@ -33,12 +35,13 @@
     <Compile Include="Parser\CommaVardec.py" />
     <Compile Include="Parser\Statement.py" />
     <Compile Include="Parser\Exp.py" />
+    <Compile Include="Parser\String.py" />
     <Compile Include="Parser\Var.py" />
     <Compile Include="Parser\Vardec.py" />
     <Compile Include="Parser\MultExp.py" />
     <Compile Include="Parser\PrimaryExp.py" />
     <Compile Include="Parser\CallExp.py" />
-    <Compile Include="Parser\Type.py" />
+    <Compile Include="Parser\TypesAndNames\Type.py" />
     <Compile Include="Parser\CommaExp.py" />
     <Compile Include="Parser\_Parser.py" />
     <Compile Include="Tests\test_tokenizer.py" />
@@ -74,6 +77,7 @@
     <Compile Include="Tokenizer\LeftParenToken.py" />
     <Compile Include="Tokenizer\RightParenToken.py" />
     <Compile Include="Tokenizer\Token.py" />
+    <Compile Include="Tokenizer\VarToken.py" />
     <Compile Include="Tokenizer\VoidToken.py" />
     <Compile Include="Tokenizer\TrueToken.py" />
     <Compile Include="Tokenizer\WhileToken.py" />
@@ -81,11 +85,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Parser\" />
+    <Folder Include="Parser\TypesAndNames\" />
     <Folder Include="Tests\" />
+    <Folder Include="Tests\assets\" />
     <Folder Include="Tokenizer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Parser\_HowToUnderstandTheParser.txt" />
+    <Content Include="Tests\assets\style.css" />
     <Content Include="Tests\sample_program.txt" />
     <Content Include="Tokenizer\_ListOfHashCodes.txt" />
   </ItemGroup>

@@ -9,8 +9,3 @@ class Program:
     def __init__(self, classDef: ClassDef, statements: Statement) -> None:
        self.classDef = classDef
        self.statements = statements
-
-
-
-
-

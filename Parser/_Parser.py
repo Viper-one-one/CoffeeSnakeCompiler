@@ -1,20 +1,20 @@
 from Parser.AddExp import AddExp
 from Parser.CallExp import CallExp
 from Parser.ClassDef import ClassDef
-from Parser.ClassName import ClassName
+from Parser.TypesAndNames.ClassName import ClassName
 from Parser.CommaExp import CommaExp
 from Parser.CommaVardec import CommaVardec
 from Parser.Constructor import Constructor
 from Parser.Exp import Exp
-from Parser.IntegerLiteral import IntegerLiteral
+from Parser.TypesAndNames.IntegerLiteral import IntegerLiteral
 from Parser.MethodDef import MethodDef
-from Parser.MethodName import MethodName
+from Parser.TypesAndNames.MethodName import MethodName
 from Parser.MultExp import MultExp
 from Parser.PrimaryExp import PrimaryExp
 from Parser.Program import Program
 from Parser.Statement import Statement
 from Parser.String import String
-from Parser.Type import Type
+from Parser.TypesAndNames.Type import Type
 from Parser.Var import Var
 from Parser.Vardec import Vardec
 from Tokenizer._Lexer import Tokenizer
@@ -50,16 +50,10 @@ class Parser:
             else:
                 raise Exception("Error Getting Type Token")
 
-    # Parsing 
-    def parse(self, input_str : str):
-        self.input = input_str
-        self.tokenizer = Tokenizer(input_str)
-        tokens = self.tokenizer.tokenizeSingle(input_str)
-        parse_program(tokens) # Start the AST pattern matching 
-        
+   
     # Potential Pattern Matching ?
-    def parse_program(ast):
-        match ast:
+    def parse_program(tokens_list):
+        match tokens_list:
             case(ClassDef, *statements):
                 return Program()
             
@@ -104,6 +98,14 @@ class Parser:
             
             case _:
                 return "Exception: Error Parsing"
+            
+ # Parsing 
+    def parse(self, input_str : str):
+        self.input = input_str
+        self.tokenizer = Tokenizer(input_str)
+        tokens = self.tokenizer.tokenizeSingle(input_str)
+        parse_program(tokens) # Start the AST pattern matching 
+        
 
 
     # program ::= classdef* stmt+ 

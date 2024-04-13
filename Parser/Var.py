@@ -1,4 +1,4 @@
-from Parser.Type import Type
+from Parser.Types.Type import Type
 
 class Var:
     name: str
