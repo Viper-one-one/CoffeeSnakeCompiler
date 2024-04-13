@@ -1,7 +1,7 @@
 from abc import ABC
 
 class Type(ABC):
-    raise NotImplementedError("Type is an abstract class, it should not be instantiated")
+    pass # I can't use anything with the error
 
 class IntType(Type):
     def __init__(self) -> None:

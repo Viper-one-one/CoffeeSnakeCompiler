@@ -5,7 +5,7 @@ from Parser.ClassName import ClassName
 from Parser.Exp import Exp
 
 class PrimaryExp(ABC):
-    raise NotImplementedError("PrimaryExp is an abstract class, it should not be instantiated")
+    pass # I can't use anything with the error
 
 class Variable(PrimaryExp):
     name: str

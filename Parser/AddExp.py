@@ -3,7 +3,7 @@ from Parser.MultExp import MultExp
 
 
 class AddExp(ABC):
-    raise NotImplementedError("AddExp is an abstract class, it should not be instantiated")
+    pass # I can't use anything with the error
 
 class AdditionExp(AddExp):
     left: MultExp

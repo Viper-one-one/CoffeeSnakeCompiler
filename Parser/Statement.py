@@ -4,7 +4,7 @@ from Parser.Var import Var
 from Parser.Vardec import Vardec
 
 class Statement(ABC):
-    raise NotImplementedError("Statement is an abstract class, it should not be instantiated")
+    pass # I can't use anything with the error
 
 class VariableDec(Statement):
     vardec: Vardec
