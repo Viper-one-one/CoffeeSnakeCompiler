@@ -24,6 +24,7 @@ from Tokenizer.RightCurlyBraceToken import RightCurlyBraceToken
 from Tokenizer.RightParenToken import RightParenToken
 from Tokenizer.SemiColonToken import SemiColonToken
 from Tokenizer.SingleEqualsToken import SingleEqualsToken
+from Tokenizer.StringLiteralToken import StringLiteralToken
 from Tokenizer.SubtractionToken import SubtractionToken
 from Tokenizer.SuperToken import SuperToken
 from Tokenizer.ThisToken import ThisToken
@@ -36,14 +37,14 @@ from Tokenizer.VarToken import VarToken
 class Tokenizer(object):
 
     reserved_words = {
-        "boolean": BooleanToken(),
+        "Boolean": BooleanToken(),
         "break": BreakToken(),
         "class": ClassToken(),
         "else": ElseToken(),
         "extends": ExtendsToken(),
         "false": FalseToken(),
         "init": InitToken(),
-        "int": IntToken(),
+        "Int": IntToken(),
         "if": IfToken(),
         "method": MethodToken(),
         "new": NewToken(),
@@ -91,6 +92,21 @@ class Tokenizer(object):
             return IntegerLiteralToken(int(digits))
         else:
             return None
+        
+    def readStringLiteralToken(self):
+        if self.input[self.position] == '"':
+            start_pos = self.position
+            self.position += 1  # Move past the opening double quote
+            while self.position < len(self.input):
+                if self.input[self.position] == '"':
+                    # Found the closing double quote
+                    string_value = self.input[start_pos + 1 : self.position]
+                    self.position += 1  # Move past the closing double quote
+                    return StringLiteralToken(string_value)
+                self.position += 1
+            # If the closing double quote is not found, raise an exception
+            raise Exception("Unclosed string literal", self.input)
+        return None
 
     def readSymbolToken(self):
         for symbol, token in self.symbols.items():
@@ -124,8 +140,9 @@ class Tokenizer(object):
             if (token := self.readReservedWordOrIdentifier()) is None:
                 if (token := self.readSymbolToken()) is None: # works
                     if (token := self.readIntLiteralToken()) is None: # works
-                        # Unrecognized character
-                        raise Exception("Unrecognized character", self.input)
+                        if (token := self.readStringLiteralToken()) is None:
+                            # Unrecognized character
+                            raise Exception("Unrecognized character", self.input)
             return token
         else:
             return None

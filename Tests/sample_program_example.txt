@@ -21,12 +21,53 @@ class TestClass {
         return a / b;
     }
 
+    method isEqual(a, b) Boolean {
+        if (a == b) {
+            println("Values are equal");
+            return true;
+        } else {
+            println("Values are not equal");
+            return false;
+        }
+    }
+
+    method isGreater(a, b) Boolean {
+        if (a > b) {
+            println(a + " is greater than " + b);
+            return true;
+        } else {
+            println(a + " is not greater than " + b);
+            return false;
+        }
+    }
+
+    method whileLoop() {
+        Int i = 0;
+        while (i < 5) {
+            println("Value of i: " + i);
+            i = i + 1;
+            if(i == 3) {
+            break;
+        }
+    }
+}
+
+    method ifElse(a) {
+        if (a > 0) {
+            println("Value of a is positive");
+        } else if (a < 0) {
+            println("Value of a is negative");
+        } else {
+            println("Value of a is zero");
+        }
+    }
+
     method superMethod() Void {
         super.methodToOverride();
         println("This is the super method");
     }
 
-        method main() {
+    method main() {
         Int a = 10;
         Int b = 5;
         Int result;
@@ -42,6 +83,13 @@ class TestClass {
 
         result = this.divide(a, b);
         println("Division result: " + result);
+
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
+
+        this.whileLoop();
+
+        this.ifElse(a);
 
         this.superMethod();
     }
