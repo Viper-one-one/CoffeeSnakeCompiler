@@ -54,14 +54,13 @@ class Parser:
         return None
 
     def parse_vardec(self):
-        # Define regular expression patterns for tokens
-        token_patterns = {
-        "VarToken": r'\bvar\b',
-        "IdentifierToken": r'[a-zA-Z0-9_]+',
-        "SingleEqualsToken": r'=',
-        "IntegerLiteralToken": r'\d+'
-        }
-        
+        # token_patterns = {
+        #     "VarToken": r'\bvar\b',
+        #     "IdentifierToken": r'[a-zA-Z0-9_]+',
+        #     "SingleEqualsToken": r'=',
+        #     "IntegerLiteralToken": r'\d+'
+        # }
+
         if (not type(self.tokens[0]) == VarToken or
             not type(self.tokens[1]) == IdentifierToken or
             not type(self.tokens[2]) == SingleEqualsToken or
@@ -69,28 +68,25 @@ class Parser:
                 raise ValueError("Invalid syntax. Expected syntax: VarToken IdentifierToken SingleEqualsToken IntegerLiteralToken")
 
         # Initialize variables to store matched tokens
-        var_token = None
-        identifier_token = None
-        single_equals_token = None
-        integer_literal_token = None
+        var_name = None
+        value = None
 
         # Iterate over tokens and match against corresponding patterns
-        print(self.tokens)
         for token in self.tokens:
-            if type(token).__name__ == "VarToken":
-                var_token = token
-            elif type(token).__name__ == "IdentifierToken":
-                identifier_token = token
-            elif type(token).__name__ == "SingleEqualsToken":
-                single_equals_token = token
-            elif type(token).__name__ == "IntegerLiteralToken":
-                integer_literal_token = token
+            if isinstance(token, VarToken):
+                pass
+            elif isinstance(token, IdentifierToken):
+                var_name = token
+            elif isinstance(token, SingleEqualsToken):
+                pass  
+            elif isinstance(token, IntegerLiteralToken):
+                value = token.value
 
         # Check if all tokens are matched
-        if all((var_token, identifier_token, single_equals_token, integer_literal_token)):
-            print("Tokens:", "var", identifier_token.name, "=", integer_literal_token.value)
+        if all((var_name, value)):
+            return Vardec(var_name, value)
         else:
-            print("Pattern does not match the input string.")
+            raise ValueError("Pattern does not match the input string.")
 
 
     # lazy val classDef: P[ClassDef] = {
