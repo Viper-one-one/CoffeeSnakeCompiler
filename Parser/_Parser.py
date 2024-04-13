@@ -68,21 +68,23 @@ class Parser:
 
             case('class', ClassName, 'extends', *otherClassName, Vardec, Constructor, MethodDef):
                 return ClassDef(classname=ClassName, extendsname=otherClassName, constructor=Constructor, methoddefs=[MethodDef])
-            
-            case 'vardec' | 'var = exp;' | 'while (exp)' : # or break or return or if optional else or block 
+            # perhaps we should break up statement? As it is now cannot specify if statement is return or break or etc
+            # case '{', *stmts, '}':
+            #    return Block(stmts)
+            case 'vardec', 'var = exp;', 'while (exp)', 'break', 'return', 'if optional else': #still needs {block}
                 return Statement()
-            
+
             case (Type, Var):
                 return VarDec(vartype=Type, varname=Var)
             
             case(CommaVardec, CommaExp, *statements):
-                return Constructor()
+                return Constructor(vardecs=CommaVardec, constructor=CommaExp)
             
             case(Vardec, *otherVarDecs):
                 return VarDec(declaration=other)
             
             case('method', MethodName, CommaVardec, Type, *statements):
-                return MethodDef()
+                return MethodDef(methodname=MethodName, params=CommaVardec, return_type=Type, statements=statements)
             
             case(*AddExp): 
                 return Exp()
