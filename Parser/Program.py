@@ -1,7 +1,6 @@
 from Parser.ClassDef import ClassDef
 from Parser.Statement import Statement 
 
-
 class Program:
     classDef: ClassDef
     statements:  Statement 

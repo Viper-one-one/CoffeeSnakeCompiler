@@ -1,7 +1,7 @@
 from Parser.Vardec import Vardec
 from Parser.Constructor import Constructor
 from Parser.MethodDef import MethodDef
-from Parser.ClassName import ClassName
+from Parser.TypesAndNames.ClassName import ClassName
 
 
 class ClassDef:
@@ -17,8 +17,3 @@ class ClassDef:
         self.vardecs = vardecs
         self.constructor = constructor
         self.methoddefs = methoddefs
-
-
-
-
-

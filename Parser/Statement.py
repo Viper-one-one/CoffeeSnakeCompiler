@@ -1,6 +1,6 @@
 from abc import ABC
 from Parser.Exp import Exp
-from Parser.Var import Var
+from Parser.PrimaryExp import Variable
 from Parser.Vardec import Vardec
 
 class Statement(ABC):
@@ -14,9 +14,9 @@ class VariableDec(Statement):
         
 class Assignment(Statement):
     exp: Exp
-    var: Var
+    var: Variable
     
-    def __init__(self, exp: Exp, var: Var) -> None:
+    def __init__(self, exp: Exp, var: Variable) -> None:
         self.exp = exp
         self.var = var
 
@@ -47,7 +47,6 @@ class IfOptionalElse(Statement):
         self.exp = exp
         self.statement = statement
         self.optionalStatement = optionalStatement
-
 
 class Block(Statement):
     stmt: Statement

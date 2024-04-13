@@ -1,7 +1,7 @@
 from abc import ABC
+from Parser.TypesAndNames.Type import Type
 from Parser.CommaExp import CommaExp
-from Parser.ClassName import ClassName
-
+from Parser.TypesAndNames.ClassName import ClassName
 from Parser.Exp import Exp
 
 class PrimaryExp(ABC):
@@ -9,9 +9,11 @@ class PrimaryExp(ABC):
 
 class Variable(PrimaryExp):
     name: str
+    varType: Type
     
-    def __init__(self, name: str):
+    def __init__(self, name: str, varType: Type):
         self.name = name
+        self.varType = varType
 
 class IntegerLiteral(PrimaryExp):
     value: int

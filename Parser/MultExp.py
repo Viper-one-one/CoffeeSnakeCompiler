@@ -1,7 +1,5 @@
 from abc import ABC
-
 from Parser.CallExp import CallExp
-
 
 class MultExp(ABC):
     raise NotImplementedError("MultExp is an abstract class, it should not be instantiated")

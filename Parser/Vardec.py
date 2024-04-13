@@ -1,10 +1,10 @@
-from Parser.Type import Type
+from Parser.TypesAndNames.Type import Type
+from Parser.PrimaryExp import Variable
 
 # Vardec may need a superclass
 class Vardec:
     varType: Type
-    varName: str
+    var: Variable
     
-    def __init__(self, varType: Type, varName: str) -> None:
-        self.varType = varType
-        self.varName = varName
+    def __init__(self, varType: Type, var: Variable):
+        self.var = var

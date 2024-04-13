@@ -26,7 +26,6 @@
   <ItemGroup>
     <Compile Include="Parser\AddExp.py" />
     <Compile Include="Parser\TypesAndNames\ClassName.py" />
-    <Compile Include="Parser\TypesAndNames\IntegerLiteral.py" />
     <Compile Include="Parser\TypesAndNames\MethodName.py" />
     <Compile Include="Parser\Program.py" />
     <Compile Include="Parser\ClassDef.py" />
@@ -35,8 +34,6 @@
     <Compile Include="Parser\CommaVardec.py" />
     <Compile Include="Parser\Statement.py" />
     <Compile Include="Parser\Exp.py" />
-    <Compile Include="Parser\String.py" />
-    <Compile Include="Parser\Var.py" />
     <Compile Include="Parser\Vardec.py" />
     <Compile Include="Parser\MultExp.py" />
     <Compile Include="Parser\PrimaryExp.py" />

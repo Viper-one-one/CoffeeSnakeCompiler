@@ -1,8 +1,7 @@
 from Parser.CommaVardec import CommaVardec
 from Parser.Statement import Statement
-from Parser.Type import Type
-from Parser.MethodName import MethodName
-
+from Parser.TypesAndNames.Type import Type
+from Parser.TypesAndNames.MethodName import MethodName
 
 class MethodDef:
     methodname: MethodName

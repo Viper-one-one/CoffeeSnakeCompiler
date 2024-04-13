@@ -29,3 +29,5 @@ The parser directory is set up as follows:
 
 The Parser is a recursive descent parser and will parse the input file and create an AST.
 The rules for the AST and recursive descent are held in the EBNF grammar.
+
+We do not support strings or boolean operators, see the grammar for more information.

@@ -1,4 +1,7 @@
-from abc import ABC
+from Parser.AddExp import AddExp
 
-class Exp(ABC):
-    raise NotImplementedError("Exp is an abstract class, it should not be instantiated")
+class Exp(AddExp):
+    addExp: AddExp
+    
+    def __init__(self, addExp: AddExp) -> None:
+        self.addExp = addExp
