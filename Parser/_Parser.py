@@ -18,22 +18,48 @@ from Parser.Type import Type
 from Parser.Var import Var
 from Parser.Vardec import Vardec
 from Tokenizer._Lexer import Tokenizer
+from Tokenizer.Token import Token
 
 class Parser:
 
     # Constructor
-    def __init__(self):
+    def __init__(self, tokens):
+        self.tokens = tokens
         self.input = ''
-        self.Tokenizer = Tokenizer()
+
+    def get_next_token(self, position):
+        if (0 <= position < len(self.tokens)):
+            return self.tokens[position]
+        else:
+            raise Exception("Index out of bounds", position)
+        
+    # type ::= Int | Boolean | Void | Class
+    def parseType(self, position):
+        typeToken = None
+        for token in self.tokens: 
+            if(token, isinstance(IntType)):
+                 return IntType()
+            elif(token, isinstance(BooleanType)):
+                 return BooleanType()
+                
+            elif(token, isinstance(VoidType)):
+                return VoidType
+            
+            elif(token, isinstance(ClassType)):
+                return ClassType()
+            else:
+                raise Exception("Error Getting Type Token")
 
     # Parsing 
     def parse(self, input_str : str):
         self.input = input_str
         self.tokenizer = Tokenizer(input_str)
         tokens = self.tokenizer.tokenizeSingle(input_str)
+        parse_program(tokens) # Start the AST pattern matching 
         
-        # Potential Pattern Matching ?
-        match tokens:
+    # Potential Pattern Matching ?
+    def parse_program(ast):
+        match ast:
             case(ClassDef, *statements):
                 return Program()
             
@@ -83,6 +109,8 @@ class Parser:
     # program ::= classdef* stmt+ 
 
     # classdef ::= 'class' classname ['extends' classname] '{' (vardec ';')* constructor methodddef* '}'
+
+    # constructor ::= 'init' '(' comma_vardec ')' '{' ['super' '(' comma_exp ')' ';'] stmt* '}'
 
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | etc....
 
