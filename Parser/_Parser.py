@@ -1,16 +1,21 @@
 from Parser.AddExp import AddExp
 from Parser.CallExp import CallExp
 from Parser.ClassDef import ClassDef
+from Parser.ClassName import ClassName
 from Parser.CommaExp import CommaExp
 from Parser.CommaVardec import CommaVardec
 from Parser.Constructor import Constructor
 from Parser.Exp import Exp
+from Parser.IntegerLiteral import IntegerLiteral
 from Parser.MethodDef import MethodDef
+from Parser.MethodName import MethodName
 from Parser.MultExp import MultExp
 from Parser.PrimaryExp import PrimaryExp
 from Parser.Program import Program
 from Parser.Statement import Statement
+from Parser.String import String
 from Parser.Type import Type
+from Parser.Var import Var
 from Parser.Vardec import Vardec
 from Tokenizer._Lexer import Tokenizer
 
@@ -24,33 +29,36 @@ class Parser:
     # Parsing 
     def parse(self, input_str : str):
         self.input = input_str
-        self.tokenizer = Tokenizer.__init__(str)
-
+        self.tokenizer = Tokenizer(input_str)
+        tokens = self.tokenizer.tokenizeSingle(input_str)
         
         # Potential Pattern Matching ?
-        match self.tokenzer:
+        match tokens:
             case(ClassDef, *statements):
                 return Program()
             
-            case(ClassName, Vardec, Constructor, MethodDef):
+            case('class', ClassName, Vardec, Constructor, MethodDef):
                 return ClassDef()
             
-            case Vardec(): # or assignment or while loops or break or return, etc. 
-                return Statement
+            case('class', ClassName, 'extends', *otherClassName, Vardec, Constructor, MethodDef):
+                return ClassDef()
+            
+            case 'vardec' | 'var = exp;' | 'while (exp)' : # or break or return or if optional else or block 
+                return Statement()
             
             case (Type, Var):
-                return Vardec
+                return Vardec()
             
-            case(CommaVardec, CommaExp, Statement):
+            case(CommaVardec, CommaExp, *statements):
                 return Constructor()
             
             case(Vardec, *otherVarDecs):
                 return CommaVardec()
             
-            case(CommaVardec, Statement):
+            case('method', MethodName, CommaVardec, Type, *statements):
                 return MethodDef()
             
-            case(AddExp):
+            case(*AddExp): 
                 return Exp()
             
             case(MultExp, *otherMultExps):
@@ -65,10 +73,11 @@ class Parser:
             case Var() | String() | IntegerLiteral(): # Or Paranthesized, Or This, Or True, Or PrintLn, or new Object
                 return PrimaryExp()
             
-            case(Exp, *otherExps):
+            case(Exp, ',' , *otherExps):
                 return CommaExp
+            
             case _:
-                return "Error Parsing"
+                return "Exception: Error Parsing"
 
 
     # program ::= classdef* stmt+ 
@@ -88,8 +97,6 @@ class Parser:
     # primary_exp ::= var | str | i | etc....
 
     # comma_exp ::= exp (',' exp)*
-
-
 
     #                     AST Example: 2 + 2
     #                          Program
