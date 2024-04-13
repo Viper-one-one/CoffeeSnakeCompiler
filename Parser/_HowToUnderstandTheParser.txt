@@ -1,9 +1,31 @@
 The parser directory is set up as follows:
 
-	1) The files not named "_Parser.py" are named for each of the left side non-terminals in the grammar.
-	2) The Parser runs from the file "Parser.py" which imports the other files as needed.
-	3) The Parser is a recursive descent parser that uses the grammar rules to parse the input.
-	4) The Parser obtains the list of tokens from the Lexer and uses the tokens to parse the input.
-	5) Typing errors should have been caught by the Lexer, so the Parser assumes that the input is syntactically correct.
-		a) If the input is not syntactically correct, the Parser will not be able to parse the input.
-		b) The Parser will raise an exception if it is unable to parse the input.
+	\\ Parser is the main directory
+		\\ TypesAndNames is the name for the Types class and subclasses and the names
+			\\ ClassName.py -> holds the name of the class only
+			\\ MethodName.py -> holds the name of the method only
+			\\ IntegerLiteral.py -> holds the integer literal
+			\\ Type.py
+				\\ Int class -> holds the integer type
+				\\ Void class -> holds the void type
+				\\ Bool class -> holds the boolean type
+				\\ classname class -> holds the class type
+		\\ _Parser.py -> the main parser class
+		\\ AddExp.py -> holds the addition expression
+		\\ CallExp.py -> holds the call expression
+		\\ ClassDef.py -> holds the class definition
+		\\ CommaExp.py -> holds the comma expression
+		\\ CommaVardec.py -> holds the comma variable declaration
+		\\ Constructor.py -> holds the constructor
+		\\ Exp.py -> holds the expression
+		\\ MethodDef.py -> holds the method definition
+		\\ MultExp.py -> holds the multiplication expression
+		\\ PrimaryExp.py -> holds the primary expression
+		\\ Program.py -> holds the program
+		\\ Statement.py -> holds the statement
+		\\ String.py -> holds the string
+		\\ Var.py -> holds the variable
+		\\ VarDec.py -> holds the variable declaration
+
+The Parser is a recursive descent parser and will parse the input file and create an AST.
+The rules for the AST and recursive descent are held in the EBNF grammar.
