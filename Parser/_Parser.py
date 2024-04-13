@@ -64,22 +64,22 @@ class Parser:
                 return Program()
             
             case('class', ClassName, Vardec, Constructor, MethodDef):
-                return ClassDef()
-            
+                return ClassDef(classname=ClassName, constructor=Constructor, methoddefs=[MethodDef])
+
             case('class', ClassName, 'extends', *otherClassName, Vardec, Constructor, MethodDef):
-                return ClassDef()
+                return ClassDef(classname=ClassName, extendsname=otherClassName, constructor=Constructor, methoddefs=[MethodDef])
             
             case 'vardec' | 'var = exp;' | 'while (exp)' : # or break or return or if optional else or block 
                 return Statement()
             
             case (Type, Var):
-                return Vardec()
+                return VarDec(vartype=Type, varname=Var)
             
             case(CommaVardec, CommaExp, *statements):
                 return Constructor()
             
             case(Vardec, *otherVarDecs):
-                return CommaVardec()
+                return VarDec(declaration=other)
             
             case('method', MethodName, CommaVardec, Type, *statements):
                 return MethodDef()
