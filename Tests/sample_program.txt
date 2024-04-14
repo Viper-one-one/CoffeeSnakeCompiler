@@ -22,33 +22,30 @@ class TestClass {
     }
 
     method isEqual(a, b) Boolean {
-        if (true) {
-            println(1);
-		}
+        return false;
     }
-
-    method isGreater(a, b) Boolean {
-        println(1);
+            println("Values are not equal");
+            return false;
+        return true;
     }
-
-    method whileLoop() {
-        Int i = 0;
-        while (false) {
-            println(i);
-            i = i + 1;
-            if(i == 3) {
-            break;
+            println(a + " is not greater than " + b);
+            return false;
         }
+        println(i);
     }
 }
-
-    method ifElse(a) {
+            break;
+        }
+        println(a);
+            println("Value of a is negative");
+        } else {
+            println("Value of a is zero");
+        }
         println(1);
-    }
 
     method superMethod() Void {
         super.methodToOvverride();
-        println(1);
+        println("This is the super method");
     }
 
     method main() {
@@ -62,11 +59,14 @@ class TestClass {
         result = this.subtract(a, b);
         println(result);
 
-        result = this.multiply(a, b);
         println(result);
 
-        result = this.divide(a, b);
-        println(result);
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
+        println("Division result: " + result);
+
+        Boolean isEqual = this.isEqual(a, b);
+        Boolean isGreater = this.isGreater(a, b);
 
         this.whileLoop();
 
@@ -74,16 +74,16 @@ class TestClass {
 
         this.superMethod();
     }
-}
+        Int a = 10;
+        a = a + 1;
 
 class SubTestClass extends TestClass {
     methodToOverride() {
-        println(2);
-    }
+        println("This is the overridden method");
 
     method main() {
         super.main();
-        println(5);
+        println("Executing main methods through SubTestClass");
     }
 }
 
