@@ -31,11 +31,18 @@ class Parser:
         self.tokens = tokens
         self.position = 0
         
+    # Get next token function
     def get_next_token(self):
         if self.position < len(self.tokens):
             return self.tokens[self.position]
         else:
             raise Exception(f"Error getting next token: {self.position} and {self.position}")
+        
+    # Match token function
+    def match_token(self, token: Token):
+        rcv = self.get_next_token(self)
+        if not rcv is token:
+            raise Exception(f"Error matching token: {token} at position {self.position}")
         
     # Parsing functions for each production rule
     def type_parse(self):
@@ -85,12 +92,19 @@ class Parser:
         pass
     
     def class_def_parse(self):
-        pass
+        self.match_token(self, )
+        self.match_token(self, )
 
     # outer production rule is the program entry point
     def program_parse(self):
-        return Program(ClassDef(), Statement())
-            
+        classDef = self.class_def_parse(self)
+        statements = self.statement_parse(self)
+        return Program(classDef, statements)
+
+    # ATTENTION!
+    # self contains the tokens list and the position
+    # you can call self.get_next_token() to get the next token
+    # you can call self.match_token(token) to match a token
 
     # program ::= classdef* stmt+ 
 
