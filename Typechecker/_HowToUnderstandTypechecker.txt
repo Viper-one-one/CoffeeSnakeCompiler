@@ -1,6 +1,6 @@
 \\ Our typechecker will:
-    1) Accept subtyping - Bird has subtypes Duck, Ostrich, Parrot 
-    2) method/function overloading - Having two functions with same name but different parameters
+    1) Accept subtyping - Example: Bird has subtypes Duck, Ostrich, Parrot 
+    2) method/function overloading - Example: having two functions with same name but different parameters
     3) check if a variable is initialized before use 
     4) check if a void is used as a value
     5) check that a function returning non-void always returns something - int foo() {
@@ -11,12 +11,13 @@
                                                                           } // Definitely Returns + No Return = Maybe Return State
 
 
-\\ Type Theory Notation: Γ⊢ e1: number  Γ⊢e2: number    "The environment proves that e1 is of type number"
+\\ Type Theory Notation: Γ⊢ e1: int  Γ⊢e2: int    "The environment proves that e1 is of type int"
                          ----------------------------
-                             Γ⊢ e1 + e2: number
+                             Γ⊢ e1 + e2: int
 
 
 \\ Type Environments (Γ): A type environment will match types with their variables. Our program starts
                           with an empty {} environment until we declare variables. Those variables are
-                          then added to the environment, extending it.
+                          then added to the environment, extending it
+
 ​
