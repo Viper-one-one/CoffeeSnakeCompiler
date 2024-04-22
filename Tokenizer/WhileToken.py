@@ -9,4 +9,4 @@ class WhileToken(Token):
         return "WhileToken"
     
     def __hash__(self):
-        return 33
+        return 34

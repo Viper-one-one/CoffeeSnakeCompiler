@@ -1,3 +1,38 @@
+from Tokenizer.BooleanToken import BooleanToken
+from Tokenizer.AdditionToken import AdditionToken
+from Tokenizer.BreakToken import BreakToken
+from Tokenizer.ClassToken import ClassToken
+from Tokenizer.CommaToken import CommaToken
+from Tokenizer.DivisionToken import DivisionToken
+from Tokenizer.DotToken import DotToken
+from Tokenizer.ElseToken import ElseToken
+from Tokenizer.ExtendsToken import ExtendsToken
+from Tokenizer.FalseToken import FalseToken
+from Tokenizer.IdentifierToken import IdentifierToken
+from Tokenizer.IfToken import IfToken
+from Tokenizer.InitToken import InitToken
+from Tokenizer.IntegerLiteralToken import IntegerLiteralToken
+from Tokenizer.IntToken import IntToken
+from Tokenizer.LeftCurlyBraceToken import LeftCurlyBraceToken
+from Tokenizer.LeftParenToken import LeftParenToken
+from Tokenizer.MethodToken import MethodToken
+from Tokenizer.MultiplicationToken import MultiplicationToken
+from Tokenizer.NewToken import NewToken
+from Tokenizer.PrintlnToken import PrintlnToken
+from Tokenizer.ReturnToken import ReturnToken
+from Tokenizer.RightCurlyBraceToken import RightCurlyBraceToken
+from Tokenizer.RightParenToken import RightParenToken
+from Tokenizer.SemiColonToken import SemiColonToken
+from Tokenizer.SingleEqualsToken import SingleEqualsToken
+from Tokenizer.StringLiteralToken import StringLiteralToken
+from Tokenizer.SubtractionToken import SubtractionToken
+from Tokenizer.SuperToken import SuperToken
+from Tokenizer.ThisToken import ThisToken
+from Tokenizer.TrueToken import TrueToken
+from Tokenizer.VoidToken import VoidToken
+from Tokenizer.WhileToken import WhileToken
+from Tokenizer.SymbolPair import SymbolPair
+from Tokenizer.VarToken import VarToken
 from Parser.TypesAndNames.MethodName import MethodName
 from Parser.TypesAndNames.ClassName import ClassName
 from Parser.PrimaryExp import IntegerLiteral
@@ -6,21 +41,17 @@ from Parser.Constructor import Constructor
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
 from Parser.TypesAndNames.Type import VoidType
-from Parser.TypesAndNames.Type import classname
-from Parser.PrimaryExp import PrimaryExp
 from Parser.MethodDef import MethodDef
-from Parser.Statement import Statement
 from Parser.PrimaryExp import Variable
 from Tokenizer._Lexer import Tokenizer
 from Parser.ClassDef import ClassDef
-from Parser.CommaExp import CommaExp
+# from Parser.CommaExp import CommaExp
 from Parser.CallExp import CallExp
 from Parser.MultExp import MultExp
 from Parser.Program import Program
 from Tokenizer.Token import Token
 from Parser.Vardec import Vardec
 from Parser.AddExp import AddExp
-from Parser.Exp import Exp
 
 class Parser:
     tokens: list
@@ -34,29 +65,42 @@ class Parser:
     # Get next token function
     def get_next_token(self):
         if self.position < len(self.tokens):
-            return self.tokens[self.position]
+            return self.tokens[self.position]  # Assuming tokens is a list of token instances
         else:
-            raise Exception(f"Error getting next token: {self.position} and {self.position}")
+            raise Exception(f"Error getting next token: end of input reached at position {self.position}")
+            
         
     # Match token function
-    def match_token(self, token: Token):
-        rcv = self.get_next_token(self)
-        if not rcv is token:
-            raise Exception(f"Error matching token: {token} at position {self.position}")
+    def match(self, expected_token: Token):
+        current_token = self.get_next_token()
+        if isinstance(expected_token, type):
+            # Match the current token to expected token type
+            if isinstance(current_token, expected_token):
+                self.position += 1
+                return current_token
+            else:
+                raise ValueError(f"Syntax error: expected {expected_token}, but found {type(current_token).__name__}")
+        else:
+            # Match the current token to expected token instance
+            if current_token == expected_token:
+                self.position += 1
+                return current_token
+            else:
+                raise ValueError(f"Syntax error: expected {expected_token}, but found {current_token}")
         
     # Parsing functions for each production rule
     def type_parse(self):
         token = self.get_next_token()
-        type_node = None
         match token:
-            case IntType():
-                type_node = IntType()
-            case BooleanType():
-                type_node = BooleanType()
-            case VoidType():
-                type_node = VoidType()
-            case classname():
-                type_node = classname()
+            case IntToken():
+                self.position += 1
+                return IntType
+            case BooleanToken():
+                self.position += 1
+                return BooleanType
+            case VoidToken():
+                self.position += 1
+                return VoidType
             case _:
                 raise Exception(f"Error parsing type: {token} at position {self.position}")
                 
@@ -79,8 +123,12 @@ class Parser:
     def exp_parse(self):
         pass
 
-    def var_dec_parse(self):
-        pass
+    def vardec_parse(self):
+        var_type = self.type_parse()
+        var_name = self.match(IdentifierToken)
+        end = self.match(SemiColonToken)
+
+        return Vardec(var_type, Variable(var_name.name, var_type))
         
     def statement_parse(self):
         pass
@@ -92,8 +140,7 @@ class Parser:
         pass
     
     def class_def_parse(self):
-        self.match_token(self, )
-        self.match_token(self, )
+        self.match(ClassToken) 
 
     # outer production rule is the program entry point
     def program_parse(self):

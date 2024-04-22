@@ -9,4 +9,4 @@ class SubtractionToken(Token):
         return "SubtractionToken"
 
     def __hash__(self):
-        return 27
+        return 28

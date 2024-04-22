@@ -31,3 +31,248 @@ The Parser is a recursive descent parser and will parse the input file and creat
 The rules for the AST and recursive descent are held in the EBNF grammar.
 
 We do not support strings or boolean operators, see the grammar for more information.
+
+
+Scala example (added by Thomas to understand):
+
+package complex.parser
+
+import complex.tokenizer._
+
+object ComplexParser {
+  import Parser._
+
+  // Define a type alias for Parser[A]
+  type P[+A] = Parser[A]
+
+  // Define parsers for various language constructs
+
+  // Parser for integer literals
+  lazy val num: P[Int] = lift({ case IntLiteralToken(i) => i }, "int literal")
+
+  // Parser for identifiers
+  lazy val identifier: P[String] = lift({ case IdentifierToken(s) => s }, "identifier")
+
+  // Parser for variables
+  lazy val variable: P[Variable] = identifier ^^ (Variable.apply _)
+
+  // Parser for class names
+  lazy val className: P[ClassName] = identifier ^^ (ClassName.apply _)
+
+  // Parser for function parameters
+  lazy val param: P[Param] = theType ~ variable ^^ { case t ~ v => Param(t, v) }
+
+  // Parser for comma-separated parameters
+  def commaSep[A](p: => P[A]): Parser[List[A]] = {
+    repsep(p, token(CommaToken))
+  }
+
+  // Parser for sequences of parameters
+  lazy val params: P[Seq[Param]] = commaSep(param)
+
+  // Helper method for parsing constructs within delimiters
+  def inSomething[A](
+    left: => P[Unit],
+    thing: => P[A],
+    right: => P[Unit]): P[A] = {
+    left ~ thing ~ right ^^ { case _ ~ a ~ _ => a }
+  }
+
+  // Parser for expressions within parentheses
+  def inParens[A](p: => P[A]): P[A] = {
+    inSomething(token(LeftParenToken), p, token(RightParenToken))
+  }
+
+  // Parser for expressions within square brackets
+  def inSquareBrackets[A](p: => P[A]): P[A] = {
+    inSomething(token(LeftSquareBracketToken), p, token(RightSquareBracketToken))
+  }
+
+  // Parser for expressions within curly brackets
+  def inCurlyBrackets[A](p: => P[A]): P[A] = {
+    inSomething(token(LeftCurlyBracketToken), p, token(RightCurlyBracketToken))
+  }
+
+  // Parser for primary types
+  lazy val primaryType: P[Type] = {
+    (token(IntToken) ^^^ IntType) |
+    (token(BoolToken) ^^^ BoolType) |
+    (className ^^ (ClassType.apply _)) |
+    inParens(theType)
+  }
+
+  // Parser for array types
+  lazy val arrayType: P[Type] = {
+    primaryType ~ rep(token(LeftSquareBracketToken) ~ token(RightSquareBracketToken)) ^^
+    { case t ~ brackets =>
+      brackets.foldLeft(t)((accum, _) => ArrayType(accum)) }
+  }
+
+  // Parser for function types
+  lazy val functionType: P[Type] = {
+    rep(inParens(types) ~ token(ArrowToken)) ~ arrayType ^^
+    { case paramGroups ~ returnType =>
+      paramGroups.foldRight(returnType)((curGroup, accum) =>
+        FunctionType(curGroup._1, accum)) }
+  }
+
+  // Parser for types
+  lazy val theType: P[Type] = functionType
+
+  // Parser for sequences of types
+  lazy val types: P[Seq[Type]] = commaSep(theType)
+
+  // Parser for sequences of expressions
+  lazy val exps: P[Seq[Exp]] = commaSep(exp)
+
+  // Parser for primary expressions
+  lazy val primaryExp: P[Exp] = {
+    // Various cases for primary expressions
+  }
+
+  // Parser for expressions involving dot operators
+  lazy val dotExp: P[Exp] = {
+    // Parsing expressions with dot operators
+  }
+
+  // Sealed trait representing either a function call or array access
+  sealed trait CallOrArrayKind {
+    def toExp(base: Exp): Exp
+  }
+
+  // Parser for function calls or array accesses
+  lazy val callOrArrayKind: P[CallOrArrayKind] = {
+    // Parsing function calls or array accesses
+  }
+
+  // Parser for expressions involving function calls or array accesses
+  lazy val callOrArrayExp: P[Exp] = {
+    // Parsing expressions involving function calls or array accesses
+  }
+
+  // Parser for unary operators
+  lazy val unop: P[Unop] = {
+    // Parsing unary operators
+  }
+
+  // Parser for unary expressions
+  lazy val unopExp: P[Exp] = {
+    // Parsing unary expressions
+  }
+
+  // Parser for cast expressions
+  lazy val castExp: P[Exp] = {
+    // Parsing cast expressions
+  }
+
+  // Parser for binary operations
+  def binop(levelUp: => P[Exp], bop: => P[Bop]): P[Exp] = {
+    // Parsing binary operations
+  }
+
+  // Parser for multiplication expressions
+  lazy val multExp: P[Exp] = {
+    // Parsing multiplication expressions
+  }
+
+  // Parser for addition expressions
+  lazy val addExp: P[Exp] = {
+    // Parsing addition expressions
+  }
+
+  // Parser for relational expressions
+  lazy val relationalExp: P[Exp] = {
+    // Parsing relational expressions
+  }
+
+  // Sealed trait representing various kinds of equality operations
+  sealed trait EqualsKind {
+    def toExp(left: Exp): Exp
+  }
+
+  // Parser for equality operations
+  lazy val equalsExp: P[Exp] = {
+    // Parsing equality operations
+  }
+
+  // Parser for logical AND expressions
+  lazy val andExp: P[Exp] = {
+    // Parsing logical AND expressions
+  }
+
+  // Parser for logical OR expressions
+  lazy val orExp: P[Exp] = {
+    // Parsing logical OR expressions
+  }
+
+  // Parser for function expressions
+  lazy val functionExp: P[Exp] = {
+    // Parsing function expressions
+  }
+
+  // Parser for expressions
+  lazy val exp: P[Exp] = functionExp
+
+  // Parser for left-hand sides of assignments
+  lazy val lhs: P[Lhs] = {
+    // Parsing left-hand sides of assignments
+  }
+
+  // Parser for variable declaration statements
+  lazy val vardecStmt: P[VardecStmt] = {
+    // Parsing variable declaration statements
+  }
+
+  // Parser for assignment statements
+  lazy val assignStmt: P[AssignStmt] = {
+    // Parsing assignment statements
+  }
+
+  // Parser for if statements
+  lazy val ifStmt: P[IfStmt] = {
+    // Parsing if statements
+  }
+
+  // Parser for while statements
+  lazy val whileStmt: P[WhileStmt] = {
+    // Parsing while statements
+  }
+
+  // Parser for return statements
+  lazy val returnStmt: P[ReturnStmt] = {
+    // Parsing return statements
+  }
+
+  // Parser for print statements
+  lazy val printStmt: P[PrintStmt] = {
+    // Parsing print statements
+  }
+
+  // Parser for sequences of statements
+  lazy val stmts: P[Seq[Stmt]] = rep(stmt)
+
+  // Parser for statements
+  lazy val stmt: P[Stmt] = {
+    // Parsing statements
+  }
+
+  // Parser for constructor definitions
+  lazy val consDef: P[ConsDef] = {
+    // Parsing constructor definitions
+  }
+
+  // Parser for method definitions
+  lazy val methodDef: P[MethodDef] = {
+    // Parsing method definitions
+  }
+
+  // Parser for class definitions
+  lazy val classDef: P[ClassDef] = {
+    // Parsing class definitions
+  }
+
+  // Parser for the entire program
+  lazy val program: P[Program] = {
+    // Parsing the entire program
+  }
+} // ComplexParser
