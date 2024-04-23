@@ -59,10 +59,14 @@ class Parser:
                 type_node = classname()
             case _:
                 raise Exception(f"Error parsing type: {token} at position {self.position}")
-                
+        self.position += 1
+        return type_node        
         
     def comma_exp_parse(self):
-        pass
+        token = self.get_next_token()
+        comma_exp_token = None
+        match token:
+            case 
         
     def primary_exp_parse(self):
         pass
