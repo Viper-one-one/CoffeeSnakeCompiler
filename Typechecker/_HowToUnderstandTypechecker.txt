@@ -9,15 +9,32 @@
                                                                                 {return 3;} // Def
                                                                                 else {x = 3;} // No
                                                                           } // Definitely Returns + No Return = Maybe Return State
+\\ Type Theory Stuff: 
+
+    \\ Notation: Γ⊢ e1: int  Γ⊢e2: int    ----> "The environment proves that e1 is of type int"
+              ----------------------------
+                    Γ⊢ e1 + e2: int
 
 
-\\ Type Theory Notation: Γ⊢ e1: int  Γ⊢e2: int    "The environment proves that e1 is of type int"
-                         ----------------------------
-                             Γ⊢ e1 + e2: int
+    \\ Environments (Γ): A type environment will match types with their variables. Our program starts
+                              with an empty {} environment until we declare variables. Those variables are
+                              then added to the environment, extending it
+
+\\ Other Information: 
+
+    \\ Methods Type Checking: method add(a, b) Int { 
+                               return a + b; // Type checking error if any type besides Int
+                            }
+        
+        
+    \\ Method Void Return Type Checking:   method superMethod() Void {
+                                        super.methodToOvverride();
+                                        println("This is the super method"); // Type checking error if returns anything
+                                         }
 
 
-\\ Type Environments (Γ): A type environment will match types with their variables. Our program starts
-                          with an empty {} environment until we declare variables. Those variables are
-                          then added to the environment, extending it
+    \\ To handle overloading, Professor recommends using the function's name and it's sequence of types
+    to determine if functions with same name are truly different. We can assume that the user will 
+    specify the types in the parameters
 
 ​

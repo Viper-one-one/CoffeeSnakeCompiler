@@ -13,15 +13,25 @@ class Typechecker:
     program: Program
     envSpace: TypeEnvironment
     
-    # Constructor, initial environment space 
-    def __init__(self, envSpace):
+    # Constructor, initial env?
+    def __init__(self, envSpace: TypeEnvironment):
         self.envSpace = envSpace
 
+    # program ::= classdef* stmt+
     def typecheckProgram(self, program: Program):
         self.program = program
+        # *Should begin type checking the classdefs/stmts in the program with initial empty env here*
         pass
 
-    # Obtain the type of an expression, i.e: (1 + 2). Our grammar does not support boolean operators.
+    # methoddef ::= 'method' methodname '(' comma_vardec ')' type '{' stmt* '}'
+    def typecheckMethod(self):
+        pass
+
+    # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
+    def typecheckStmt(self):
+        pass
+
+    # Obtain the type of an expression, i.e: 1 + 2. Return that type.
     def typeof(self, exp: Exp) -> Type:
         match exp:
             case AddExp():
@@ -30,9 +40,9 @@ class Typechecker:
             case MultExp():
                 return IntType
             
-            # case for bool type
+            # case for bool type go here?
 
-            # case for void type
+            # case for void type go here?
 
             
 
