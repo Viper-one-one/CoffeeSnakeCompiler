@@ -1,37 +1,40 @@
+from Parser.Exp import Exp
+from Parser.Exp import AddExp
+from Parser.MultExp import MultExp
 from Parser.Program import Program
 from Parser.TypesAndNames import Type
+from Parser.TypesAndNames.Type import IntType
+from Parser.TypesAndNames.Type import BooleanType
+from Parser.TypesAndNames.Type import VoidType
+from Parser.TypesAndNames.Type import classname
 from Typechecker.TypeEnvironment import TypeEnvironment
 
 class Typechecker:
     program: Program
     envSpace: TypeEnvironment
     
-    # Constructor
-    def __init__(self, program, envSpace):
-        self.program = program
+    # Constructor, initial environment space 
+    def __init__(self, envSpace):
         self.envSpace = envSpace
-    
-    # Should be the first function called, then call other typeCheck functions as needed
-    def typecheckProgram():
+
+    def typecheckProgram(self, program: Program):
+        self.program = program
         pass
 
-    def typecheckClassDef():
-        pass
-    
-    def typecheckMethodDef():
-        pass
+    # Obtain the type of an expression, i.e: (1 + 2). Our grammar does not support boolean operators.
+    def typeof(self, exp: Exp) -> Type:
+        match exp:
+            case AddExp():
+                return IntType
+            
+            case MultExp():
+                return IntType
+            
+            # case for bool type
 
-    def typecheckStmt():
-        pass
+            # case for void type
 
-    def typeOf(): # Obtain the type of an exp?
-        pass
-    
-    # Check if variable has been declared somewhere in scope/env
-    def typeOfVariable(self, name):
-        if self.name in self.envSpace:
-            pass
-
+            
 
     
     

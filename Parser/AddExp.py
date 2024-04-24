@@ -2,7 +2,7 @@ from abc import ABC
 from Parser.MultExp import MultExp
 
 class AddExp(ABC):
-    raise NotImplementedError("AddExp is an abstract class, it should not be instantiated")
+    pass
 
 class AdditionExp(AddExp):
     left: MultExp
