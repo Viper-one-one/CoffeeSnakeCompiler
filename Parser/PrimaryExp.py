@@ -24,6 +24,17 @@ class IntegerLiteral(PrimaryExp):
     def __init__(self, value: int):
         self.value = value
 
+class StringLiteral(PrimaryExp):
+    value: str
+    
+    def __init__(self, value: str):
+        self.value = value
+
+    def __eq__(self, other):
+        if isinstance(other, StringLiteral):
+            return self.value == other.value
+        return False
+
 class ParenExp(PrimaryExp):
     inner: Exp
     

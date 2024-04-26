@@ -43,9 +43,10 @@ from Parser.TypesAndNames.Type import BooleanType
 from Parser.TypesAndNames.Type import VoidType
 from Parser.MethodDef import MethodDef
 from Parser.PrimaryExp import Variable
+from Parser.PrimaryExp import StringLiteral
 from Tokenizer._Lexer import Tokenizer
 from Parser.ClassDef import ClassDef
-# from Parser.CommaExp import CommaExp
+from Parser.CommaExp import CommaExp
 from Parser.CallExp import CallExp
 from Parser.MultExp import MultExp
 from Parser.Program import Program
@@ -109,7 +110,33 @@ class Parser:
         pass
         
     def primary_exp_parse(self):
-        pass
+        token = self.get_next_token()
+
+        if isinstance(token, IdentifierToken):
+            return Variable(token.value)
+        elif isinstance(token, StringLiteralToken):
+            string_value = token.value
+            self.match(StringLiteralToken)  # Consume the token
+            return StringLiteral(string_value)  # Return a StringLiteral object with the extracted value
+        elif isinstance(token, IntegerLiteralToken):
+            return self.match(IntegerLiteralToken)
+        elif isinstance(token, LeftParenToken):
+            self.match(LeftParenToken)
+            exp = self.exp_parse() 
+            self.match(RightParenToken)
+            return exp
+        elif isinstance(token, ThisToken):
+            return self.match(ThisToken)
+        elif isinstance(token, TrueToken):
+            return self.match(TrueToken)
+        elif isinstance(token, FalseToken):
+            return self.match(FalseToken)
+        elif isinstance(token, PrintlnToken):
+            return self.match(PrintlnToken)
+        elif isinstance(token, NewToken):
+            return self.match(NewToken)
+        else:
+            raise ValueError(f"Unexpected token: {token}")
         
     def call_exp_parse(self):
         pass
@@ -126,21 +153,100 @@ class Parser:
     def vardec_parse(self):
         var_type = self.type_parse()
         var_name = self.match(IdentifierToken)
-        end = self.match(SemiColonToken)
+        self.match(SemiColonToken)
 
         return Vardec(var_type, Variable(var_name.name, var_type))
+    
+    def assignment_parse(self):
+        self.match(IdentifierToken)
+        self.match(SingleEqualsToken)
+        self.exp_parse()
+        self.match(SemiColonToken)
         
     def statement_parse(self):
-        pass
+         # Check the type of statement and parse accordingly
+        if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
+            # Variable declaration statement
+            return self.vardec_parse()
+        elif self.get_next_token() == IdentifierToken:
+            # Assignment statement
+            return self.assignment_parse()
+        elif self.get_next_token() == WhileToken:
+            # While loop statement
+            return self.while_parse()
+        elif self.get_next_token() == BreakToken:
+            # Break statement
+            return self.break_parse()
+        elif self.get_next_token() == ReturnToken:
+            # Return statement
+            return self.return_parse()
+        elif self.get_next_token() == IfToken:
+            # If statement
+            return self.if_parse()
+        elif self.get_next_token() == LeftCurlyBraceToken:
+            # Block statement
+            return self.block_parse()
+        else:
+            # If none of the above matches, raise an exception or handle accordingly
+            raise ValueError(f"Unexpected token: {self.get_next_token()}")
         
     def comma_vardec_parse(self):
-        pass
+        var_decs = []
+
+        var_dec = self.vardec_parse()
+        var_decs.append(var_dec)
+
+        # Check for additional variable declarations separated by commas
+        while self.get_next_token() == CommaToken:
+            self.match(CommaToken)  # Consume the comma token
+            # Parse the next variable declaration
+            var_dec = self.vardec_parse()
+            var_decs.append(var_dec)
+
+        return var_decs
+
         
     def method_def_parse(self):
-        pass
+        self.match(MethodToken)
+        self.match(MethodName)
+        self.match(LeftParenToken)
+        self.comma_vardec_parse()
+        self.match(RightParenToken)
+        self.type_parse()
+        self.match(LeftCurlyBraceToken)
+
+    def constructor_parse(self):
+        self.match(InitToken)
+        self.match(LeftParenToken)
+
+        #comma_vardec
+        self.match(RightParenToken)
     
+
+    #classdef ::= `class` classname [`extends` classname] `{`
+    #  (vardec `;`)*
+    #  constructor
+    #  methoddef*
+    #  `}`
+
     def class_def_parse(self):
-        self.match(ClassToken) 
+        self.match(ClassToken)
+        self.match(IdentifierToken)
+        # needs an optional extends token
+        if self.get_next_token() == ExtendsToken:
+            self.match(ExtendsToken)
+            superclass_name_token = self.match(IdentifierToken)
+            # superclass_name = superclass_name_token.name # not sure why we're getting this..
+        self.match(LeftCurlyBraceToken)
+
+        while self.get_next_token() != RightCurlyBraceToken:
+            # Parse variable declarations if encountered
+            if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
+                self.vardec_parse()
+                self.match(SemiColonToken)
+        # constructor
+
+        self.match(RightCurlyBraceToken)
 
     # outer production rule is the program entry point
     def program_parse(self):

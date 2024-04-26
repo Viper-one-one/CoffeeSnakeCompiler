@@ -29,6 +29,7 @@ from Tokenizer.RightCurlyBraceToken import RightCurlyBraceToken
 from Tokenizer.RightParenToken import RightParenToken
 from Tokenizer.SemiColonToken import SemiColonToken
 from Tokenizer.SingleEqualsToken import SingleEqualsToken
+from Tokenizer.StringLiteralToken import StringLiteralToken
 from Tokenizer.SubtractionToken import SubtractionToken
 from Tokenizer.SuperToken import SuperToken
 from Tokenizer.ThisToken import ThisToken
@@ -43,6 +44,7 @@ from Parser.TypesAndNames.MethodName import MethodName
 from Parser.Vardec import Vardec
 from Parser._Parser import Parser
 from Parser.PrimaryExp import Variable
+from Parser.PrimaryExp import StringLiteral
 
 
 # def testClassDefWithExtends():
@@ -69,3 +71,11 @@ def testVardec():
     assert expected_vardec.varType == vardec.varType
     assert expected_vardec.var.name == vardec.var.name
     assert expected_vardec.var.varType == vardec.var.varType
+
+def testPrimaryString():
+    code = [StringLiteralToken("hello")]
+    parser = Parser(code)
+    string_exp = parser.primary_exp_parse()
+
+    expected_string = StringLiteral("hello")
+    assert expected_string == string_exp
