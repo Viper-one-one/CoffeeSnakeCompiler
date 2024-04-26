@@ -44,6 +44,11 @@ from Parser.TypesAndNames.Type import VoidType
 from Parser.MethodDef import MethodDef
 from Parser.PrimaryExp import Variable
 from Parser.PrimaryExp import StringLiteral
+from Parser.PrimaryExp import ThisExp
+from Parser.PrimaryExp import TrueExp
+from Parser.PrimaryExp import FalseExp
+from Parser.PrimaryExp import PrintlnExp
+from Parser.PrimaryExp import NewObjectExp
 from Tokenizer._Lexer import Tokenizer
 from Parser.ClassDef import ClassDef
 from Parser.CommaExp import CommaExp
@@ -113,28 +118,34 @@ class Parser:
         token = self.get_next_token()
 
         if isinstance(token, IdentifierToken):
+            self.match(VarToken)
             return Variable(token.value)
         elif isinstance(token, StringLiteralToken):
-            string_value = token.value
             self.match(StringLiteralToken)  # Consume the token
-            return StringLiteral(string_value)  # Return a StringLiteral object with the extracted value
+            return StringLiteral(token.value)  # Return a StringLiteral object with the extracted value
         elif isinstance(token, IntegerLiteralToken):
-            return self.match(IntegerLiteralToken)
+            self.match(IntegerLiteralToken)  # Consume the token
+            return IntegerLiteral(token.value) 
         elif isinstance(token, LeftParenToken):
             self.match(LeftParenToken)
             exp = self.exp_parse() 
             self.match(RightParenToken)
             return exp
         elif isinstance(token, ThisToken):
-            return self.match(ThisToken)
+            self.match(ThisToken)
+            return ThisExp()
         elif isinstance(token, TrueToken):
-            return self.match(TrueToken)
+            self.match(TrueToken)
+            return TrueExp()
         elif isinstance(token, FalseToken):
-            return self.match(FalseToken)
+            self.match(FalseToken)
+            return FalseExp()
         elif isinstance(token, PrintlnToken):
-            return self.match(PrintlnToken)
+            self.match(PrintlnToken)
+            return PrintlnExp()
         elif isinstance(token, NewToken):
-            return self.match(NewToken)
+            self.match(NewToken)
+            return NewObjectExp() # needs more logic
         else:
             raise ValueError(f"Unexpected token: {token}")
         

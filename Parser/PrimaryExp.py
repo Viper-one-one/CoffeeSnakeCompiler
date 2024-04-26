@@ -24,6 +24,11 @@ class IntegerLiteral(PrimaryExp):
     def __init__(self, value: int):
         self.value = value
 
+    def __eq__(self, other):
+        if isinstance(other, IntegerLiteral):
+            return self.value == other.value
+        return False
+
 class StringLiteral(PrimaryExp):
     value: str
     
@@ -45,9 +50,13 @@ class ThisExp(PrimaryExp):
     def __init__(self):
         pass
 
+    def __eq__(self, other):
+        return isinstance(other, ThisExp)
+
 class TrueExp(PrimaryExp):
     def __init__(self):
         pass
+    
 
 class FalseExp(PrimaryExp):
     def __init__(self):

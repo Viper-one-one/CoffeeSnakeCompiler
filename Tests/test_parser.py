@@ -45,7 +45,8 @@ from Parser.Vardec import Vardec
 from Parser._Parser import Parser
 from Parser.PrimaryExp import Variable
 from Parser.PrimaryExp import StringLiteral
-
+from Parser.PrimaryExp import IntegerLiteral
+from Parser.PrimaryExp import ThisExp
 
 # def testClassDefWithExtends():
 #     code = """
@@ -79,3 +80,19 @@ def testPrimaryString():
 
     expected_string = StringLiteral("hello")
     assert expected_string == string_exp
+
+def testPrimaryInt():
+    code = [IntegerLiteralToken(2)]
+    parser = Parser(code)
+    int_exp = parser.primary_exp_parse()
+
+    expected_int = IntegerLiteral(2)
+    assert expected_int == int_exp
+
+def testPrimarySingleToken():
+    code = [ThisToken()]
+    parser = Parser(code)
+    single_exp = parser.primary_exp_parse()
+
+    expected_exp = ThisExp()
+    assert expected_exp == single_exp
