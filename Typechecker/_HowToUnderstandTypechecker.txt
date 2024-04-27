@@ -1,4 +1,4 @@
-\\ Our typechecker will:
+\\ We are building a static typechecker that will:
     1) Accept subtyping - Example: Bird has subtypes Duck, Ostrich, Parrot 
     2) method/function overloading - Example: having two functions with same name but different parameters
     3) check if a variable is initialized before use 
@@ -11,14 +11,14 @@
                                                                           } // Definitely Returns + No Return = Maybe Return State
 \\ Type Theory Stuff: 
 
-    \\ Notation: Γ⊢ e1: int  Γ⊢e2: int    ----> "The environment proves that e1 is of type int"
+    \\ Notation: Γ ⊢ e1: int  Γ ⊢e2: int    ----> "The environment proves that e1 is of type int, same for e2"
               ----------------------------
-                    Γ⊢ e1 + e2: int
+                    Γ ⊢ e1 + e2: int       ----> "Both e1 and e2 are of type int, thus they result in an int"
 
 
     \\ Environments (Γ): A type environment will match types with their variables. Our program starts
-                              with an empty {} environment until we declare variables. Those variables are
-                              then added to the environment, extending it
+                              with an empty environment until we declare variables. Those variables are
+                              assigned a type and then added to the type environment. 
 
 \\ Other Information: 
 
@@ -27,9 +27,9 @@
                             }
         
         
-    \\ Method Void Return Type Checking:   method superMethod() Void {
-                                        super.methodToOvverride();
-                                        println("This is the super method"); // Type checking error if returns anything
+    \\ Method Void Return Type Checking:  method superMethod() Void {
+                                            super.methodToOvverride();
+                                            println("This is the super method"); // Type checking error if returns anything
                                          }
 
 
