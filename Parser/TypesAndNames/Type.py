@@ -15,6 +15,6 @@ class VoidType(Type):
     def __init__(self) -> None:
         pass
 
-class classname(Type):
+class ClassName(Type):
     def __init__(self) -> None:
         pass

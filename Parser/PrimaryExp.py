@@ -1,11 +1,14 @@
 from abc import ABC
+from typing import Union
 from Parser.TypesAndNames.Type import Type
 from Parser.CommaExp import CommaExp
 from Parser.TypesAndNames.ClassName import ClassName
+
+# Importing Exp here to resolve circular import
 from Parser.Exp import Exp
 
 class PrimaryExp(ABC):
-    raise NotImplementedError("PrimaryExp is an abstract class, it should not be instantiated")
+    pass  # Simply have it do nothing if you don't want it instantiated
 
 class Variable(PrimaryExp):
     name: str
@@ -21,26 +24,46 @@ class IntegerLiteral(PrimaryExp):
     def __init__(self, value: int):
         self.value = value
 
+    def __eq__(self, other):
+        if isinstance(other, IntegerLiteral):
+            return self.value == other.value
+        return False
+
+class StringLiteral(PrimaryExp):
+    value: str
+    
+    def __init__(self, value: str):
+        self.value = value
+
+    def __eq__(self, other):
+        if isinstance(other, StringLiteral):
+            return self.value == other.value
+        return False
+
 class ParenExp(PrimaryExp):
     inner: Exp
     
-    def __int__(self, inner: Exp):
+    def __init__(self, inner: Exp):
         self.inner = inner
 
 class ThisExp(PrimaryExp):
     def __init__(self):
         pass
 
+    def __eq__(self, other):
+        return isinstance(other, ThisExp)
+
 class TrueExp(PrimaryExp):
     def __init__(self):
         pass
+    
 
 class FalseExp(PrimaryExp):
     def __init__(self):
         pass
 
 class PrintlnExp(PrimaryExp):
-    expression:  Exp
+    expression: Exp
     
     def __init__(self, expression: Exp):
         self.expression = expression

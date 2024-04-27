@@ -8,4 +8,4 @@ class TrueToken(Token):
         return "TrueToken"
 
     def __hash__(self):
-        return 30
+        return 31

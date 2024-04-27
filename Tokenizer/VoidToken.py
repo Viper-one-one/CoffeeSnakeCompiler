@@ -8,4 +8,4 @@ class VoidToken(Token):
         return "VoidToken"
 
     def __hash__(self):
-        return 32
+        return 33

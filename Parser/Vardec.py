@@ -7,4 +7,5 @@ class Vardec:
     var: Variable
     
     def __init__(self, varType: Type, var: Variable):
+        self.varType = varType
         self.var = var
