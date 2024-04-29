@@ -40,11 +40,16 @@ class StringLiteral(PrimaryExp):
             return self.value == other.value
         return False
 
+    def __str__(self):
+        return f"StringLiteral({self.value})"
+
 class ParenExp(PrimaryExp):
     inner: Exp
     
     def __init__(self, inner: Exp):
         self.inner = inner
+
+    
 
 class ThisExp(PrimaryExp):
     def __init__(self):

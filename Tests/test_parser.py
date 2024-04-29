@@ -47,6 +47,8 @@ from Parser.PrimaryExp import Variable
 from Parser.PrimaryExp import StringLiteral
 from Parser.PrimaryExp import IntegerLiteral
 from Parser.PrimaryExp import ThisExp
+from Parser.PrimaryExp import TrueExp
+from Parser.CommaExp import CommaExp
 
 # def testClassDefWithExtends():
 #     code = """
@@ -96,3 +98,27 @@ def testPrimarySingleToken():
 
     expected_exp = ThisExp()
     assert expected_exp == single_exp
+
+def testCommaExp():
+    code = [
+    IntegerLiteralToken(2), 
+    CommaToken(), 
+    StringLiteralToken("hello"), 
+    CommaToken(), 
+    TrueToken(), 
+    CommaToken(), 
+    ThisToken()
+    ] # 2, "hello", true, this
+    parser = Parser(code)
+    comma_exp = parser.comma_exp_parse()
+
+    expected_exp = CommaExp([
+        IntegerLiteral(2), 
+        StringLiteral("hello"), 
+        TrueExp(), 
+        ThisExp()
+    ])
+    print("CommaExp", comma_exp)
+    print("Expected", expected_exp)
+
+    assert comma_exp == expected_exp

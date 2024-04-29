@@ -33,6 +33,8 @@ from Tokenizer.VoidToken import VoidToken
 from Tokenizer.WhileToken import WhileToken
 from Tokenizer.SymbolPair import SymbolPair
 from Tokenizer.VarToken import VarToken
+from Tokenizer.Token import Token
+from Tokenizer._Lexer import Tokenizer
 from Parser.TypesAndNames.MethodName import MethodName
 from Parser.TypesAndNames.ClassName import ClassName
 from Parser.PrimaryExp import IntegerLiteral
@@ -49,15 +51,15 @@ from Parser.PrimaryExp import TrueExp
 from Parser.PrimaryExp import FalseExp
 from Parser.PrimaryExp import PrintlnExp
 from Parser.PrimaryExp import NewObjectExp
-from Tokenizer._Lexer import Tokenizer
 from Parser.ClassDef import ClassDef
 from Parser.CommaExp import CommaExp
 from Parser.CallExp import CallExp
-from Parser.MultExp import MultExp
+from Parser.MultExp import MultiplicationExp
+from Parser.MultExp import DivisionExp
 from Parser.Program import Program
-from Tokenizer.Token import Token
 from Parser.Vardec import Vardec
-from Parser.AddExp import AddExp
+from Parser.AddExp import AdditionExp
+from Parser.AddExp import SubtractionExp
 
 class Parser:
     tokens: list
@@ -112,7 +114,18 @@ class Parser:
                 
         
     def comma_exp_parse(self):
-        pass
+        expressions = []
+        while self.position < len(self.tokens):
+            expression = self.exp_parse()
+            expressions.append(expression)
+            # Check if there's a comma after the expression
+            if isinstance(self.get_next_token(), CommaToken):
+                self.match(CommaToken)  # Consume the comma token
+            else:
+                break  # Exit the loop if there are no more tokens
+                
+        return CommaExp(expressions)
+
         
     def primary_exp_parse(self):
         token = self.get_next_token()
@@ -150,16 +163,70 @@ class Parser:
             raise ValueError(f"Unexpected token: {token}")
         
     def call_exp_parse(self):
-        pass
+        # Parse the primary expression
+        exp = self.primary_exp_parse()
+        
+        while isinstance(self.get_next_token(), DotToken):
+            # Consume the dot token
+            self.match(DotToken)
+            
+            # Parse the method name
+            method_name = self.match(IdentifierToken)
+            
+            # Parse the arguments
+            self.match(LeftParenToken)
+            args = self.comma_exp_parse()
+            self.match(RightParenToken)
+            
+            # Create a CallExp node with the parsed expression, method name, and arguments
+            exp = CallExp(exp, method_name.value, args)
+        
+        return exp
         
     def mult_exp_parse(self):
-        pass
+        left_exp = self.call_exp_parse()
+        operator = self.get_next_token()
+
+        while True:
+            # Check if the next token is either '+' or '-'
+            if operator in (MultiplicationToken, DivisionToken):
+                # Consume the operator token
+                self.position += 1
+                right_exp = self.call_exp_parse()
+
+                if operator == MultiplicationToken:
+                    left_exp = MultiplicationExp(left_exp, right_exp)
+                else:  # operator == SubtractionToken
+                    # Represent subtraction as negative addition
+                    left_exp = DivisionExp(left_exp, right_exp)
+            else:
+                break 
+
+        return left_exp
 
     def add_exp_parse(self):
-        pass
+        left_exp = self.mult_exp_parse()
+        operator = self.get_next_token()
 
+        while True:
+            # Check if the next token is either '+' or '-'
+            if operator in (AdditionToken, SubtractionToken):
+                # Consume the operator token
+                self.position += 1
+                right_exp = self.mult_exp_parse()
+
+                if operator == AdditionToken:
+                    left_exp = AdditionExp(left_exp, right_exp)
+                else:  # operator == SubtractionToken
+                    # Represent subtraction as negative addition
+                    left_exp = SubtractionExp(left_exp, right_exp)
+            else:
+                break 
+
+        return left_exp
+    
     def exp_parse(self):
-        pass
+        return self.add_exp_parse()
 
     def vardec_parse(self):
         var_type = self.type_parse()
