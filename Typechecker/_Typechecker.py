@@ -4,15 +4,16 @@ from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
-from Parser.TypesAndNames import Type
 from Parser.PrimaryExp import PrimaryExp
 from Parser.PrimaryExp import IntegerLiteral
-from Parser.PrimaryExp import StringLiteral
 from Parser.PrimaryExp import TrueExp
 from Parser.PrimaryExp import FalseExp
+from Parser.PrimaryExp import Variable
+from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
 from Parser.TypesAndNames.Type import VoidType
+from Parser.TypesAndNames.Type import ClassName
 from Typechecker.TypeEnvironment import TypeEnvironment
 
 class Typechecker:
@@ -39,19 +40,11 @@ class Typechecker:
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
     def typecheckStmt(self):
         pass
-
-
-    # Note: Old typeOf Method
-    #def typeof(self, exp: PrimaryExp):
-     #   match exp:
-      #      case IntegerLiteral():
-       #         return IntType()
-        #    
-         #   case StringLiteral():
-          #      return "StringType()"
             
-    # Return the type of an expression. Note: Our grammar does not support boolean or string operators!
-    def typeOf(self, exp: Exp):
+    # Return the type of an expression. Our grammar does not support Strings. 
+    # Nor do we support boolean operators, i.e.: <, >=, <=, &&, etc.
+    # type ::= 'Int' | 'Boolean' | 'Void' | Classname 
+    def typeOf(self, exp: Exp) -> Type:
         match exp:
             case AdditionExp():
                 return IntType()
@@ -65,14 +58,21 @@ class Typechecker:
             case DivisionExp():
                 return IntType()
             
+            case TrueExp() | FalseExp():
+                return BooleanType()
+            
             case PrimaryExp():
                 match exp:
                     case IntegerLiteral():
                         return IntType()
                     
-                    case StringLiteral():
-                        return "StringType()" # Note: Need String & Bool types?
-                                              # type ::= 'Int' | 'Boolean' | 'Void' | classname
+                    case Variable():
+                        pass
+
+                    
+            
+
+                    
                 
                 
 
