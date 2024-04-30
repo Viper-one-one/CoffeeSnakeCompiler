@@ -9,6 +9,10 @@ from Parser.PrimaryExp import IntegerLiteral
 from Parser.PrimaryExp import TrueExp
 from Parser.PrimaryExp import FalseExp
 from Parser.PrimaryExp import Variable
+from Parser.PrimaryExp import ParenExp
+from Parser.PrimaryExp import ThisExp
+from Parser.PrimaryExp import PrintlnExp
+from Parser.PrimaryExp import NewObjectExp
 from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
@@ -40,34 +44,53 @@ class Typechecker:
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
     def typecheckStmt(self):
         pass
+
+
+    # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
+    # *** Don't forget to pass the current Environment ***
+    def typeOfPrimaryExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
+        if isinstance(exp, IntegerLiteral):
+            return IntType()
+        
+        elif isinstance(exp, TrueExp):
+            return BooleanType()
+        
+        elif isinstance(exp, FalseExp):
+            return BooleanType()
+        
+        elif isinstance(exp, Variable):
+            return self.typeOfVariable(exp.name, currEnv) # Pass the variable's name to other function
+        
+        elif isinstance(exp, ParenExp):
+            return self.typeOfPrimaryExp(exp.inner, currEnv) # Pass the inner exp recursively
+
+        elif isinstance(exp, ThisExp):
+            pass
+
+        elif isinstance(exp, PrintlnExp):
+            pass
+
+        elif isinstance(exp, NewObjectExp):
+            pass
             
-    # Return the type of an expression. Our grammar does not support Strings. 
-    # Nor do we support boolean operators, i.e.: <, >=, <=, &&, etc.
-    # type ::= 'Int' | 'Boolean' | 'Void' | Classname 
-    def typeOf(self, exp: Exp) -> Type:
-        match exp:
-            case AdditionExp():
-                return IntType()
-            
-            case SubtractionExp():
-                return IntType()
-            
-            case MultiplicationExp():
-                return IntType()
-            
-            case DivisionExp():
-                return IntType()
-            
-            case TrueExp() | FalseExp():
-                return BooleanType()
-            
-            case PrimaryExp():
-                match exp:
-                    case IntegerLiteral():
-                        return IntType()
+
+    # PrimaryExp has class Variable(name, varType)
+    # Check if the variable exists in the current Environment. Return it's type. 
+    def typeOfVariable(self, expressionName, currEnv: TypeEnvironment):
+        if expressionName in currEnv.envSpace:
+            return currEnv.envSpace[expressionName] # Because we passed the current Env, we have access to the dictionary
+        else:
+            raise Exception(f"Error. No variable named {expressionName} found in your environmentSpace")
                     
-                    case Variable():
-                        pass
+
+
+
+
+
+    # Important Notes:
+        # type ::= 'Int' | 'Boolean' | 'Void' | Classname 
+        # Our grammar does not support Strings. 
+        # Nor do we support boolean operators, i.e.: <, >=, <=, &&, etc.
 
                     
             
