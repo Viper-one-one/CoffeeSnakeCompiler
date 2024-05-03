@@ -13,6 +13,7 @@ from Parser.Program import Program
 from Parser.Statement import Statement
 from Parser.Type import Type
 from Parser.Vardec import Vardec
+from Tokenizer.CommaToken import CommaToken
 from Tokenizer._Lexer import Tokenizer
 from Tokenizer.VarToken import VarToken
 from Tokenizer.IdentifierToken import IdentifierToken
@@ -173,7 +174,19 @@ class Parser:
             return Vardec(var_name, value)
         else:
             raise ValueError("Pattern does not match the input string.")
-
+    
+    # token patterns: ExpToken
+    def parse_comma_exp(self):
+        self.match(Exp)
+        left = self.parse_exp()
+        if (self.tokens[self.current_index] == CommaToken):
+            self.current_index += 1
+            right = self.parse_exp()
+            return CommaExp(left, right)
+        else:
+            self.current_index += 1
+            return CommaExp(left, None)
+        
 
     # lazy val classDef: P[ClassDef] = {
     #     token(ClassToken) ~
