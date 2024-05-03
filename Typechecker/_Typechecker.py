@@ -52,7 +52,8 @@ class Typechecker:
     def typecheckStmt(self, statement, currEnv):
         if isinstance(statement, Vardec):
             return Vardec()
-        elif isinstance(statement, )
+        elif isinstance(statement, None):
+            pass
 
     # recursive
     # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
