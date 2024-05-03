@@ -81,8 +81,8 @@ class Parser:
     # Match token function
     def match(self, expected_token: Token):
         current_token = self.get_next_token()
-        if isinstance(expected_token, type):
-            # Match the current token to expected token type
+        if isinstance(expected_token, type): # Check if expected_token is a type
+            # match instance of current token to expected token type
             if isinstance(current_token, expected_token):
                 self.position += 1
                 return current_token
@@ -131,7 +131,7 @@ class Parser:
         token = self.get_next_token()
 
         if isinstance(token, IdentifierToken):
-            self.match(VarToken)
+            self.match(IdentifierToken)
             return Variable(token.value)
         elif isinstance(token, StringLiteralToken):
             self.match(StringLiteralToken)  # Consume the token
@@ -155,10 +155,19 @@ class Parser:
             return FalseExp()
         elif isinstance(token, PrintlnToken):
             self.match(PrintlnToken)
-            return PrintlnExp()
+            self.match(LeftParenToken)
+            exp = self.exp_parse()
+            self.match(RightParenToken)
+            return PrintlnExp(exp)
         elif isinstance(token, NewToken):
             self.match(NewToken)
-            return NewObjectExp() # needs more logic
+            # need to add some way to check the name of the identifier in the parsing
+            # "here's the identifier and it's name"
+            self.match(IdentifierToken)
+            self.match(LeftParenToken)
+            self.comma_exp_parse()
+            self.match(RightParenToken)
+            return NewObjectExp() # added logic above
         else:
             raise ValueError(f"Unexpected token: {token}")
         
