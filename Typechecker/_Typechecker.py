@@ -13,6 +13,7 @@ from Parser.PrimaryExp import ParenExp
 from Parser.PrimaryExp import ThisExp
 from Parser.PrimaryExp import PrintlnExp
 from Parser.PrimaryExp import NewObjectExp
+from Parser.Vardec import Vardec
 from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
@@ -33,26 +34,29 @@ class Typechecker:
         pass # Note: We will need a function to grab all classes defined in the program.
              #       as well as any parent classes, constructors and their parameters, and methods with their variables
 
-
+    # non-recursive
+    # add environment space for all the type checking methods
     # program ::= classdef* stmt+
-    def typecheckProgram(self, program: Program):
+    def typecheckProgram(self, program: Program, envSpace: TypeEnvironment):
         self.program = program
         # Note: Should begin type checking the classdefs/stmts in the program with initial empty env here
         pass
 
-
+    #non-recursive
     # methoddef ::= 'method' methodname '(' comma_vardec ')' type '{' stmt* '}'
     def typecheckMethod(self):
         pass
 
-
+    # recursive
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
-    def typecheckStmt(self):
-        pass
+    def typecheckStmt(self, statement, currEnv):
+        if isinstance(statement, Vardec):
+            return Vardec()
+        elif isinstance(statement, )
 
-
+    # recursive
     # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
-    def typeOfPrimaryExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
+    def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
         if isinstance(exp, IntegerLiteral):
             return IntType()
         
@@ -78,109 +82,18 @@ class Typechecker:
         elif isinstance(exp, NewObjectExp):
             pass
             
-
+    # non-recursive
+    # looking for other Int x in scope and making sure that the assignment of x is to an Int    
     # Note: PrimaryExp has class Variable(name, varType)
     # Check if the variable exists in the current Environment. Return it's type. 
-    def typeOfVariable(self, expressionName, currEnv: TypeEnvironment) -> Type:
+    def typecheckVariable(self, expressionName, currEnv: TypeEnvironment) -> Type:
         if expressionName in currEnv.envSpace:
             return currEnv.envSpace[expressionName] # Because we passed the current Env, we have access to the dictionary
         else:
             raise Exception(f"Error. No variable named {expressionName} found in your environmentSpace")
-        
 
-    # add_exp ::= mult_exp (('+' | '-') mult_exp)*
-    def typeOfAddExp(self, exp, currEnv: TypeEnvironment) -> Type:
-        if isinstance(exp, AdditionExp):
-            left = exp.left
-            op = exp.op
-            right = exp.right
-            
-            if(isinstance(left, PrimaryExp) and isinstance(right, PrimaryExp)):
-                typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-                typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-                if(op == "+" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                    return IntType()
-                else:
-                    raise Exception(f"Invalid '+' operation with {exp.left} and {exp.right}")
-                
-            elif(isinstance(left, PrimaryExp) and isinstance(right, AdditionExp)):
-                typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-                typeOfRight = self.typeOfAddExp(right, currEnv)
-                if(op == "+" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                     return IntType()
-                else:
-                     raise Exception(f"Invalid '+' operation with {exp.left} and {exp.right}")
-            
-            elif(isinstance(left, AdditionExp) and isinstance(right, PrimaryExp)):
-                typeOfLeft = self.typeOfAddExp(left, currEnv)
-                typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-                if(op == "+" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                    return IntType()
-                else:
-                    raise Exception(f"Invalid '+' operation with {exp.left} and {exp.right}")
-    
-        if isinstance(exp, SubtractionExp):
-            left = exp.left
-            op = exp.op
-            right = exp.right
-
-            if(isinstance(left, PrimaryExp) and isinstance(right, PrimaryExp)): 
-                typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-                typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-                if(op == "-" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                    return IntType()
-                else:
-                    raise Exception(f"Invalid '-' operation with {exp.left} and {exp.right}")
-              # TODO Note: This case handles when input is SubtractionExp(AdditionExp(left, op, right), op, right).
-              # We likely need to handle more cases, but this approach to handling AddExp might be inefficient, incorrect, or both 
-            elif(isinstance(left, AdditionExp) and isinstance(right, PrimaryExp)):
-                typeOfLeft = self.typeOfAddExp(left, currEnv)
-                typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-                if(op == "-" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                    return IntType()
-                else:
-                    raise Exception(f"Invalid '-' operation with {exp.left} and {exp.right}")
-                
-            elif(isinstance(left, PrimaryExp) and isinstance(right, SubtractionExp)):
-                typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-                typeOfRight = self.typeOfAddExp(right, currEnv)
-                if(op == "-" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                    return IntType()
-                else:
-                    raise Exception(f"Invalid '-' operation with {exp.left} and {exp.right}")
-
-
-    # mult_exp ::= call_exp (('*' | '/') call_exp)*
-    # TODO Note: May or may not have to do what was done in typeOfAddExp and do if statements for left and right class type
-    def typeOfMultExp(self, exp, currEnv: TypeEnvironment):
-        if isinstance(exp, MultiplicationExp):
-            left = exp.left
-            op = exp.op
-            right = exp.right
-
-            typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-            typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-
-            if(op == "*" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                     return IntType()
-            else:
-                     raise Exception(f"Invalid '*' operation with {exp.left} and {exp.right}")
-             
-        if isinstance(exp, DivisionExp):
-            left = exp.left
-            op = exp.op
-            right = exp.right
-
-            typeOfLeft = self.typeOfPrimaryExp(left, currEnv)
-            typeOfRight = self.typeOfPrimaryExp(right, currEnv)
-
-            if(op =="/" and isinstance(typeOfLeft, IntType) and isinstance(typeOfRight, IntType)):
-                return IntType()
-            else:
-                raise Exception(f"Invalid '/' operation with {exp.left} and {exp.right}")
-
-
-
+    def typecheckClass(self, className: ClassName, currEnv: TypeEnvironment):
+        pass
 
     # Important Notes:
         # type ::= 'Int' | 'Boolean' | 'Void' | Classname 

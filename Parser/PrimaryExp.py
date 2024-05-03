@@ -29,6 +29,7 @@ class IntegerLiteral(PrimaryExp):
             return self.value == other.value
         return False
 
+    #remove string
 class StringLiteral(PrimaryExp):
     value: str
     
