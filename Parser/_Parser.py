@@ -290,14 +290,23 @@ class Parser:
 
     # comma_exp ::= exp (',' exp)*
 
-    #                     AST Example: 2 + 2
+    #                     AST Example: Int x = 2 + 2
     #                          Program
     #                             |
     #                             |
-    #                         Statement
+    #                         Statement (var '=' exp)
     #                             |
     #                             |
-    #                       Binary Expression ( + )
+    #                       add_exp ( + )
     #                            /  \
     #                           /    \
-    #                        (2)      (2)    
+    #                    mult_exp     mult_exp
+    #                        |            |
+    #                        |            |
+    #                    call_exp      call_exp
+    #                        |            |
+    #                        |            |
+    #                  primary_exp   primary_exp
+    #                        |            |
+    #                        |            |
+    #                        int          int
