@@ -58,29 +58,30 @@ class Typechecker:
     # recursive
     # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
     def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
+        # base level expressions
         if isinstance(exp, IntegerLiteral):
             return IntType()
-        
+
         elif isinstance(exp, TrueExp):
             return BooleanType()
         
         elif isinstance(exp, FalseExp):
             return BooleanType()
-        
+
         # *** Note: Don't forget to pass the current Environment ***
         elif isinstance(exp, Variable):
-            return self.typeOfVariable(exp.name, currEnv) # Pass the variable's name to other function
+            return self.typecheckVariable(exp.name, currEnv) # Pass the variable's name to other function
         
         elif isinstance(exp, ParenExp):
-            return self.typeOfPrimaryExp(exp.inner, currEnv) # Pass the inner exp recursively
-
-        elif isinstance(exp, ThisExp):
-            pass
+            return self.typecheckExp(exp.inner, currEnv) # Pass the inner exp recursively
 
         elif isinstance(exp, PrintlnExp):
-            return self.typeOfPrimaryExp(exp.expression, currEnv) # Recursive call
+            return self.typecheckExp(exp.expression, currEnv) # Recursive call
 
         elif isinstance(exp, NewObjectExp):
+            pass
+        
+        elif isinstance(exp, ThisExp):
             pass
             
     # non-recursive
@@ -95,6 +96,11 @@ class Typechecker:
 
     def typecheckClass(self, className: ClassName, currEnv: TypeEnvironment):
         pass
+    
+
+    # must check if the variables are initialized before they are used, checking if void is used as a value, checking that a function returning NOT void always returns
+    
+    # manage subtyping and method overloading
 
     # Important Notes:
         # type ::= 'Int' | 'Boolean' | 'Void' | Classname 
