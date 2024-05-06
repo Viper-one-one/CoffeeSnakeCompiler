@@ -18,7 +18,8 @@ from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
 from Parser.TypesAndNames.Type import VoidType
-from Parser.TypesAndNames.Type import ClassName
+from Parser.TypesAndNames.ClassName import ClassName
+from Parser.TypesAndNames.MethodName import MethodName
 from Typechecker.TypeEnvironment import TypeEnvironment
 
 class Typechecker:
@@ -57,7 +58,8 @@ class Typechecker:
 
     # recursive
     # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
-    def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
+    # exp --> add_exp --> mult_exp ---> call_exp --> primary_exp
+    def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment, definedClass: ClassName) -> Type: 
         if isinstance(exp, IntegerLiteral):
             return IntType()
         
@@ -69,20 +71,24 @@ class Typechecker:
         
         # *** Note: Don't forget to pass the current Environment ***
         elif isinstance(exp, Variable):
-            return self.typeOfVariable(exp.name, currEnv) # Pass the variable's name to other function
+            return self.typecheckVariable(exp.name, currEnv) # Pass the variable's name to other function
         
         elif isinstance(exp, ParenExp):
-            return self.typeOfPrimaryExp(exp.inner, currEnv) # Pass the inner exp recursively
+            return self.typecheckExp(exp.inner, currEnv, definedClass) # Pass the inner exp recursively
 
         elif isinstance(exp, ThisExp):
-            pass
+            if definedClass is None:
+                raise Exception("Incorrect use of 'this' without associated class")
+            else:
+                return ClassName(definedClass) # Return the associated class type
 
         elif isinstance(exp, PrintlnExp):
-            return self.typeOfPrimaryExp(exp.expression, currEnv) # Recursive call
+            return self.typecheckExp(exp.expression, currEnv, definedClass) # Recursive call
 
         elif isinstance(exp, NewObjectExp):
             pass
             
+
     # non-recursive
     # looking for other Int x in scope and making sure that the assignment of x is to an Int    
     # Note: PrimaryExp has class Variable(name, varType)
@@ -92,6 +98,7 @@ class Typechecker:
             return currEnv.envSpace[expressionName] # Because we passed the current Env, we have access to the dictionary
         else:
             raise Exception(f"Error. No variable named {expressionName} found in your environmentSpace")
+
 
     def typecheckClass(self, className: ClassName, currEnv: TypeEnvironment):
         pass
