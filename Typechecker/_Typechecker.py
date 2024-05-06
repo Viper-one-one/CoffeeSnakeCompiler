@@ -5,7 +5,7 @@ from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
-from Parser.Statement import Assignment, Break, IfOptionalElse, Return, WhileLoop
+from Parser.Statement import Assignment, Block, Break, IfOptionalElse, Return, WhileLoop
 from Parser.PrimaryExp import PrimaryExp, IntegerLiteral, TrueExp, FalseExp, Variable, ParenExp, ThisExp, PrintlnExp, NewObjectExp
 from Parser.Vardec import Vardec
 from Parser.TypesAndNames import Type
@@ -44,20 +44,51 @@ class Typechecker:
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
     def typecheckStmt(self, statement, currEnv):
         if isinstance(statement, Vardec):
-            return Vardec()
+            return self.typecheckVardec(statement, currEnv)
         elif isinstance(statement, Assignment):
-            pass
+            if statement.var in currEnv.envSpace:
+                raise Exception(f"Error. Variable {statement.var} already exists in the current scope")
+            else:
+                currEnv.envSpace.add(statement.var, self.typecheckExp(statement.exp, currEnv))
+                return # should return something?
         elif isinstance(statement, WhileLoop):
-            pass
+            if self.typecheckExp(statement.exp, currEnv) != BooleanType():
+                raise Exception(f"Error. Expected boolean type in while loop condition")
+            else:
+                return self.typecheckStmt(statement.stmt, currEnv)
         elif isinstance(statement, Break):
             pass
         elif isinstance(statement, Return):
-            pass
+            if statement.exp is None:
+                if currEnv.returnType != VoidType():
+                    raise Exception(f"Error. Expected return type {currEnv.returnType}")
+                else:
+                    return
+            elif statement.exp is not None:
+                if self.typecheckExp(statement.exp, currEnv) != currEnv.returnType:
+                    raise Exception(f"Error. Expected return type {currEnv.returnType}")
+                else:
+                    return
+            else:
+                raise Exception("Error. Return statement not recognized")
         elif isinstance(statement, IfOptionalElse):
-            pass
-        elif isinstance(statement, None):
-            pass
+            if self.typecheckExp(statement.exp, currEnv) != BooleanType():
+                raise Exception(f"Error. Expected boolean type in if condition")
+            elif statement.statement is not None:
+                return self.typecheckStmt(statement.statement, currEnv)
+            elif statement.optionalStatement is not None:
+                return self.typecheckStmt(statement.optionalStatement, currEnv)
+            else:
+                raise Exception("Error. If statement not recognized")
+        elif isinstance(statement, Block):
+            return self.typecheckStmt(statement.stmt, currEnv)
 
+    # make sure the vardec isn't trying to create a variable that already exists in the current environment
+    # vardec ::= type var    
+    # currEnv.add(vardec.var, vardec.varType)  
+    def typecheckVardec(self, vardec: Vardec, currEnv: TypeEnvironment):
+        pass
+    
     # recursive 
     # we recusrively call typecheckExp on the inner expressions as we move through the tree on ALL types of expressions, call, comma, primary, etc.
     # all exps ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')' | [exp ( ',' exp)*] 
@@ -140,17 +171,3 @@ class Typechecker:
         # type ::= 'Int' | 'Boolean' | 'Void' | Classname 
         # Our grammar does not support Strings. 
         # Nor do we support boolean operators, i.e.: <, >=, <=, &&, etc.
-
-                    
-            
-
-                    
-                
-                
-
- 
-
-            
-
-    
-    
