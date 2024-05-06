@@ -14,7 +14,7 @@ class CallExp:
         self.right = right
 
     def __eq__(self, other):
-        if isinstance(self, CallExp):
+        if isinstance(other, CallExp):
             return self.left == other.left and self.methodName == other.methodName and self.right == other.right
         return False
     

@@ -19,10 +19,12 @@ class Variable(PrimaryExp):
         self.varType = varType
     
     def __eq__(self, other):
-        if isinstance(self, Variable):
+        if isinstance(other, Variable):
             return self.name == other.name and self.varType == self.varType
         return False
 
+    def __str__(self):
+        return f"Variable({self.name}, {self.varType})"
 class IntegerLiteral(PrimaryExp):
     value: int
     

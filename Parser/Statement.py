@@ -2,6 +2,8 @@ from abc import ABC
 from Parser.Exp import Exp
 from Parser.PrimaryExp import Variable
 from Parser.Vardec import Vardec
+from typing import List
+
 
 class Statement(ABC):
     pass
@@ -19,6 +21,14 @@ class Assignment(Statement):
     def __init__(self, exp: Exp, var: Variable) -> None:
         self.exp = exp
         self.var = var
+    
+    def __eq__(self, other):
+        if isinstance(other, Assignment):
+            return self.exp == other.exp and self.var == other.var
+        return False
+    
+    def __str__(self):
+        return f"Assignment({self.exp}, {self.var})"
 
 class WhileLoop(Statement):
     exp: Exp
@@ -28,15 +38,32 @@ class WhileLoop(Statement):
         self.exp = exp
         self.stmt = stmt
 
+    def __eq__(self, other):
+        if isinstance(other, WhileLoop):
+            return self.exp == other.exp and self.stmt == other.stmt
+        return False
+
+    def __str__(self):
+        return f"WhileLoop({self.exp}, {self.stmt})"
+
 class Break(Statement):
     def __init__(self) -> None:
         pass
+
+    def __eq__(self, other):
+        return isinstance(other, Break)
+    
 
 class Return(Statement):
     exp: Exp
 
     def __init__(self, exp: Exp) -> None:
         self.exp = exp
+
+    def __eq__(self, other):
+        if isinstance(other, Return):
+            return self.exp == other.exp
+        return False
 
 class IfOptionalElse(Statement):
     exp : Exp
@@ -48,8 +75,24 @@ class IfOptionalElse(Statement):
         self.statement = statement
         self.optionalStatement = optionalStatement
 
-class Block(Statement):
-    stmt: Statement
+    def __eq__(self, other):
+        if isinstance(other, IfOptionalElse):
+            return self.exp == other.exp and self.statement == other.statement and self.optionalStatement == other.optionalStatement
+        return False
     
-    def __init__(self, stmt: Statement) -> None:
-        self.stmt = stmt
+    def __str__(self):
+        return f"IfOptionalElse({self.exp}, {self.statement}, {self.optionalStatement})"
+
+class Block(Statement):
+    statements: List[Statement]
+
+    def __init__(self, statements: List[Statement]) -> None:
+        self.statements = statements
+
+    def __eq__(self, other):
+        if isinstance(other, Block):
+            return self.statements == other.statements
+        return False
+    
+    def __str__(self):
+        return f"Block({self.statements})"

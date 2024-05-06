@@ -60,6 +60,12 @@ from Parser.Program import Program
 from Parser.Vardec import Vardec
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
+from Parser.Statement import Assignment
+from Parser.Statement import WhileLoop
+from Parser.Statement import Break
+from Parser.Statement import Return
+from Parser.Statement import IfOptionalElse
+from Parser.Statement import Block
 
 class Parser:
     tokens: list
@@ -252,34 +258,91 @@ class Parser:
         return Vardec(var_type, Variable(var_name.name, var_type))
     
     def assignment_parse(self):
-        self.match(IdentifierToken)
+        variable = self.match(IdentifierToken)
         self.match(SingleEqualsToken)
-        self.exp_parse()
+        expression = self.exp_parse()
         self.match(SemiColonToken)
+
+        return Assignment(expression, Variable(variable.name))
+
+    def while_parse(self):
+        self.position += 1
+        self.match(LeftParenToken)
+        expression = self.exp_parse()
+        self.match(RightParenToken)
+        statement = self.statement_parse()
+
+        return WhileLoop(expression, statement)
+    
+    def return_parse(self):
+        self.position += 1 
+        # can't use get next token, since if statement evaluates to false
+        # when we return void, the length is 1, thus position is not < 1
+        if isinstance(self.tokens[self.position], SemiColonToken):
+            # Return statement without expression
+            self.match(SemiColonToken)
+            return Return(None)
+
+        expression = self.exp_parse()
+        self.match(SemiColonToken) 
+
+        return Return(expression)
+
+    def if_parse(self):
+        self.position += 1
+
+        self.match(LeftParenToken)
+
+        expression = self.exp_parse()
+
+        self.match(RightParenToken)
+
+        statement = self.statement_parse()
+        if isinstance(self.tokens[self.position], ElseToken):
+            self.position += 1
+            optional_statement = self.statement_parse()
+            return IfOptionalElse(expression, statement, optional_statement)
         
+        return IfOptionalElse(expression, statement, None)
+    
+    def block_parse(self):
+        self.position += 1  # Move past the opening curly brace
+
+        statements = []
+        while not isinstance(self.get_next_token(), RightCurlyBraceToken):
+            # Parse each statement within the block
+            statement = self.statement_parse()
+            statements.append(statement)
+
+        self.match(RightCurlyBraceToken)  # Match the closing curly brace
+
+        return Block(statements)
+
+
     def statement_parse(self):
          # Check the type of statement and parse accordingly
         if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
             # Variable declaration statement
-            return self.vardec_parse()
-        elif self.get_next_token() == IdentifierToken:
-            # Assignment statement
-            return self.assignment_parse()
-        elif self.get_next_token() == WhileToken:
+            return self.vardec_parse() # done
+        elif isinstance(self.get_next_token(), IdentifierToken):
+            return self.assignment_parse() # done
+        elif isinstance(self.get_next_token(), WhileToken):
             # While loop statement
             return self.while_parse()
-        elif self.get_next_token() == BreakToken:
+        elif isinstance(self.get_next_token(), BreakToken):
             # Break statement
-            return self.break_parse()
-        elif self.get_next_token() == ReturnToken:
+            self.match(BreakToken)
+            self.match(SemiColonToken)
+            return Break()
+        elif isinstance(self.get_next_token(), ReturnToken):
             # Return statement
-            return self.return_parse()
-        elif self.get_next_token() == IfToken:
+            return self.return_parse() # done
+        elif isinstance(self.get_next_token(), IfToken):
             # If statement
-            return self.if_parse()
-        elif self.get_next_token() == LeftCurlyBraceToken:
+            return self.if_parse() # done
+        elif isinstance(self.get_next_token(), LeftCurlyBraceToken):
             # Block statement
-            return self.block_parse()
+            return self.block_parse() # done
         else:
             # If none of the above matches, raise an exception or handle accordingly
             raise ValueError(f"Unexpected token: {self.get_next_token()}")

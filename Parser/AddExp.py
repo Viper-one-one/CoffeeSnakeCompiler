@@ -15,7 +15,7 @@ class AdditionExp(AddExp):
         self.right = right
 
     def __eq__(self, other):
-        if isinstance(self, AdditionExp):
+        if isinstance(other, AdditionExp):
             return self.left == other.left and self.op == other.op and self.right == self.right
         else:
             return False
@@ -34,7 +34,7 @@ class SubtractionExp(AddExp):
         self.right = right
     
     def __eq__(self, other):
-        if isinstance(self, SubtractionExp):
+        if isinstance(other, SubtractionExp):
             return self.left == other.left and self.op == other.op and self.right == self.right
         else:
             return False

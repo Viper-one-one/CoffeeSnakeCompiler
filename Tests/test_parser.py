@@ -55,6 +55,13 @@ from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.CommaExp import CommaExp
 from Parser.CallExp import CallExp
+from Parser.Statement import Assignment
+from Parser.Statement import WhileLoop
+from Parser.Statement import Break
+from Parser.Statement import Return
+from Parser.Statement import IfOptionalElse
+from Parser.Statement import Block
+
 
 # def testClassDefWithExtends():
 #     code = """
@@ -172,4 +179,94 @@ def testCallExp():
     expected_exp = CallExp(Variable("cat"), MethodName("speak"), CommaExp([IntegerLiteral(2), Variable("one")]))
 
     assert call_exp == expected_exp
+
+def testAssignment():
+    input_string = "ball = 2;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    assign_exp = parser.statement_parse()
+    expected_exp = Assignment(IntegerLiteral(2), Variable("ball"))
+
+    assert assign_exp == expected_exp
+
+def testWhileLoop():
+    input_string = """while (true) x = x + 1;"""
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    while_exp = parser.while_parse()
+    expected_exp = WhileLoop(TrueExp(), Assignment(AdditionExp(Variable("x"), "+", IntegerLiteral(1)), Variable("x")))
     
+    print("while", while_exp)
+    print("expected", expected_exp)
+
+    assert while_exp == expected_exp
+
+def testBreak():
+    input_string = "break;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    break_exp = parser.statement_parse()
+    expected_exp = Break()
+
+    assert break_exp == expected_exp
+
+def testReturnVoid():
+    input_string = "return;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    return_stmt = parser.return_parse()
+    expected_stmt = Return(None)
+
+    assert return_stmt == expected_stmt
+
+def testReturnExpression():
+    input_string = "return x;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    return_stmt = parser.return_parse()
+    expected_stmt = Return(Variable("x"))
+
+    assert return_stmt == expected_stmt
+
+def testIfStatement():
+    input_string = "if (true) x = 1;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    if_stmt = parser.if_parse()
+    expected_stmt = IfOptionalElse(TrueExp(), Assignment(IntegerLiteral(1), Variable("x")), None)
+
+    assert if_stmt == expected_stmt
+
+def testIfStatementWithElse():
+    input_string = "if (true) x = 1; else x = 2;"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    if_stmt = parser.if_parse()
+    expected_stmt = IfOptionalElse(TrueExp(), Assignment(IntegerLiteral(1), Variable("x")), Assignment(IntegerLiteral(2), Variable("x")))
+
+    assert if_stmt == expected_stmt
+
+def testBlockStatement():
+    input_string = "{x = 1; x = 2;}"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    block_stmt = parser.block_parse()
+    expected_stmt = Block([Assignment(IntegerLiteral(1), Variable("x")), Assignment(IntegerLiteral(2), Variable("x"))])
+
+    assert block_stmt == expected_stmt

@@ -15,7 +15,7 @@ class MultiplicationExp(MultExp):
         self.right = right
     
     def __eq__(self, other):
-        if isinstance(self, MultiplicationExp):
+        if isinstance(other, MultiplicationExp):
             return self.left == other.left and self.op == other.op and self.right == other.right
         return False
     
@@ -30,6 +30,6 @@ class DivisionExp(MultExp):
         self.right = right
 
     def __eq__(self, other):
-        if isinstance(self, DivisionExp):
+        if isinstance(other, DivisionExp):
             return self.left == other.left and self.op == other.op and self.right == other.right
         return False
