@@ -66,3 +66,25 @@ def test_typeofThisExp():
     assert ClassName("bar").__eq__(myTypechecker.typecheckExp(code, envSpace, "bar")), "ThisExp used without associated class!"
 
 
+    #                     AST Example: Int x = 2 + 2
+    #                          Program
+    #                             |
+    #                             |
+    #                         Statement (var '=' exp)
+    #                             |
+    #                             |
+    #                          add_exp
+    #                            /  \
+    #                           /    \
+    #                    mult_exp     mult_exp
+    #                        |            |
+    #                        |            |
+    #                    call_exp      call_exp
+    #                        |            |
+    #                        |            |
+    #                  primary_exp   primary_exp
+    #                        |            |
+    #                        |            |
+    #                       int          int
+
+
