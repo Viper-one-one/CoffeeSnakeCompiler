@@ -18,7 +18,7 @@ class TypeEnvironment:
     # in the program is caught
 
     def __init__(self):
-        self.envSpace = dict() # TypeEnvironment was handled in class using Map, could use dictionaries
+        self.envSpace = dict() # dicts are maps in python
         self.parentEnv = None # Might need pointer to a parent environment
 
     def extend(self, var: Variable, type: Type):
