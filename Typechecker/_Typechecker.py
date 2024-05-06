@@ -88,9 +88,6 @@ class Typechecker:
 
         elif isinstance(exp, NewObjectExp):
             pass
-        
-        elif isinstance(exp, ThisExp):
-            pass
             
 
     # non-recursive
