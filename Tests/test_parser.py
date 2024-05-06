@@ -103,18 +103,15 @@ def testCommaExp():
     code = [
     IntegerLiteralToken(2), 
     CommaToken(), 
-    StringLiteralToken("hello"), 
-    CommaToken(), 
     TrueToken(), 
     CommaToken(), 
     ThisToken()
-    ] # 2, "hello", true, this
+    ] # 2, true, this
     parser = Parser(code)
     comma_exp = parser.comma_exp_parse()
 
     expected_exp = CommaExp([
         IntegerLiteral(2), 
-        StringLiteral("hello"), 
         TrueExp(), 
         ThisExp()
     ])

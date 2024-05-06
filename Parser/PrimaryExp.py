@@ -29,6 +29,10 @@ class IntegerLiteral(PrimaryExp):
             return self.value == other.value
         return False
 
+    def __str__(self):
+        return f"IntegerLiteral({self.value})"
+    
+
 class StringLiteral(PrimaryExp):
     value: str
     
@@ -49,11 +53,12 @@ class ParenExp(PrimaryExp):
     def __init__(self, inner: Exp):
         self.inner = inner
 
-    
-
 class ThisExp(PrimaryExp):
     def __init__(self):
         pass
+
+    def __str__(self):
+        return f"ThisExp()"
 
     def __eq__(self, other):
         return isinstance(other, ThisExp)
@@ -61,6 +66,12 @@ class ThisExp(PrimaryExp):
 class TrueExp(PrimaryExp):
     def __init__(self):
         pass
+
+    def __eq__(self, other):
+        return isinstance(other, TrueExp)
+
+    def __str__(self):
+        return f"TrueExp()"
     
 
 class FalseExp(PrimaryExp):

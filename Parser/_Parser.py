@@ -84,14 +84,16 @@ class Parser:
         if isinstance(expected_token, type): # Check if expected_token is a type
             # match instance of current token to expected token type
             if isinstance(current_token, expected_token):
-                self.position += 1
+                if self.position != len(self.tokens) - 1:
+                    self.position += 1
                 return current_token
             else:
                 raise ValueError(f"Syntax error: expected {expected_token}, but found {type(current_token).__name__}")
         else:
             # Match the current token to expected token instance
             if current_token == expected_token:
-                self.position += 1
+                if self.position != len(self.tokens) - 1:
+                    self.position += 1
                 return current_token
             else:
                 raise ValueError(f"Syntax error: expected {expected_token}, but found {current_token}")
@@ -118,11 +120,14 @@ class Parser:
         while self.position < len(self.tokens):
             expression = self.exp_parse()
             expressions.append(expression)
+
             # Check if there's a comma after the expression
-            if isinstance(self.get_next_token(), CommaToken):
+            if isinstance(self.tokens[self.position], CommaToken):
                 self.match(CommaToken)  # Consume the comma token
-            else:
-                break  # Exit the loop if there are no more tokens
+                if self.position == len(self.tokens) - 1:
+                    expression = self.exp_parse()
+                    expressions.append(expression)
+                    break
                 
         return CommaExp(expressions)
 
@@ -227,7 +232,6 @@ class Parser:
                 if operator == AdditionToken:
                     left_exp = AdditionExp(left_exp, right_exp)
                 else:  # operator == SubtractionToken
-                    # Represent subtraction as negative addition
                     left_exp = SubtractionExp(left_exp, right_exp)
             else:
                 break 
