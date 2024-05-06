@@ -49,6 +49,9 @@ from Parser.PrimaryExp import IntegerLiteral
 from Parser.PrimaryExp import ThisExp
 from Parser.PrimaryExp import TrueExp
 from Parser.PrimaryExp import NewObjectExp
+from Parser.AddExp import AdditionExp
+from Parser.AddExp import SubtractionExp
+from Parser.MultExp import MultiplicationExp
 from Parser.CommaExp import CommaExp
 
 # def testClassDefWithExtends():
@@ -131,3 +134,15 @@ def testCommaExp():
     ])
 
     assert comma_exp == expected_exp
+
+def testAddExp():
+    input_string = "2 + 3 - 1"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    add_exp = parser.add_exp_parse()
+
+    expected_exp = SubtractionExp(AdditionExp(IntegerLiteral(2), "+", IntegerLiteral(3)), "-", IntegerLiteral(1))
+
+    assert add_exp == expected_exp

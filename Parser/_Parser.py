@@ -170,16 +170,10 @@ class Parser:
             self.match(NewToken)
             # need to add some way to check the name of the identifier in the parsing
             # "here's the identifier and it's name"
-            print("consume new token", self.position)
             classname = self.match(IdentifierToken)
-            print("consume identifier", self.position)
             self.match(LeftParenToken)
-            print("consume left paren", self.position)
             variables = self.comma_exp_parse()
-            print("consume comma exp", self.position)
-            print("variables", variables)
             self.match(RightParenToken)
-            print("consume right paren", self.position)
             return NewObjectExp(classname, variables) # added logic above
         else:
             raise ValueError(f"Unexpected token: {token}")
@@ -202,7 +196,6 @@ class Parser:
             
             # Create a CallExp node with the parsed expression, method name, and arguments
             exp = CallExp(exp, method_name.value, args)
-        
         return exp
         
     def mult_exp_parse(self):
@@ -223,27 +216,25 @@ class Parser:
                     left_exp = DivisionExp(left_exp, right_exp)
             else:
                 break 
-
         return left_exp
 
     def add_exp_parse(self):
         left_exp = self.mult_exp_parse()
-        operator = self.get_next_token()
 
-        while True:
+        while self.position < len(self.tokens):
             # Check if the next token is either '+' or '-'
-            if operator in (AdditionToken, SubtractionToken):
+            operator = self.get_next_token()
+            if isinstance(operator, AdditionToken) or isinstance(operator, SubtractionToken):
                 # Consume the operator token
                 self.position += 1
                 right_exp = self.mult_exp_parse()
 
-                if operator == AdditionToken:
-                    left_exp = AdditionExp(left_exp, right_exp)
+                if isinstance(operator, AdditionToken):
+                    left_exp = AdditionExp(left_exp, "+", right_exp)
                 else:  # operator == SubtractionToken
-                    left_exp = SubtractionExp(left_exp, right_exp)
+                    left_exp = SubtractionExp(left_exp, "-",  right_exp)
             else:
-                break 
-
+                break
         return left_exp
     
     def exp_parse(self):
