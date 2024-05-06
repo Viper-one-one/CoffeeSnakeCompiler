@@ -5,20 +5,11 @@ from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
-from Parser.PrimaryExp import PrimaryExp
-from Parser.PrimaryExp import IntegerLiteral
-from Parser.PrimaryExp import TrueExp
-from Parser.PrimaryExp import FalseExp
-from Parser.PrimaryExp import Variable
-from Parser.PrimaryExp import ParenExp
-from Parser.PrimaryExp import ThisExp
-from Parser.PrimaryExp import PrintlnExp
-from Parser.PrimaryExp import NewObjectExp
+from Parser.Statement import Assignment, Break, IfOptionalElse, Return, WhileLoop
+from Parser.PrimaryExp import PrimaryExp, IntegerLiteral, TrueExp, FalseExp, Variable, ParenExp, ThisExp, PrintlnExp, NewObjectExp
 from Parser.Vardec import Vardec
 from Parser.TypesAndNames import Type
-from Parser.TypesAndNames.Type import IntType
-from Parser.TypesAndNames.Type import BooleanType
-from Parser.TypesAndNames.Type import VoidType
+from Parser.TypesAndNames.Type import IntType, BooleanType, VoidType
 from Parser.TypesAndNames.ClassName import ClassName
 from Parser.TypesAndNames.MethodName import MethodName
 from Typechecker.TypeEnvironment import TypeEnvironment
@@ -54,6 +45,16 @@ class Typechecker:
     def typecheckStmt(self, statement, currEnv):
         if isinstance(statement, Vardec):
             return Vardec()
+        elif isinstance(statement, Assignment):
+            pass
+        elif isinstance(statement, WhileLoop):
+            pass
+        elif isinstance(statement, Break):
+            pass
+        elif isinstance(statement, Return):
+            pass
+        elif isinstance(statement, IfOptionalElse):
+            pass
         elif isinstance(statement, None):
             pass
 
