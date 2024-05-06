@@ -19,7 +19,8 @@ from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType
 from Parser.TypesAndNames.Type import BooleanType
 from Parser.TypesAndNames.Type import VoidType
-from Parser.TypesAndNames.Type import ClassName
+from Parser.TypesAndNames.ClassName import ClassName
+from Parser.TypesAndNames.MethodName import MethodName
 from Typechecker.TypeEnvironment import TypeEnvironment
 
 class Typechecker:
@@ -76,10 +77,16 @@ class Typechecker:
             return self.typecheckVariable(exp.name, currEnv) # Pass the variable's name to other function
         
         elif isinstance(exp, ParenExp):
-            return self.typecheckExp(exp.inner, currEnv) # Pass the inner exp recursively
+            return self.typecheckExp(exp.inner, currEnv, definedClass) # Pass the inner exp recursively
+
+        elif isinstance(exp, ThisExp):
+            if definedClass is None:
+                raise Exception("Incorrect use of 'this' without associated class")
+            else:
+                return ClassName(definedClass) # Return the associated class type
 
         elif isinstance(exp, PrintlnExp):
-            return self.typecheckExp(exp.expression, currEnv) # Recursive call
+            return self.typecheckExp(exp.expression, currEnv, definedClass) # Recursive call
 
         elif isinstance(exp, NewObjectExp):
             if (exp.classname in currEnv.envSpace):
@@ -118,6 +125,7 @@ class Typechecker:
             return currEnv.envSpace[expressionName] # Because we passed the current Env, we have access to the dictionary
         else:
             raise Exception(f"Error. No variable named {expressionName} found in your environmentSpace")
+
 
     def typecheckClass(self, className: ClassName, currEnv: TypeEnvironment):
         pass
