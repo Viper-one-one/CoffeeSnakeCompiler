@@ -58,13 +58,9 @@ class Typechecker:
 
     # recursive
     # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
-<<<<<<< HEAD
     # exp --> add_exp --> mult_exp ---> call_exp --> primary_exp
     def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment, definedClass: ClassName) -> Type: 
-=======
-    def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
         # base level expressions
->>>>>>> 44bf7ae0414208106a45d5af22786d1e3c682416
         if isinstance(exp, IntegerLiteral):
             return IntType()
 
@@ -79,7 +75,6 @@ class Typechecker:
             return self.typecheckVariable(exp.name, currEnv) # Pass the variable's name to other function
         
         elif isinstance(exp, ParenExp):
-<<<<<<< HEAD
             return self.typecheckExp(exp.inner, currEnv, definedClass) # Pass the inner exp recursively
 
         elif isinstance(exp, ThisExp):
@@ -90,12 +85,6 @@ class Typechecker:
 
         elif isinstance(exp, PrintlnExp):
             return self.typecheckExp(exp.expression, currEnv, definedClass) # Recursive call
-=======
-            return self.typecheckExp(exp.inner, currEnv) # Pass the inner exp recursively
-
-        elif isinstance(exp, PrintlnExp):
-            return self.typecheckExp(exp.expression, currEnv) # Recursive call
->>>>>>> 44bf7ae0414208106a45d5af22786d1e3c682416
 
         elif isinstance(exp, NewObjectExp):
             pass
