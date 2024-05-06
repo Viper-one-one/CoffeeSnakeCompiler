@@ -182,40 +182,44 @@ class Parser:
         # Parse the primary expression
         exp = self.primary_exp_parse()
         
-        while isinstance(self.get_next_token(), DotToken):
-            # Consume the dot token
-            self.match(DotToken)
-            
-            # Parse the method name
-            method_name = self.match(IdentifierToken)
-            
-            # Parse the arguments
-            self.match(LeftParenToken)
-            args = self.comma_exp_parse()
-            self.match(RightParenToken)
-            
-            # Create a CallExp node with the parsed expression, method name, and arguments
-            exp = CallExp(exp, method_name.value, args)
+        while self.position < len(self.tokens):
+            operator = self.get_next_token()
+            if isinstance(operator, DotToken):
+                # Consume the dot token
+                self.position += 1
+
+                # Parse the method name
+                method = self.match(IdentifierToken)
+                method_name = MethodName(method.name)
+                
+                # Parse the arguments
+                self.match(LeftParenToken)
+                args = self.comma_exp_parse()
+                self.match(RightParenToken)
+                
+                # Create a CallExp node with the parsed expression, method name, and arguments
+                exp = CallExp(exp, method_name, args)
+            else:
+                break
         return exp
         
     def mult_exp_parse(self):
         left_exp = self.call_exp_parse()
-        operator = self.get_next_token()
 
-        while True:
-            # Check if the next token is either '+' or '-'
-            if operator in (MultiplicationToken, DivisionToken):
+        while self.position < len(self.tokens):
+            # Check if the next token is either '*'' or '/'
+            operator = self.get_next_token()
+            if isinstance(operator, MultiplicationToken) or isinstance(operator, DivisionToken):
                 # Consume the operator token
                 self.position += 1
                 right_exp = self.call_exp_parse()
 
-                if operator == MultiplicationToken:
-                    left_exp = MultiplicationExp(left_exp, right_exp)
-                else:  # operator == SubtractionToken
-                    # Represent subtraction as negative addition
-                    left_exp = DivisionExp(left_exp, right_exp)
+                if isinstance(operator, MultiplicationToken):
+                    left_exp = MultiplicationExp(left_exp, "*", right_exp)
+                else:  # operator == DivisionToken
+                    left_exp = DivisionExp(left_exp, "/",  right_exp)
             else:
-                break 
+                break
         return left_exp
 
     def add_exp_parse(self):

@@ -52,7 +52,9 @@ from Parser.PrimaryExp import NewObjectExp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
+from Parser.MultExp import DivisionExp
 from Parser.CommaExp import CommaExp
+from Parser.CallExp import CallExp
 
 # def testClassDefWithExtends():
 #     code = """
@@ -105,13 +107,13 @@ def testPrimarySingleExp():
     assert expected_exp == single_exp
 
 def testNewObjectExp():
-    code = [NewToken(), IdentifierToken("classname"), LeftParenToken(), IntegerLiteralToken(2), RightParenToken()]
+    code = [NewToken(), IdentifierToken("classname"), LeftParenToken(), IntegerLiteralToken(2), CommaToken(), IdentifierToken("one"), RightParenToken()]
     parser = Parser(code)
     new_exp = parser.primary_exp_parse()
 
     expected_exp = NewObjectExp(
         IdentifierToken("classname"), 
-        CommaExp([IntegerLiteral(2)])
+        CommaExp([IntegerLiteral(2), Variable("one")])
     )
     assert new_exp == expected_exp
 
@@ -146,3 +148,28 @@ def testAddExp():
     expected_exp = SubtractionExp(AdditionExp(IntegerLiteral(2), "+", IntegerLiteral(3)), "-", IntegerLiteral(1))
 
     assert add_exp == expected_exp
+
+
+def testMultExp():
+    input_string = "2 * 3 / 1"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    mult_exp = parser.mult_exp_parse()
+
+    expected_exp = DivisionExp(MultiplicationExp(IntegerLiteral(2), "*", IntegerLiteral(3)), "/", IntegerLiteral(1))
+
+    assert mult_exp == expected_exp
+
+def testCallExp():
+    input_string = "cat.speak(2, one)"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    call_exp = parser.call_exp_parse()
+    expected_exp = CallExp(Variable("cat"), MethodName("speak"), CommaExp([IntegerLiteral(2), Variable("one")]))
+
+    assert call_exp == expected_exp
+    
