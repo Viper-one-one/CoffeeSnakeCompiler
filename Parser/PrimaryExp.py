@@ -14,9 +14,14 @@ class Variable(PrimaryExp):
     name: str
     varType: Type
     
-    def __init__(self, name: str, varType: Type):
+    def __init__(self, name: str, varType: Type = None): # set none since we're not checking types yet
         self.name = name
         self.varType = varType
+    
+    def __eq__(self, other):
+        if isinstance(self, Variable):
+            return self.name == other.name and self.varType == self.varType
+        return False
 
 class IntegerLiteral(PrimaryExp):
     value: int
@@ -91,3 +96,11 @@ class NewObjectExp(PrimaryExp):
     def __init__(self, classname: ClassName, variables: CommaExp):
         self.classname = classname
         self.variables = variables
+
+    def __eq__(self, other):
+        if isinstance(other, NewObjectExp):
+            return self.classname == other.classname and self.variables == other.variables
+        return False
+
+    def __str__(self):
+        return f"NewObjectExp({self.classname}, {self.variables})"

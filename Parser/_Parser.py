@@ -128,6 +128,8 @@ class Parser:
                     expression = self.exp_parse()
                     expressions.append(expression)
                     break
+            else:
+                break
                 
         return CommaExp(expressions)
 
@@ -137,8 +139,8 @@ class Parser:
 
         if isinstance(token, IdentifierToken):
             self.match(IdentifierToken)
-            return Variable(token.value)
-        elif isinstance(token, StringLiteralToken):
+            return Variable(token.name)
+        elif isinstance(token, StringLiteralToken): # get rid of this
             self.match(StringLiteralToken)  # Consume the token
             return StringLiteral(token.value)  # Return a StringLiteral object with the extracted value
         elif isinstance(token, IntegerLiteralToken):
@@ -168,11 +170,17 @@ class Parser:
             self.match(NewToken)
             # need to add some way to check the name of the identifier in the parsing
             # "here's the identifier and it's name"
-            self.match(IdentifierToken)
+            print("consume new token", self.position)
+            classname = self.match(IdentifierToken)
+            print("consume identifier", self.position)
             self.match(LeftParenToken)
-            self.comma_exp_parse()
+            print("consume left paren", self.position)
+            variables = self.comma_exp_parse()
+            print("consume comma exp", self.position)
+            print("variables", variables)
             self.match(RightParenToken)
-            return NewObjectExp() # added logic above
+            print("consume right paren", self.position)
+            return NewObjectExp(classname, variables) # added logic above
         else:
             raise ValueError(f"Unexpected token: {token}")
         

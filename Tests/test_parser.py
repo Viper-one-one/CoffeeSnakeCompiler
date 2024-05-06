@@ -48,6 +48,7 @@ from Parser.PrimaryExp import StringLiteral
 from Parser.PrimaryExp import IntegerLiteral
 from Parser.PrimaryExp import ThisExp
 from Parser.PrimaryExp import TrueExp
+from Parser.PrimaryExp import NewObjectExp
 from Parser.CommaExp import CommaExp
 
 # def testClassDefWithExtends():
@@ -75,6 +76,7 @@ def testVardec():
     assert expected_vardec.var.name == vardec.var.name
     assert expected_vardec.var.varType == vardec.var.varType
 
+# will need to take this out
 def testPrimaryString():
     code = [StringLiteralToken("hello")]
     parser = Parser(code)
@@ -91,13 +93,25 @@ def testPrimaryInt():
     expected_int = IntegerLiteral(2)
     assert expected_int == int_exp
 
-def testPrimarySingleToken():
+def testPrimarySingleExp():
     code = [ThisToken()]
     parser = Parser(code)
     single_exp = parser.primary_exp_parse()
 
     expected_exp = ThisExp()
     assert expected_exp == single_exp
+
+def testNewObjectExp():
+    code = [NewToken(), IdentifierToken("classname"), LeftParenToken(), IntegerLiteralToken(2), RightParenToken()]
+    parser = Parser(code)
+    new_exp = parser.primary_exp_parse()
+
+    expected_exp = NewObjectExp(
+        IdentifierToken("classname"), 
+        CommaExp([IntegerLiteral(2)])
+    )
+    assert new_exp == expected_exp
+
 
 def testCommaExp():
     code = [
@@ -115,7 +129,5 @@ def testCommaExp():
         TrueExp(), 
         ThisExp()
     ])
-    print("CommaExp", comma_exp)
-    print("Expected", expected_exp)
 
     assert comma_exp == expected_exp
