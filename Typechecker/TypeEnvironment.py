@@ -11,6 +11,10 @@ class TypeEnvironment:
     # add data structure to store the classes and their fields and methods
     # should hold the instance variables for the class and the parent class
     # no name shadowing, just reject
+    # something like: methods = {
+    # "method_name1": {"parameters": ["param1", "param2"], "return_type": "return_type"},
+    # "method_name2": {"parameters": ["param1", "param2", "param3"], "return_type": "return_type"}
+    # }
     
     # struct to store the method names, their parameters, and their return types
     

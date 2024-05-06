@@ -1,4 +1,5 @@
-from Parser.Exp import Exp
+from Parser.CommaExp import CommaExp
+from Parser.Exp import CallExp, Exp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
@@ -55,8 +56,10 @@ class Typechecker:
         elif isinstance(statement, None):
             pass
 
-    # recursive
-    # primary_exp ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')'
+    # recursive 
+    # we recusrively call typecheckExp on the inner expressions as we move through the tree on ALL types of expressions, call, comma, primary, etc.
+    # all exps ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')' | [exp ( ',' exp)*] 
+    # | primaryexp ('.' methodname '(' comma_exp ')')* | call_exp ((`*` | `/`) call_exp)* | mult_exp ((`+` | `-`) mult_exp)* | add_exp
     def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
         # base level expressions
         if isinstance(exp, IntegerLiteral):
@@ -79,10 +82,32 @@ class Typechecker:
             return self.typecheckExp(exp.expression, currEnv) # Recursive call
 
         elif isinstance(exp, NewObjectExp):
-            pass
+            if (exp.classname in currEnv.envSpace):
+                return exp.classname        # still thinking about this one
         
         elif isinstance(exp, ThisExp):
             pass
+        
+        elif isinstance(exp, CommaExp):
+            pass
+        
+        elif isinstance(exp, CallExp):
+            pass
+        
+        elif isinstance(exp, MultiplicationExp):
+            pass
+        
+        elif isinstance(exp, DivisionExp):
+            pass
+        
+        elif isinstance(exp, AdditionExp):
+            pass
+        
+        elif isinstance(exp, SubtractionExp):
+            pass
+        
+        else:
+            raise Exception("Error. Expression not recognized.")
             
     # non-recursive
     # looking for other Int x in scope and making sure that the assignment of x is to an Int    
