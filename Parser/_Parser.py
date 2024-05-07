@@ -182,8 +182,8 @@ class Parser:
             classname = ClassName(classname_token.name)
             self.match(LeftParenToken)
             variables = []
-            # if not isinstance(self.get_next_token, RightParenToken):
-            #     variables = self.comma_exp_parse()
+            if not isinstance(self.get_next_token, RightParenToken):
+                variables = self.comma_exp_parse()
             self.match(RightParenToken)
             return NewObjectExp(classname, variables) # added logic above
         else:
