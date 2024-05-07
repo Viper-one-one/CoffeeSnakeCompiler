@@ -123,7 +123,7 @@ def testNewObjectExp():
     new_exp = parser.primary_exp_parse()
 
     expected_exp = NewObjectExp(
-        IdentifierToken("classname"), 
+        ClassName("classname"), 
         CommaExp([IntegerLiteral(2), Variable("one")])
     )
     assert new_exp == expected_exp
@@ -352,3 +352,6 @@ def testClassDefWithExtends():
     expected_stmt = ClassDef(ClassName("Cat"), ClassName("Animal"), [Vardec(IntType(), Variable('x', IntType())), Vardec(BooleanType(), Variable('y', BooleanType()))], Constructor([], [], []), [MethodDef(MethodName('speak'), [], VoidType(), [Return(PrintlnExp(IntegerLiteral(1)))])])
 
     assert classdef_stmt == expected_stmt
+
+def testProgram():
+    pass

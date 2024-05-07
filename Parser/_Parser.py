@@ -117,6 +117,9 @@ class Parser:
             case VoidToken():
                 self.position += 1
                 return VoidType()
+            case IdentifierToken() as identifier_token:
+                self.position += 1
+                return ClassName(identifier_token.name)
             case _:
                 raise Exception(f"Error parsing type: {token} at position {self.position}")
                 
@@ -142,7 +145,6 @@ class Parser:
         
     def primary_exp_parse(self):
         token = self.get_next_token()
-
         if isinstance(token, IdentifierToken):
             self.match(IdentifierToken)
             return Variable(token.name)
@@ -176,9 +178,12 @@ class Parser:
             self.match(NewToken)
             # need to add some way to check the name of the identifier in the parsing
             # "here's the identifier and it's name"
-            classname = self.match(IdentifierToken)
+            classname_token = self.match(IdentifierToken)
+            classname = ClassName(classname_token.name)
             self.match(LeftParenToken)
-            variables = self.comma_exp_parse()
+            variables = []
+            # if not isinstance(self.get_next_token, RightParenToken):
+            #     variables = self.comma_exp_parse()
             self.match(RightParenToken)
             return NewObjectExp(classname, variables) # added logic above
         else:
@@ -259,6 +264,7 @@ class Parser:
     def assignment_parse(self):
         variable = self.match(IdentifierToken)
         self.match(SingleEqualsToken)
+
         expression = self.exp_parse()
         self.match(SemiColonToken)
 
@@ -320,7 +326,12 @@ class Parser:
 
     def statement_parse(self):
          # Check the type of statement and parse accordingly
-        if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
+        if isinstance(self.get_next_token(), IdentifierToken) and not isinstance(self.tokens[self.position + 1], SingleEqualsToken):
+            # Variable declaration statement with class name
+            vardec = self.vardec_parse()
+            self.match(SemiColonToken)  # Makes it a statement
+            return vardec
+        elif self.get_next_token() in [IntToken(), BooleanToken(), VoidToken()] and not isinstance(self.tokens[self.position + 1], SingleEqualsToken):
             # Variable declaration statement
             vardec = self.vardec_parse() # done
             self.match(SemiColonToken) # makes it a statement
@@ -458,8 +469,6 @@ class Parser:
         while not isinstance(self.get_next_token(), RightCurlyBraceToken):
             method_defs.append(self.method_def_parse())
         
-        print("invoke")
-
 
         self.match(RightCurlyBraceToken)
 
@@ -467,9 +476,16 @@ class Parser:
 
     # outer production rule is the program entry point
     def program_parse(self):
-        classDef = self.class_def_parse(self)
-        statements = self.statement_parse(self)
-        return Program(classDef, statements)
+        class_defs = []
+        while isinstance(self.get_next_token(), ClassToken):
+            class_defs.append(self.class_def_parse())
+        statements = []
+
+        while self.position < len(self.tokens) - 1:
+            statement = self.statement_parse()
+            statements.append(statement)
+
+        return Program(class_defs, statements)
 
     # ATTENTION!
     # self contains the tokens list and the position

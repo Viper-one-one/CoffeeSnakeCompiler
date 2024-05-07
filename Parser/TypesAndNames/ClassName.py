@@ -10,3 +10,6 @@ class ClassName:
     
     def __str__(self):
         return f"ClassName({self.name})"
+    
+    def __repr__(self):
+        return f"ClassName({repr(self.name)})"

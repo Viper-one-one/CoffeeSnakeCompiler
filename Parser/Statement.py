@@ -29,6 +29,9 @@ class Assignment(Statement):
     
     def __str__(self):
         return f"Assignment({self.exp}, {self.var})"
+    
+    def __repr__(self):
+        return f"Assignment({repr(self.exp)}, {repr(self.var)})"
 
 class WhileLoop(Statement):
     exp: Exp

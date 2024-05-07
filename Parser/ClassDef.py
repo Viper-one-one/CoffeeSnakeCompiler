@@ -26,3 +26,6 @@ class ClassDef:
     
     def __str__(self):
         return f"ClassDef({self.classname}, {self.extendsname}, {self.vardecs}, {self.constructor}, {self.methoddefs})"
+    
+    def __repr__(self):
+        return f"ClassDef({repr(self.classname)}, {repr(self.extendsname)}, {repr(self.vardecs)}, {repr(self.constructor)}, {repr(self.methoddefs)})"

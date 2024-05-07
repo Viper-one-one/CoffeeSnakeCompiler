@@ -123,3 +123,6 @@ class NewObjectExp(PrimaryExp):
 
     def __str__(self):
         return f"NewObjectExp({self.classname}, {self.variables})"
+    
+    def __repr__(self):
+        return f"NewObjectExp({repr(self.classname)}, {repr(self.variables)})"
