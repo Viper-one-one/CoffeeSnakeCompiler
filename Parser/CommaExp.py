@@ -13,4 +13,4 @@ class CommaExp:
         return self.expressions == other.expressions
 
     def __str__(self):
-        return f"CommaExp({', '.join(str(exp) for exp in self.expressions)})"
+        return f"CommaExp({self.expressions})"

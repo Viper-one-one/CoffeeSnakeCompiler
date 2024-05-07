@@ -26,6 +26,9 @@ class Variable(PrimaryExp):
     def __str__(self):
         return f"Variable({self.name}, {self.varType})"
     
+    def __repr__(self):
+        return f"Variable({repr(self.name)}, {repr(self.varType)})"
+    
 class IntegerLiteral(PrimaryExp):
     value: int
     

@@ -13,4 +13,7 @@ class CommaVardec:
         return False
 
     def __str__(self):
-        return f"CommaVardec({', '.join(map(str, self.vardecs))})"
+        return f"CommaVardec({self.vardecs})"
+    
+    def __repr__(self):
+        return f"CommaVardec({repr(self.vardecs)})"

@@ -388,15 +388,43 @@ class Parser:
             statement = self.statement_parse()
             statements.append(statement)
         self.match(RightCurlyBraceToken)
-        
+
         return MethodDef(method_name, parameters, return_type, statements)
 
     def constructor_parse(self):
         self.match(InitToken)
         self.match(LeftParenToken)
 
-        #comma_vardec
+        declarations = []
+        if not isinstance(self.get_next_token(), RightParenToken):
+            declarations = self.comma_vardec_parse()
         self.match(RightParenToken)
+        self.match(LeftCurlyBraceToken)
+
+        expressions = []
+        # optional
+        if isinstance(self.get_next_token(), SuperToken):
+            self.match(SuperToken)
+            self.match(LeftParenToken)
+            if not isinstance(self.get_next_token(), RightParenToken):
+                expressions = self.comma_exp_parse()
+            
+            self.match(RightParenToken)
+
+            self.match(SemiColonToken)
+        # optional
+
+
+        statements = []
+        while not isinstance(self.get_next_token(), RightCurlyBraceToken):
+            # Parse each statement within the block
+            statement = self.statement_parse()
+            statements.append(statement)
+
+        self.match(RightCurlyBraceToken)
+
+        return Constructor(declarations, expressions, statements)
+
     
 
     #classdef ::= `class` classname [`extends` classname] `{`

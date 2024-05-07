@@ -64,7 +64,7 @@ from Parser.Statement import Return
 from Parser.Statement import IfOptionalElse
 from Parser.Statement import Block
 from Parser.MethodDef import MethodDef
-
+from Parser.Constructor import Constructor
 
 # def testClassDefWithExtends():
 #     code = """
@@ -299,3 +299,26 @@ def testMethodDef():
     print(expected_stmt)
 
     assert methoddef_stmt == expected_stmt
+
+def testConstructor():
+    input_string = "init(Int x, Boolean z) { super(println(0)); return;}"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    parsed_constr = parser.constructor_parse()
+    expected_constr = Constructor(
+    CommaVardec([
+        Vardec(IntType(), Variable("x", IntType())), 
+        Vardec(BooleanType(), Variable("z", BooleanType()))
+    ]),
+    CommaExp(
+        [PrintlnExp(IntegerLiteral(0))]
+    ),
+    [Return(None)]
+    )
+
+    print("parsed", parsed_constr)
+    print("expected", expected_constr)
+
+    assert parsed_constr == expected_constr
