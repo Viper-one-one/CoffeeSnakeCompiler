@@ -49,6 +49,7 @@ from Parser.PrimaryExp import IntegerLiteral
 from Parser.PrimaryExp import ThisExp
 from Parser.PrimaryExp import TrueExp
 from Parser.PrimaryExp import NewObjectExp
+from Parser.PrimaryExp import PrintlnExp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
@@ -62,6 +63,7 @@ from Parser.Statement import Break
 from Parser.Statement import Return
 from Parser.Statement import IfOptionalElse
 from Parser.Statement import Block
+from Parser.MethodDef import MethodDef
 
 
 # def testClassDefWithExtends():
@@ -83,7 +85,7 @@ def testVardec():
     parser = Parser(code)
     vardec = parser.vardec_parse()
     
-    expected_vardec = Vardec(IntType, Variable("x", IntType))
+    expected_vardec = Vardec(IntType(), Variable("x", IntType()))
     
     assert expected_vardec.varType == vardec.varType
     assert expected_vardec.var.name == vardec.var.name
@@ -279,9 +281,21 @@ def testCommaVardec():
     parser = Parser(code)
 
     commavardec_stmt = parser.comma_vardec_parse()
-    expected_stmt = CommaVardec([Vardec(IntType, Variable("x", IntType)), Vardec(BooleanType, Variable("z", BooleanType)), Vardec(IntType, Variable("y", IntType))])
+    expected_stmt = CommaVardec([Vardec(IntType(), Variable("x", IntType())), Vardec(BooleanType(), Variable("z", BooleanType())), Vardec(IntType(), Variable("y", IntType()))])
 
-    print("commavardec", commavardec_stmt)
-    print("expected", expected_stmt)
 
     assert commavardec_stmt == expected_stmt
+
+def testMethodDef():
+    input_string = "method speak() Void { return println(0); }"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    methoddef_stmt = parser.method_def_parse()
+    expected_stmt = MethodDef(MethodName('speak'), [], VoidType(), [Return(PrintlnExp(IntegerLiteral(0)))])
+
+    print(methoddef_stmt)
+    print(expected_stmt)
+
+    assert methoddef_stmt == expected_stmt

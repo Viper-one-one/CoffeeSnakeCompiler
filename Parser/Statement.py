@@ -64,6 +64,12 @@ class Return(Statement):
         if isinstance(other, Return):
             return self.exp == other.exp
         return False
+    
+    def __str__(self):
+        return f"Return({self.exp})"
+    
+    def __repr__(self):
+        return f"Return({repr(self.exp)})"
 
 class IfOptionalElse(Statement):
     exp : Exp

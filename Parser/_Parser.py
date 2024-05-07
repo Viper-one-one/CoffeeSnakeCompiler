@@ -110,13 +110,13 @@ class Parser:
         match token:
             case IntToken():
                 self.position += 1
-                return IntType
+                return IntType()
             case BooleanToken():
                 self.position += 1
-                return BooleanType
+                return BooleanType()
             case VoidToken():
                 self.position += 1
-                return VoidType
+                return VoidType()
             case _:
                 raise Exception(f"Error parsing type: {token} at position {self.position}")
                 
@@ -365,25 +365,31 @@ class Parser:
                 break
 
         return CommaVardec(var_decs)
-
-        # Check for additional variable declarations separated by commas
-        while self.get_next_token() == CommaToken:
-            self.match(CommaToken)  # Consume the comma token
-            # Parse the next variable declaration
-            var_dec = self.vardec_parse()
-            var_decs.append(var_dec)
-
-        return CommaVardec(var_decs)
-
         
     def method_def_parse(self):
         self.match(MethodToken)
-        self.match(MethodName)
+
+        method = self.match(IdentifierToken)
+        method_name = MethodName(method.name)
+
         self.match(LeftParenToken)
-        self.comma_vardec_parse()
+
+        parameters = []
+        if not isinstance(self.get_next_token(), RightParenToken):
+            parameters = self.comma_vardec_parse()
+            
         self.match(RightParenToken)
-        self.type_parse()
+
+        return_type = self.type_parse()
+
         self.match(LeftCurlyBraceToken)
+        statements = []
+        while not isinstance(self.get_next_token(), RightCurlyBraceToken):
+            statement = self.statement_parse()
+            statements.append(statement)
+        self.match(RightCurlyBraceToken)
+        
+        return MethodDef(method_name, parameters, return_type, statements)
 
     def constructor_parse(self):
         self.match(InitToken)

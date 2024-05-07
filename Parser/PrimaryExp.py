@@ -25,6 +25,7 @@ class Variable(PrimaryExp):
 
     def __str__(self):
         return f"Variable({self.name}, {self.varType})"
+    
 class IntegerLiteral(PrimaryExp):
     value: int
     
@@ -39,7 +40,9 @@ class IntegerLiteral(PrimaryExp):
     def __str__(self):
         return f"IntegerLiteral({self.value})"
     
-
+    def __repr__(self):
+        return f"IntegerLiteral({repr(self.value)})"
+    
 class StringLiteral(PrimaryExp):
     value: str
     
@@ -90,6 +93,17 @@ class PrintlnExp(PrimaryExp):
     
     def __init__(self, expression: Exp):
         self.expression = expression
+
+    def __eq__(self, other):
+        if isinstance(other, PrintlnExp):
+            return self.expression == other.expression
+        return False
+    
+    def __str__(self):
+        return f"PrintlnExp({self.expression})"
+    
+    def __repr__(self):
+        return f"PrintlnExp({repr(self.expression)})"
 
 class NewObjectExp(PrimaryExp):
     classname: ClassName
