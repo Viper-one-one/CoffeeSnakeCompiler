@@ -6,11 +6,16 @@ def main():
     # tokenizer = Tokenizer("Tests//sample_program.txt")
     # tokens = tokenizer.tokenize_file()
     # print("Tokens", tokens)
-    code = "init(Int x, Boolean z) { super(println(0)); return;}"
+    code = """class Cat extends Animal {
+                    Int x; Boolean y; 
+                    init() { super(); }
+                    method speak() Void { return println(1); }
+                    }
+                    """
     tokenizer = Tokenizer(code)
     tokens = tokenizer.tokenize()
     parser = Parser(tokens)
-    string_exp = parser.constructor_parse()
+    string_exp = parser.class_def_parse()
     print(string_exp)
 
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module

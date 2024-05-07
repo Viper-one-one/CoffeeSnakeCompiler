@@ -65,6 +65,7 @@ from Parser.Statement import IfOptionalElse
 from Parser.Statement import Block
 from Parser.MethodDef import MethodDef
 from Parser.Constructor import Constructor
+from Parser.ClassDef import ClassDef
 
 # def testClassDefWithExtends():
 #     code = """
@@ -295,9 +296,6 @@ def testMethodDef():
     methoddef_stmt = parser.method_def_parse()
     expected_stmt = MethodDef(MethodName('speak'), [], VoidType(), [Return(PrintlnExp(IntegerLiteral(0)))])
 
-    print(methoddef_stmt)
-    print(expected_stmt)
-
     assert methoddef_stmt == expected_stmt
 
 def testConstructor():
@@ -322,3 +320,35 @@ def testConstructor():
     print("expected", expected_constr)
 
     assert parsed_constr == expected_constr
+
+def testClassDef():
+    input_string = """class Animal {
+                    init() {}
+                    method speak() Void { return println(0); }
+                    }"""
+    
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    classdef_stmt = parser.class_def_parse()
+    expected_stmt = ClassDef(ClassName("Animal"), None, [], Constructor([], [], []), [MethodDef(MethodName('speak'), [], VoidType(), [Return(PrintlnExp(IntegerLiteral(0)))])])
+
+    assert classdef_stmt == expected_stmt
+
+def testClassDefWithExtends():
+    input_string = """class Cat extends Animal {
+                    Int x; Boolean y; 
+                    init() { super(); }
+                    method speak() Void { return println(1); }
+                    }
+                    """
+    
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    classdef_stmt = parser.class_def_parse()
+    expected_stmt = ClassDef(ClassName("Cat"), ClassName("Animal"), [Vardec(IntType(), Variable('x', IntType())), Vardec(BooleanType(), Variable('y', BooleanType()))], Constructor([], [], []), [MethodDef(MethodName('speak'), [], VoidType(), [Return(PrintlnExp(IntegerLiteral(1)))])])
+
+    assert classdef_stmt == expected_stmt

@@ -435,22 +435,35 @@ class Parser:
 
     def class_def_parse(self):
         self.match(ClassToken)
-        self.match(IdentifierToken)
+        class_identifier = self.match(IdentifierToken)
+        class_name = ClassName(class_identifier.name)
+        superclass_name = None
         # needs an optional extends token
-        if self.get_next_token() == ExtendsToken:
+        if isinstance(self.get_next_token(), ExtendsToken):
             self.match(ExtendsToken)
             superclass_name_token = self.match(IdentifierToken)
-            # superclass_name = superclass_name_token.name # not sure why we're getting this..
-        self.match(LeftCurlyBraceToken)
+            superclass_name = ClassName(superclass_name_token.name)
 
-        while self.get_next_token() != RightCurlyBraceToken:
+        self.match(LeftCurlyBraceToken)
+        var_decs = []
+        while not isinstance(self.get_next_token(), InitToken):
             # Parse variable declarations if encountered
-            if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
-                self.vardec_parse()
+            if self.get_next_token() in [IntToken(), BooleanToken(), VoidToken()]:
+                var_decs.append(self.vardec_parse())
                 self.match(SemiColonToken)
         # constructor
+        constructor = self.constructor_parse()
+
+        method_defs = []
+        while not isinstance(self.get_next_token(), RightCurlyBraceToken):
+            method_defs.append(self.method_def_parse())
+        
+        print("invoke")
+
 
         self.match(RightCurlyBraceToken)
+
+        return ClassDef(class_name, superclass_name, var_decs, constructor, method_defs)
 
     # outer production rule is the program entry point
     def program_parse(self):
