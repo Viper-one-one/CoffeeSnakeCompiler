@@ -54,6 +54,7 @@ from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.CommaExp import CommaExp
+from Parser.CommaVardec import CommaVardec
 from Parser.CallExp import CallExp
 from Parser.Statement import Assignment
 from Parser.Statement import WhileLoop
@@ -78,7 +79,7 @@ from Parser.Statement import Block
 
 
 def testVardec():
-    code = [IntToken(), IdentifierToken("x"), SemiColonToken()]
+    code = [IntToken(), IdentifierToken("x")]
     parser = Parser(code)
     vardec = parser.vardec_parse()
     
@@ -270,3 +271,17 @@ def testBlockStatement():
     expected_stmt = Block([Assignment(IntegerLiteral(1), Variable("x")), Assignment(IntegerLiteral(2), Variable("x"))])
 
     assert block_stmt == expected_stmt
+
+def testCommaVardec():
+    input_string = "Int x, Boolean z, Int y"
+    tokenizer = Tokenizer(input_string)
+    code = tokenizer.tokenize()
+    parser = Parser(code)
+
+    commavardec_stmt = parser.comma_vardec_parse()
+    expected_stmt = CommaVardec([Vardec(IntType, Variable("x", IntType)), Vardec(BooleanType, Variable("z", BooleanType)), Vardec(IntType, Variable("y", IntType))])
+
+    print("commavardec", commavardec_stmt)
+    print("expected", expected_stmt)
+
+    assert commavardec_stmt == expected_stmt

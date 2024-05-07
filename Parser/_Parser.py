@@ -253,7 +253,6 @@ class Parser:
     def vardec_parse(self):
         var_type = self.type_parse()
         var_name = self.match(IdentifierToken)
-        self.match(SemiColonToken)
 
         return Vardec(var_type, Variable(var_name.name, var_type))
     
@@ -323,7 +322,9 @@ class Parser:
          # Check the type of statement and parse accordingly
         if self.get_next_token() in [IntToken, BooleanToken, VoidToken]:
             # Variable declaration statement
-            return self.vardec_parse() # done
+            vardec = self.vardec_parse() # done
+            self.match(SemiColonToken) # makes it a statement
+            return vardec
         elif isinstance(self.get_next_token(), IdentifierToken):
             return self.assignment_parse() # done
         elif isinstance(self.get_next_token(), WhileToken):
@@ -350,8 +351,20 @@ class Parser:
     def comma_vardec_parse(self):
         var_decs = []
 
-        var_dec = self.vardec_parse()
-        var_decs.append(var_dec)
+        while self.position < len(self.tokens):
+            var_dec = self.vardec_parse()
+            var_decs.append(var_dec)
+
+            if isinstance(self.tokens[self.position], CommaToken):
+                self.match(CommaToken)  # Consume the comma token
+                if self.position == len(self.tokens) - 1:
+                    var_dec = self.vardec_parse()
+                    var_decs.append(var_dec)
+                    break
+            else:
+                break
+
+        return CommaVardec(var_decs)
 
         # Check for additional variable declarations separated by commas
         while self.get_next_token() == CommaToken:
@@ -360,7 +373,7 @@ class Parser:
             var_dec = self.vardec_parse()
             var_decs.append(var_dec)
 
-        return var_decs
+        return CommaVardec(var_decs)
 
         
     def method_def_parse(self):
