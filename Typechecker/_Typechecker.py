@@ -1,5 +1,5 @@
 from Parser.CommaExp import CommaExp
-from Parser.Exp import CallExp, Exp
+from Parser.Exp import Exp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MultExp import MultiplicationExp
@@ -7,6 +7,7 @@ from Parser.MultExp import DivisionExp
 from Parser.Program import Program
 from Parser.Statement import Assignment, Block, Break, IfOptionalElse, Return, WhileLoop
 from Parser.PrimaryExp import PrimaryExp, IntegerLiteral, TrueExp, FalseExp, Variable, ParenExp, ThisExp, PrintlnExp, NewObjectExp
+from Parser.CallExp import CallExp
 from Parser.Vardec import Vardec
 from Parser.TypesAndNames import Type
 from Parser.TypesAndNames.Type import IntType, BooleanType, VoidType
@@ -87,7 +88,10 @@ class Typechecker:
     # vardec ::= type var    
     # currEnv.add(vardec.var, vardec.varType)  
     def typecheckVardec(self, vardec: Vardec, currEnv: TypeEnvironment):
-        pass
+        if vardec.var.name in currEnv.envSpace: 
+            raise Exception(f"{vardec.var.name} is already in the current Environment!")
+        else: # Note: if the vardec's variable name doesn't already exist, then we add to the current environment?
+            pass
     
     # recursive 
     # we recusrively call typecheckExp on the inner expressions as we move through the tree on ALL types of expressions, call, comma, primary, etc.
@@ -104,47 +108,125 @@ class Typechecker:
         elif isinstance(exp, FalseExp):
             return BooleanType()
 
-        # *** Note: Don't forget to pass the current Environment ***
         elif isinstance(exp, Variable):
-            return self.typecheckVariable(exp.name, currEnv) # Pass the variable's name to other function
+            return self.typecheckVariable(exp.name, currEnv) 
         
         elif isinstance(exp, ParenExp):
-            return self.typecheckExp(exp.inner, currEnv, definedClass) # Pass the inner exp recursively
+            return self.typecheckExp(exp.inner, currEnv) 
 
         elif isinstance(exp, ThisExp):
-            if definedClass is None:
-                raise Exception("Incorrect use of 'this' without associated class")
-            else:
-                return ClassName(definedClass) # Return the associated class type
+            pass
 
         elif isinstance(exp, PrintlnExp):
-            return self.typecheckExp(exp.expression, currEnv, definedClass) # Recursive call
+            return self.typecheckExp(exp.expression, currEnv) 
 
         elif isinstance(exp, NewObjectExp):
             if (exp.classname in currEnv.envSpace):
                 return exp.classname        # still thinking about this one
+        # Prof Notes: Make sure that the given class you're trying to make an instance of exists 
+        # and that it has a constructor defined that takes the same # of parameters as those provided in new
+        # and that the types of these parameters similarly line up with what's in the constructor
         
         elif isinstance(exp, ThisExp):
             pass
         
         elif isinstance(exp, CommaExp):
-            pass
-        
+            listOfExpressions = exp.expressions # Grab list of exp 
+            numberOfExpressions = 0 # Initialize a counter
+
+            for exp in listOfExpressions:
+                typeofCurrExp = self.typecheckExp(exp, currEnv)
+                if isinstance(typeofCurrExp, IntType):
+                    numberOfExpressions += 1
+                    if numberOfExpressions == len(listOfExpressions): # Checked all expressions? You pass!
+                        return "Pass" # Note: idk what to return
+                elif isinstance(typeofCurrExp, BooleanType):
+                    numberOfExpressions += 1
+                    if numberOfExpressions == len(listOfExpressions):
+                        return "Pass"
+
         elif isinstance(exp, CallExp):
-            pass
+            # Note: need to handle: ('.' methodname '(' comma_exp ')')*
+            primaryExp = exp.left
+
+            typeofprimaryExp = self.typecheckExp(primaryExp, currEnv)
+
+            if isinstance(typeofprimaryExp, IntType):
+                return IntType()
+            elif isinstance(typeofprimaryExp, BooleanType):
+                return BooleanType()
         
         elif isinstance(exp, MultiplicationExp):
-            pass
+            leftExp = exp.left
+            rightExp = exp.right
+            thisOp = exp.op
+
+            typeofLeft = self.typecheckExp(leftExp, currEnv)
+            typeofRight = self.typecheckExp(rightExp, currEnv)
+
+            # MULTIPLICATION
+            if thisOp == "*" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+                return IntType()
+            elif not isinstance(typeofLeft, IntType):
+                raise Exception(f"Error in Multiplication Exp. Left expression expected to be Int, recieved: {typeofLeft}")
+            elif not isinstance(typeofRight, IntType):
+                raise Exception(f"Error in Multiplication Exp. Right expression expected to be Int, recieved: {typeofRight}")
+            elif thisOp != "*":
+                raise Exception(f"Error. Attempted to perform Multiplication with operator: {thisOp}")
         
         elif isinstance(exp, DivisionExp):
-            pass
+            leftExp = exp.left
+            rightExp = exp.right
+            thisOp = exp.op
+
+            typeofLeft = self.typecheckExp(leftExp, currEnv)
+            typeofRight = self.typecheckExp(rightExp, currEnv)
+
+            # DIVISION
+            if thisOp == "/" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+                return IntType()
+            elif not isinstance(typeofLeft, IntType):
+                raise Exception(f"Error in Division Exp. Left expression expected to be Int, recieved {typeofLeft}")
+            elif not isinstance(typeofRight, IntType):
+                raise Exception(f"Error in Division Exp. Right expression expected to be Int, recieved: {typeofRight}")
+            elif thisOp != "/":
+                raise Exception(f" Error. Attempted to perform Division with operator: {thisOp}")
         
         elif isinstance(exp, AdditionExp):
-            pass
+            leftExp = exp.left
+            rightExp = exp.right
+            thisOp = exp.op
+
+            typeofLeft = self.typecheckExp(leftExp, currEnv)
+            typeofRight = self.typecheckExp(rightExp, currEnv)
+            # ADDITION
+            if thisOp == "+" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+                return IntType()
+            elif not isinstance(typeofLeft, IntType):
+                raise Exception (f"Error in Addition Exp. Left expression expected to be Int, recieved: {typeofLeft}")
+            elif not isinstance(typeofRight, IntType):
+                raise Exception (f"Error in Addition Exp. Right expression expected to be Int, recieved: {typeofRight}")
+            elif thisOp != "+":
+                raise Exception(f"Error. Attempted to perform Addition with operator: {thisOp}")
         
         elif isinstance(exp, SubtractionExp):
-            pass
-        
+            leftExp = exp.left
+            rightExp = exp.right
+            thisOp = exp.op
+
+            typeofLeft = self.typecheckExp(leftExp, currEnv)
+            typeofRight = self.typecheckExp(rightExp, currEnv)
+            # SUBTRACTION
+            if thisOp == "-" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+                return IntType()
+            elif not isinstance(typeofLeft, IntType):
+                raise Exception (f"Error in Subtraction Exp. Left expression expected to be Int, recieved: {typeofLeft}")
+            elif not isinstance(typeofRight, IntType):
+                raise Exception (f"Error in Subtraction Exp. Right expression expected to be Int, recieved: {typeofRight}")
+            elif thisOp != "-":
+                raise Exception(f"Error. Attempted to perform Subtraction with operator: {thisOp}")
+            
+        # End of the typecheckExp!
         else:
             raise Exception("Error. Expression not recognized.")
             
