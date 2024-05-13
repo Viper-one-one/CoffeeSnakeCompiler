@@ -51,6 +51,7 @@
     <Compile Include="Tokenizer\LeftCurlyBraceToken.py" />
     <Compile Include="Tokenizer\RightCurlyBraceToken.py" />
     <Compile Include="Tokenizer\SemiColonToken.py" />
+    <Compile Include="Tokenizer\StringLiteralToken.py" />
     <Compile Include="Tokenizer\SubtractionToken.py" />
     <Compile Include="Tokenizer\MethodToken.py" />
     <Compile Include="Tokenizer\PrintlnToken.py" />
@@ -90,6 +91,7 @@
     <Folder Include="Tests\" />
     <Folder Include="Tests\assets\" />
     <Folder Include="Tokenizer\" />
+    <Folder Include="Tokenizer\__pycache__\" />
     <Folder Include="Typechecker\" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +101,43 @@
     <Content Include="Tests\sample_program_with_errors.txt" />
     <Content Include="Tests\TestingSimpleParserStructure.py" />
     <Content Include="Tokenizer\_ListOfHashCodes.txt" />
+    <Content Include="Tokenizer\__pycache__\AdditionToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\BooleanToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\BreakToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\ClassToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\CommaToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\DivisionToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\DotToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\ElseToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\ExtendsToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\FalseToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\IdentifierToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\IfToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\InitToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\IntegerLiteralToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\IntToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\LeftCurlyBraceToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\LeftParenToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\Lexer.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\MethodToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\MultiplicationToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\NewToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\PrintlnToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\ReturnToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\RightCurlyBraceToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\RightParenToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\SemiColonToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\SingleEqualsToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\SubtractionToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\SuperToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\SymbolPair.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\ThisToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\Token.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\TrueToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\VarToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\VoidToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\WhileToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\_Lexer.cpython-311.pyc" />
     <Content Include="Typechecker\_HowToUnderstandTypechecker.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

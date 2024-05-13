@@ -118,7 +118,8 @@ class Typechecker:
             return self.typecheckExp(exp.inner, currEnv) 
 
         elif isinstance(exp, ThisExp):
-            pass
+            if exp in currEnv.envSpace:
+                return currEnv.envSpace[exp]
 
         elif isinstance(exp, PrintlnExp):
             return self.typecheckExp(exp.expression, currEnv) 
@@ -129,9 +130,6 @@ class Typechecker:
         # Prof Notes: Make sure that the given class you're trying to make an instance of exists 
         # and that it has a constructor defined that takes the same # of parameters as those provided in new
         # and that the types of these parameters similarly line up with what's in the constructor
-        
-        elif isinstance(exp, ThisExp):
-            pass
         
         elif isinstance(exp, CommaExp):
             listOfExpressions = exp.expressions # Grab list of exp 
@@ -162,72 +160,60 @@ class Typechecker:
         elif isinstance(exp, MultiplicationExp):
             leftExp = exp.left
             rightExp = exp.right
-            thisOp = exp.op
 
             typeofLeft = self.typecheckExp(leftExp, currEnv)
             typeofRight = self.typecheckExp(rightExp, currEnv)
 
             # MULTIPLICATION
-            if thisOp == "*" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+            if isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
                 return IntType()
             elif not isinstance(typeofLeft, IntType):
                 raise Exception(f"Error in Multiplication Exp. Left expression expected to be Int, recieved: {typeofLeft}")
             elif not isinstance(typeofRight, IntType):
                 raise Exception(f"Error in Multiplication Exp. Right expression expected to be Int, recieved: {typeofRight}")
-            elif thisOp != "*":
-                raise Exception(f"Error. Attempted to perform Multiplication with operator: {thisOp}")
         
         elif isinstance(exp, DivisionExp):
             leftExp = exp.left
             rightExp = exp.right
-            thisOp = exp.op
 
             typeofLeft = self.typecheckExp(leftExp, currEnv)
             typeofRight = self.typecheckExp(rightExp, currEnv)
 
             # DIVISION
-            if thisOp == "/" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+            if isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
                 return IntType()
             elif not isinstance(typeofLeft, IntType):
                 raise Exception(f"Error in Division Exp. Left expression expected to be Int, recieved {typeofLeft}")
             elif not isinstance(typeofRight, IntType):
                 raise Exception(f"Error in Division Exp. Right expression expected to be Int, recieved: {typeofRight}")
-            elif thisOp != "/":
-                raise Exception(f" Error. Attempted to perform Division with operator: {thisOp}")
         
         elif isinstance(exp, AdditionExp):
             leftExp = exp.left
             rightExp = exp.right
-            thisOp = exp.op
 
             typeofLeft = self.typecheckExp(leftExp, currEnv)
             typeofRight = self.typecheckExp(rightExp, currEnv)
             # ADDITION
-            if thisOp == "+" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+            if isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
                 return IntType()
             elif not isinstance(typeofLeft, IntType):
                 raise Exception (f"Error in Addition Exp. Left expression expected to be Int, recieved: {typeofLeft}")
             elif not isinstance(typeofRight, IntType):
                 raise Exception (f"Error in Addition Exp. Right expression expected to be Int, recieved: {typeofRight}")
-            elif thisOp != "+":
-                raise Exception(f"Error. Attempted to perform Addition with operator: {thisOp}")
         
         elif isinstance(exp, SubtractionExp):
             leftExp = exp.left
             rightExp = exp.right
-            thisOp = exp.op
 
             typeofLeft = self.typecheckExp(leftExp, currEnv)
             typeofRight = self.typecheckExp(rightExp, currEnv)
             # SUBTRACTION
-            if thisOp == "-" and isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
+            if isinstance(typeofLeft, IntType) and isinstance(typeofRight, IntType):
                 return IntType()
             elif not isinstance(typeofLeft, IntType):
                 raise Exception (f"Error in Subtraction Exp. Left expression expected to be Int, recieved: {typeofLeft}")
             elif not isinstance(typeofRight, IntType):
                 raise Exception (f"Error in Subtraction Exp. Right expression expected to be Int, recieved: {typeofRight}")
-            elif thisOp != "-":
-                raise Exception(f"Error. Attempted to perform Subtraction with operator: {thisOp}")
             
         # End of the typecheckExp!
         else:
