@@ -41,7 +41,9 @@
     <Compile Include="Parser\TypesAndNames\Type.py" />
     <Compile Include="Parser\CommaExp.py" />
     <Compile Include="Parser\_Parser.py" />
+    <Compile Include="Tests\test_parser.py" />
     <Compile Include="Tests\test_tokenizer.py" />
+    <Compile Include="Tests\test_typechecker.py" />
     <Compile Include="Tokenizer\CommaToken.py" />
     <Compile Include="Tokenizer\DivisionToken.py" />
     <Compile Include="Tokenizer\ElseToken.py" />
@@ -94,6 +96,8 @@
     <Content Include="Parser\_HowToUnderstandTheParser.txt" />
     <Content Include="Tests\assets\style.css" />
     <Content Include="Tests\sample_program.txt" />
+    <Content Include="Tests\sample_program_with_errors.txt" />
+    <Content Include="Tests\TestingSimpleParserStructure.py" />
     <Content Include="Tokenizer\_ListOfHashCodes.txt" />
     <Content Include="Typechecker\_HowToUnderstandTypechecker.txt" />
   </ItemGroup>

@@ -2,6 +2,7 @@ from Parser.CommaExp import CommaExp
 from Parser.Exp import Exp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
+from Parser.MethodDef import MethodDef
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
@@ -14,6 +15,7 @@ from Parser.TypesAndNames.Type import IntType, BooleanType, VoidType
 from Parser.TypesAndNames.ClassName import ClassName
 from Parser.TypesAndNames.MethodName import MethodName
 from Typechecker.TypeEnvironment import TypeEnvironment
+from symbol import classdef
 
 class Typechecker:
     program: Program
@@ -24,7 +26,7 @@ class Typechecker:
     def __init__(self, envSpace: TypeEnvironment):
         self.envSpace = envSpace
 
-    def getProgramClassDefs(self):
+    def getProgramClassDefs(self, classdef, envSpace):
         pass # Note: We will need a function to grab all classes defined in the program.
              #       as well as any parent classes, constructors and their parameters, and methods with their variables
 
@@ -34,12 +36,13 @@ class Typechecker:
     def typecheckProgram(self, program: Program, envSpace: TypeEnvironment):
         self.program = program
         # Note: Should begin type checking the classdefs/stmts in the program with initial empty env here
-        pass
+        self.getProgramClassDefs(self, program.classDef, envSpace)
 
     #non-recursive
     # methoddef ::= 'method' methodname '(' comma_vardec ')' type '{' stmt* '}'
-    def typecheckMethod(self):
-        pass
+    def typecheckMethod(self, method_def: MethodDef):
+        self.envSpace.add(method_def.methodname, method_def.return_type, method_def.parameters)
+        self.typecheckStmt(method_def.body, self.envSpace) # Note: Add the method name and type to the current environment)
 
     # recursive
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'

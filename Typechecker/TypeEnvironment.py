@@ -2,8 +2,9 @@ from Parser.TypesAndNames import Type
 from Parser.PrimaryExp import Variable
 
 class TypeEnvironment:
-    type: Type
-    var: Variable
+    type: Type          # user made classes go in here
+    var: Variable       # 
+    envSpace: dict
 
     # needs to check if the variable is in the environment
     # if not, check the parent environment
