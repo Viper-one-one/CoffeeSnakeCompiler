@@ -28,6 +28,12 @@ class TypeEnvironment:
 
     def extend(self, var: Variable, type: Type):
         self.envSpace[var] = type
+        
+    def add(self, value, type):
+        try :
+            self.envSpace[value] = type
+        except:
+            print("Value insertion failed")
 
     def addParentEnv(self, newEnv: 'TypeEnvironment'):
         self.parentEnv = newEnv

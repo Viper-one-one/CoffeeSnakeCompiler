@@ -6,6 +6,7 @@ from Parser.MethodDef import MethodDef
 from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
+from Parser.ClassDef import ClassDef
 from Parser.Statement import Assignment, Block, Break, IfOptionalElse, Return, WhileLoop
 from Parser.PrimaryExp import PrimaryExp, IntegerLiteral, TrueExp, FalseExp, Variable, ParenExp, ThisExp, PrintlnExp, NewObjectExp
 from Parser.CallExp import CallExp
@@ -25,7 +26,7 @@ class Typechecker:
     def __init__(self, envSpace: TypeEnvironment):
         self.envSpace = envSpace
 
-    def getProgramClassDefs(self, classdef, envSpace):
+    def getProgramClassDefs(self, classdef: ClassDef, envSpace: TypeEnvironment):
         envSpace.add(classdef.name, classdef) # Note: Add the class name to the current environment space
 
     # non-recursive
