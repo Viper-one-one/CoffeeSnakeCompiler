@@ -128,6 +128,7 @@
     <Content Include="Tokenizer\__pycache__\RightParenToken.cpython-311.pyc" />
     <Content Include="Tokenizer\__pycache__\SemiColonToken.cpython-311.pyc" />
     <Content Include="Tokenizer\__pycache__\SingleEqualsToken.cpython-311.pyc" />
+    <Content Include="Tokenizer\__pycache__\StringLiteralToken.cpython-311.pyc" />
     <Content Include="Tokenizer\__pycache__\SubtractionToken.cpython-311.pyc" />
     <Content Include="Tokenizer\__pycache__\SuperToken.cpython-311.pyc" />
     <Content Include="Tokenizer\__pycache__\SymbolPair.cpython-311.pyc" />
