@@ -67,8 +67,8 @@ def testTokenizeIdentifier():
     assert expected == tokens
 
 def testTokenizeVarDeclaration():
-    tokens = Tokenizer("var x = 7").tokenize()
-    expected = [VarToken(), IdentifierToken("x"), SingleEqualsToken(), IntegerLiteralToken(7)]
+    tokens = Tokenizer("Int x = 7").tokenize()
+    expected = [IntToken(), IdentifierToken("x"), SingleEqualsToken(), IntegerLiteralToken(7)]
     assert expected == tokens
 
 def testTokenizeClass():

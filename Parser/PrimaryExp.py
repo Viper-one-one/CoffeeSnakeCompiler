@@ -14,10 +14,21 @@ class Variable(PrimaryExp):
     name: str
     varType: Type
     
-    def __init__(self, name: str, varType: Type):
+    def __init__(self, name: str, varType: Type = None): # set none since we're not checking types yet
         self.name = name
         self.varType = varType
+    
+    def __eq__(self, other):
+        if isinstance(other, Variable):
+            return self.name == other.name and self.varType == self.varType
+        return False
 
+    def __str__(self):
+        return f"Variable({self.name}, {self.varType})"
+    
+    def __repr__(self):
+        return f"Variable({repr(self.name)}, {repr(self.varType)})"
+    
 class IntegerLiteral(PrimaryExp):
     value: int
     
@@ -29,7 +40,12 @@ class IntegerLiteral(PrimaryExp):
             return self.value == other.value
         return False
 
-    #remove string
+    def __str__(self):
+        return f"IntegerLiteral({self.value})"
+    
+    def __repr__(self):
+        return f"IntegerLiteral({repr(self.value)})"
+    
 class StringLiteral(PrimaryExp):
     value: str
     
@@ -41,6 +57,9 @@ class StringLiteral(PrimaryExp):
             return self.value == other.value
         return False
 
+    def __str__(self):
+        return f"StringLiteral({self.value})"
+
 class ParenExp(PrimaryExp):
     inner: Exp
     
@@ -51,12 +70,21 @@ class ThisExp(PrimaryExp):
     def __init__(self):
         pass
 
+    def __str__(self):
+        return f"ThisExp()"
+
     def __eq__(self, other):
         return isinstance(other, ThisExp)
 
 class TrueExp(PrimaryExp):
     def __init__(self):
         pass
+
+    def __eq__(self, other):
+        return isinstance(other, TrueExp)
+
+    def __str__(self):
+        return f"TrueExp()"
     
 
 class FalseExp(PrimaryExp):
@@ -69,6 +97,17 @@ class PrintlnExp(PrimaryExp):
     def __init__(self, expression: Exp):
         self.expression = expression
 
+    def __eq__(self, other):
+        if isinstance(other, PrintlnExp):
+            return self.expression == other.expression
+        return False
+    
+    def __str__(self):
+        return f"PrintlnExp({self.expression})"
+    
+    def __repr__(self):
+        return f"PrintlnExp({repr(self.expression)})"
+
 class NewObjectExp(PrimaryExp):
     classname: ClassName
     variables: CommaExp
@@ -76,3 +115,14 @@ class NewObjectExp(PrimaryExp):
     def __init__(self, classname: ClassName, variables: CommaExp):
         self.classname = classname
         self.variables = variables
+
+    def __eq__(self, other):
+        if isinstance(other, NewObjectExp):
+            return self.classname == other.classname and self.variables == other.variables
+        return False
+
+    def __str__(self):
+        return f"NewObjectExp({self.classname}, {self.variables})"
+    
+    def __repr__(self):
+        return f"NewObjectExp({repr(self.classname)}, {repr(self.variables)})"
