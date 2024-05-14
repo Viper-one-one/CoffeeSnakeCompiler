@@ -1,5 +1,7 @@
 from Tokenizer._Lexer import Tokenizer
 from Parser._Parser import Parser
+from Typechecker.TypeEnvironment import TypeEnvironment
+from Typechecker._Typechecker import Typechecker
 
 
 def main():
@@ -25,6 +27,8 @@ def main():
     parser = Parser(tokens)
     string_exp = parser.program_parse()
     print(string_exp)
+    type_checker = Typechecker(string_exp)
+    type_checker.typecheckProgram()
 
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module
 if (__name__ == "__main__"):

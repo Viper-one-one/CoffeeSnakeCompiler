@@ -236,6 +236,9 @@ class Typechecker:
             return currEnv.envSpace[className]
         else:
             raise Exception(f"Error. Class {className} not found in current environment space")
+        
+    def typecheck(self, program, envSpace):
+        self.typecheckProgram(program, envSpace)
     
 
     # must check if the variables are initialized before they are used, checking if void is used as a value, checking that a function returning NOT void always returns
