@@ -15,7 +15,6 @@ from Parser.TypesAndNames.Type import IntType, BooleanType, VoidType
 from Parser.TypesAndNames.ClassName import ClassName
 from Parser.TypesAndNames.MethodName import MethodName
 from Typechecker.TypeEnvironment import TypeEnvironment
-from symbol import classdef
 
 class Typechecker:
     program: Program
@@ -27,8 +26,7 @@ class Typechecker:
         self.envSpace = envSpace
 
     def getProgramClassDefs(self, classdef, envSpace):
-        pass # Note: We will need a function to grab all classes defined in the program.
-             #       as well as any parent classes, constructors and their parameters, and methods with their variables
+        envSpace.add(classdef.name, classdef) # Note: Add the class name to the current environment space
 
     # non-recursive
     # add environment space for all the type checking methods
@@ -36,7 +34,8 @@ class Typechecker:
     def typecheckProgram(self, program: Program, envSpace: TypeEnvironment):
         self.program = program
         # Note: Should begin type checking the classdefs/stmts in the program with initial empty env here
-        self.getProgramClassDefs(self, program.classDef, envSpace)
+        self.getProgramClassDefs(program.classDef, envSpace) # add the class definitions to the environment space
+        self.typecheckStmt(program.stmt, envSpace) # Note: This is where we begin type checking the statements in the program
 
     #non-recursive
     # methoddef ::= 'method' methodname '(' comma_vardec ')' type '{' stmt* '}'
@@ -120,6 +119,8 @@ class Typechecker:
         elif isinstance(exp, ThisExp):
             if exp in currEnv.envSpace:
                 return currEnv.envSpace[exp]
+            else:
+                raise Exception(f"Error. {exp} not found in current environment space")
 
         elif isinstance(exp, PrintlnExp):
             return self.typecheckExp(exp.expression, currEnv) 
@@ -231,7 +232,10 @@ class Typechecker:
 
 
     def typecheckClass(self, className: ClassName, currEnv: TypeEnvironment):
-        pass
+        if className in currEnv.envSpace:
+            return currEnv.envSpace[className]
+        else:
+            raise Exception(f"Error. Class {className} not found in current environment space")
     
 
     # must check if the variables are initialized before they are used, checking if void is used as a value, checking that a function returning NOT void always returns
