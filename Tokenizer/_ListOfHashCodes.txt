@@ -24,11 +24,12 @@ RightCurlyBraceToken	23
 RightParenToken			24
 SemiColonToken			25
 SingleEqualsToken		26
-SubtractionToken		27
-SuperToken				28
-ThisToken				29
+StringLiteralToken      27
+SubtractionToken		28
+SuperToken				29
+ThisToken				30
 Token					base type, no hash
-TrueToken				30
-VarToken                31
-VoidToken				32
-WhileToken				33
+TrueToken				31
+VarToken                32
+VoidToken				33
+WhileToken				34

@@ -1,4 +1,3 @@
-from io import TextIOWrapper
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -25,6 +24,7 @@ from Tokenizer.RightCurlyBraceToken import RightCurlyBraceToken
 from Tokenizer.RightParenToken import RightParenToken
 from Tokenizer.SemiColonToken import SemiColonToken
 from Tokenizer.SingleEqualsToken import SingleEqualsToken
+from Tokenizer.StringLiteralToken import StringLiteralToken
 from Tokenizer.SubtractionToken import SubtractionToken
 from Tokenizer.SuperToken import SuperToken
 from Tokenizer.ThisToken import ThisToken
@@ -78,18 +78,10 @@ class Tokenizer(object):
     def __init__(self, input_str: str):
         self.input = input_str
         self.position = 0
-        self.lineNumber = 1
-        self.charNumber = 1
 
     def skipWhitespace(self): #switched to camelCase for consistency
         while self.position < len(self.input) and self.input[self.position].isspace():
-            if self.charNumber == 8 and self.lineNumber == 5:
-                print("here")
-            if self.input[self.position] in '\n':
-                self.lineNumber += 1
-                self.charNumber = 1
             self.position += 1
-            self.charNumber += 1
             
     def readIntLiteralToken(self):
         digits: str = ""
@@ -102,6 +94,21 @@ class Tokenizer(object):
             return IntegerLiteralToken(int(digits))
         else:
             return None
+        
+    def readStringLiteralToken(self):
+        if self.input[self.position] == '"':
+            start_pos = self.position
+            self.position += 1  # Move past the opening double quote
+            while self.position < len(self.input):
+                if self.input[self.position] == '"':
+                    # Found the closing double quote
+                    string_value = self.input[start_pos + 1 : self.position]
+                    self.position += 1  # Move past the closing double quote
+                    return StringLiteralToken(string_value)
+                self.position += 1
+            # If the closing double quote is not found, raise an exception
+            raise Exception("Unclosed string literal", self.input)
+        return None
 
     def readSymbolToken(self):
         for symbol, token in self.symbols.items():
@@ -135,15 +142,14 @@ class Tokenizer(object):
             if (token := self.readReservedWordOrIdentifier()) is None:
                 if (token := self.readSymbolToken()) is None: # works
                     if (token := self.readIntLiteralToken()) is None: # works
-                        # Unrecognized character
-                        raise Exception(f"Unrecognized character: {token}\n\tAt line: {self.lineNumber}\n\tAt char {self.charNumber}")
+                        if (token := self.readStringLiteralToken()) is None:
+                            # Unrecognized character
+                            raise Exception("Unrecognized character", self.input)
             return token
-        # error on println("), " is an unrecognized character and crashes lexer
-        # is not in the grammar, need to clarify with prof about println("), variable declaration, and maybe more undiscovered cases
         else:
             return None
 
-    def driver_tokenize(self):
+    def tokenize(self):
         tokens = []
         token = None
         while True:
@@ -152,16 +158,8 @@ class Tokenizer(object):
                 tokens.append(token)
             else:
                 break
-                print(f"Driver_Tokenizer failed on token: {token}")
         return tokens
     
-    def object_creation_tokenize(input_str: str):
-        return Tokenizer(input_str).driver_tokenize()
-    
-    def file_to_string_tokenize(file):
-        try: 
-            file_read_ouput = file.read()
-            return Tokenizer.object_creation_tokenize(file_read_ouput)      # read() does not exist on string
-        except FileNotFoundError as e:
-            print(f"*\n*\n*\nLexer failed because of FileNotFound\nFile {e} not found\n*\n*\n*{file}")
-            return None
+    def tokenize_file(self):
+        with open(self.input, 'r') as f:
+            return Tokenizer(f.read()).tokenize()

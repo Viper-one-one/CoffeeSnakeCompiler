@@ -1,9 +1,16 @@
 from Parser.Exp import Exp
+from typing import List
 
-class CommaExp(Exp):
-    left: Exp
-    right: Exp
+class CommaExp:
+    expressions: List[Exp]
     
-    def __init__(self, left: Exp, right: Exp) -> None:
-        self.left = left
-        self.right = right
+    def __init__(self, expressions: List[Exp]) -> None:
+        self.expressions = expressions
+
+    def __eq__(self, other):
+        if not isinstance(other, CommaExp):
+            return False
+        return self.expressions == other.expressions
+
+    def __str__(self):
+        return f"CommaExp({self.expressions})"

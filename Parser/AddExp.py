@@ -2,7 +2,7 @@ from abc import ABC
 from Parser.MultExp import MultExp
 
 class AddExp(ABC):
-    raise NotImplementedError("AddExp is an abstract class, it should not be instantiated")
+    pass
 
 class AdditionExp(AddExp):
     left: MultExp
@@ -14,6 +14,15 @@ class AdditionExp(AddExp):
         self.op = op
         self.right = right
 
+    def __eq__(self, other):
+        if isinstance(other, AdditionExp):
+            return self.left == other.left and self.op == other.op and self.right == self.right
+        else:
+            return False
+    
+    def __str__(self):
+        return f"AdditionExp({self.left}, {self.op}, {self.right})"
+
 class SubtractionExp(AddExp):
     left: MultExp
     op: str
@@ -23,3 +32,13 @@ class SubtractionExp(AddExp):
         self.left = left
         self.op = op
         self.right = right
+    
+    def __eq__(self, other):
+        if isinstance(other, SubtractionExp):
+            return self.left == other.left and self.op == other.op and self.right == self.right
+        else:
+            return False
+    
+    def __str__(self):
+        return f"SubtractionExp({self.left}, {self.op}, {self.right})"
+    
