@@ -14,3 +14,7 @@ class CommaExp:
 
     def __str__(self):
         return f"CommaExp({self.expressions})"
+    
+    def __hash__(self) -> int:
+        return 7
+    

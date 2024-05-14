@@ -17,3 +17,6 @@ class CommaVardec:
     
     def __repr__(self):
         return f"CommaVardec({repr(self.vardecs)})"
+    
+    def __hash__(self) -> int:
+        return 8

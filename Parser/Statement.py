@@ -32,6 +32,9 @@ class Assignment(Statement):
     
     def __repr__(self):
         return f"Assignment({repr(self.exp)}, {repr(self.var)})"
+    
+    def __hash__(self) -> int:
+        return 16
 
 class WhileLoop(Statement):
     exp: Exp
@@ -48,6 +51,9 @@ class WhileLoop(Statement):
 
     def __str__(self):
         return f"WhileLoop({self.exp}, {self.stmt})"
+    
+    def __hash__(self) -> int:
+        return 17
 
 class Break(Statement):
     def __init__(self) -> None:
@@ -55,6 +61,9 @@ class Break(Statement):
 
     def __eq__(self, other):
         return isinstance(other, Break)
+    
+    def __hash__(self) -> int:
+        return 18
     
 
 class Return(Statement):
@@ -73,6 +82,9 @@ class Return(Statement):
     
     def __repr__(self):
         return f"Return({repr(self.exp)})"
+    
+    def __hash__(self) -> int:
+        return 19
 
 class IfOptionalElse(Statement):
     exp : Exp
@@ -91,6 +103,9 @@ class IfOptionalElse(Statement):
     
     def __str__(self):
         return f"IfOptionalElse({self.exp}, {self.statement}, {self.optionalStatement})"
+    
+    def __hash__(self) -> int:
+        return 20
 
 class Block(Statement):
     statements: List[Statement]
@@ -105,3 +120,7 @@ class Block(Statement):
     
     def __str__(self):
         return f"Block({self.statements})"
+    
+    def __hash__(self) -> int:
+        return 21
+    

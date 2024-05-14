@@ -29,6 +29,9 @@ class Variable(PrimaryExp):
     def __repr__(self):
         return f"Variable({repr(self.name)}, {repr(self.varType)})"
     
+    def __hash__(self) -> int:
+        return hash(self.name)
+    
 class IntegerLiteral(PrimaryExp):
     value: int
     
@@ -46,6 +49,9 @@ class IntegerLiteral(PrimaryExp):
     def __repr__(self):
         return f"IntegerLiteral({repr(self.value)})"
     
+    def __hash__(self) -> int:
+        return 10
+    
 class StringLiteral(PrimaryExp):
     value: str
     
@@ -59,12 +65,18 @@ class StringLiteral(PrimaryExp):
 
     def __str__(self):
         return f"StringLiteral({self.value})"
+    
+    def __hash__(self) -> int:
+        return hash(self.value)
 
 class ParenExp(PrimaryExp):
     inner: Exp
     
     def __init__(self, inner: Exp):
         self.inner = inner
+        
+    def __hash__(self) -> int:
+        return 11
 
 class ThisExp(PrimaryExp):
     def __init__(self):
@@ -75,6 +87,9 @@ class ThisExp(PrimaryExp):
 
     def __eq__(self, other):
         return isinstance(other, ThisExp)
+    
+    def __hash__(self) -> int:
+        return 12
 
 class TrueExp(PrimaryExp):
     def __init__(self):
@@ -86,10 +101,21 @@ class TrueExp(PrimaryExp):
     def __str__(self):
         return f"TrueExp()"
     
-
+    def __hash__(self) -> int:
+        return 13
+    
 class FalseExp(PrimaryExp):
     def __init__(self):
         pass
+    
+    def __eq__(self, other):
+        return isinstance(other, FalseExp)
+    
+    def __str__(self):
+        return f"FalseExp()"
+    
+    def __hash__(self) -> int:
+        return 14
 
 class PrintlnExp(PrimaryExp):
     expression: Exp
@@ -107,6 +133,9 @@ class PrintlnExp(PrimaryExp):
     
     def __repr__(self):
         return f"PrintlnExp({repr(self.expression)})"
+    
+    def __hash__(self) -> int:
+        return 15
 
 class NewObjectExp(PrimaryExp):
     classname: ClassName
@@ -126,3 +155,7 @@ class NewObjectExp(PrimaryExp):
     
     def __repr__(self):
         return f"NewObjectExp({repr(self.classname)}, {repr(self.variables)})"
+    
+    def __hash__(self) -> int:
+        return hash(self.classname)
+    

@@ -26,3 +26,7 @@ class MethodDef:
     
     def __repr__(self):
         return f"MethodDef({repr(self.methodname)}, {repr(self.parameters)}, {repr(self.return_type)}, {repr(self.body)})"
+    
+    def __hash__(self) -> int:
+        return hash(self.methodname)
+    

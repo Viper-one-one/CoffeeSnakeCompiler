@@ -17,3 +17,6 @@ class Program:
     
     def __str__(self):
         return f"Program({self.classDef}, {self.statements})"
+    
+    def __hash__(self) -> int:
+        return hash(self.classDef) + hash(self.statements)

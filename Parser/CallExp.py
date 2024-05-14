@@ -26,3 +26,7 @@ class CallExp(CallingExp):
     
     def __str__(self):
         return f"CallExp({self.left}, {self.methodName}, {self.right})"
+    
+    def __hash__(self) -> int:
+        return 5
+    

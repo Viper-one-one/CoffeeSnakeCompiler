@@ -20,3 +20,7 @@ class Vardec:
     
     def __repr__(self):
         return f"Vardec({repr(self.varType)}, {repr(self.var)})"
+    
+    def __hash__(self) -> int:
+        return 22
+    

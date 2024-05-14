@@ -23,3 +23,7 @@ class Constructor:
 
     def __repr__(self):
         return f"Constructor({repr(self.commaVardec)}, {repr(self.commaExp)}, {repr(self.statement)})"
+    
+    def __hash__(self) -> int:
+        return 9
+    

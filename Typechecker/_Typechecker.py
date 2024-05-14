@@ -26,8 +26,9 @@ class Typechecker:
     def __init__(self, envSpace: TypeEnvironment):
         self.envSpace = envSpace
 
-    def getProgramClassDefs(self, classdef: ClassDef, envSpace: TypeEnvironment):
-        envSpace.add(classdef.name, classdef) # Note: Add the class name to the current environment space
+    def getProgramClassDefs(self, classdef_list: ClassDef, envSpace: TypeEnvironment):
+        for classdef in classdef_list:
+            envSpace.add(classdef.classname, classdef) # Note: Add the class name to the current environment space
 
     # non-recursive
     # add environment space for all the type checking methods

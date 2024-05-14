@@ -22,6 +22,9 @@ class AdditionExp(AddExp):
     
     def __str__(self):
         return f"AdditionExp({self.left}, {self.op}, {self.right})"
+    
+    def __hash__(self) -> int:
+        return 1
 
 class SubtractionExp(AddExp):
     left: MultExp
@@ -41,4 +44,7 @@ class SubtractionExp(AddExp):
     
     def __str__(self):
         return f"SubtractionExp({self.left}, {self.op}, {self.right})"
+    
+    def __hash__(self) -> int:
+        return 2
     

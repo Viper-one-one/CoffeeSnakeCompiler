@@ -33,7 +33,6 @@
     <Compile Include="Parser\MethodDef.py" />
     <Compile Include="Parser\CommaVardec.py" />
     <Compile Include="Parser\Statement.py" />
-    <Compile Include="Parser\Exp.py" />
     <Compile Include="Parser\Vardec.py" />
     <Compile Include="Parser\MultExp.py" />
     <Compile Include="Parser\PrimaryExp.py" />

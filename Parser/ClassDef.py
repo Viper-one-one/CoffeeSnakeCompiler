@@ -29,3 +29,7 @@ class ClassDef:
     
     def __repr__(self):
         return f"ClassDef({repr(self.classname)}, {repr(self.extendsname)}, {repr(self.vardecs)}, {repr(self.constructor)}, {repr(self.methoddefs)})"
+    
+    def __hash__(self) -> int:          # get the hash of the unique classname
+        return hash(self.classname)
+    

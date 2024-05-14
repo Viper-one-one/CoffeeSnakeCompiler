@@ -19,6 +19,9 @@ class MultiplicationExp(MultExp):
             return self.left == other.left and self.op == other.op and self.right == other.right
         return False
     
+    def __hash__(self) -> int:
+        return 3
+    
 class DivisionExp(MultExp):
     left: CallExp
     op: str
@@ -33,3 +36,7 @@ class DivisionExp(MultExp):
         if isinstance(other, DivisionExp):
             return self.left == other.left and self.op == other.op and self.right == other.right
         return False
+    
+    def __hash__(self) -> int:
+        return 4
+    
