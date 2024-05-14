@@ -27,8 +27,9 @@ def main():
     parser = Parser(tokens)
     string_exp = parser.program_parse()
     print(string_exp)
-    type_checker = Typechecker(string_exp)
-    type_checker.typecheckProgram()
+    envSpace = TypeEnvironment()
+    type_checker = Typechecker(envSpace)
+    type_checker.typecheckProgram(string_exp)
 
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module
 if (__name__ == "__main__"):

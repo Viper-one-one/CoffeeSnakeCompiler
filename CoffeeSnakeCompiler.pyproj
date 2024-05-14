@@ -95,6 +95,7 @@
     <Folder Include="Typechecker\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
     <Content Include="Parser\_HowToUnderstandTheParser.txt" />
     <Content Include="Tests\assets\style.css" />
     <Content Include="Tests\sample_program.txt" />
