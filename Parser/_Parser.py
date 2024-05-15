@@ -148,9 +148,6 @@ class Parser:
         if isinstance(token, IdentifierToken):
             self.match(IdentifierToken)
             return Variable(token.name)
-        elif isinstance(token, StringLiteralToken): # get rid of this
-            self.match(StringLiteralToken)  # Consume the token
-            return StringLiteral(token.value)  # Return a StringLiteral object with the extracted value
         elif isinstance(token, IntegerLiteralToken):
             self.match(IntegerLiteralToken)  # Consume the token
             return IntegerLiteral(token.value) 
@@ -182,7 +179,7 @@ class Parser:
             classname = ClassName(classname_token.name)
             self.match(LeftParenToken)
             variables = []
-            if not isinstance(self.get_next_token, RightParenToken):
+            if not isinstance(self.tokens[self.position], RightParenToken):
                 variables = self.comma_exp_parse()
             self.match(RightParenToken)
             return NewObjectExp(classname, variables) # added logic above
@@ -192,12 +189,12 @@ class Parser:
     def call_exp_parse(self):
         # Parse the primary expression
         exp = self.primary_exp_parse()
-        
+
         while self.position < len(self.tokens):
             operator = self.get_next_token()
             if isinstance(operator, DotToken):
                 # Consume the dot token
-                self.position += 1
+                self.match(DotToken)
 
                 # Parse the method name
                 method = self.match(IdentifierToken)
@@ -205,7 +202,8 @@ class Parser:
                 
                 # Parse the arguments
                 self.match(LeftParenToken)
-                args = self.comma_exp_parse()
+                if not isinstance(self.tokens[self.position], RightParenToken):
+                    args = self.comma_exp_parse()
                 self.match(RightParenToken)
                 
                 # Create a CallExp node with the parsed expression, method name, and arguments

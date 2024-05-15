@@ -92,15 +92,6 @@ def testVardec():
     assert expected_vardec.var.name == vardec.var.name
     assert expected_vardec.var.varType == vardec.var.varType
 
-# will need to take this out
-def testPrimaryString():
-    code = [StringLiteralToken("hello")]
-    parser = Parser(code)
-    string_exp = parser.primary_exp_parse()
-
-    expected_string = StringLiteral("hello")
-    assert expected_string == string_exp
-
 def testPrimaryInt():
     code = [IntegerLiteralToken(2)]
     parser = Parser(code)
