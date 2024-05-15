@@ -1,5 +1,4 @@
 from Parser.CommaExp import CommaExp
-from Parser.Exp import Exp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MethodDef import MethodDef
