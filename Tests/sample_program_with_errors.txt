@@ -43,19 +43,19 @@ class ErrorsTestClass {
 
     method whileLoop() Void {
         Int i = 0;
-        while (i < ) { // ***incomplete expression***
+        while (i) { // ***incomplete expression***
             println("Value of i: " + i);
             i = i + 1;
-            if(i == 3) {
+            if(i) {
             break;
         }
     }
 }
 
     method ifElse(a, b , ) { // ***breaks comma_vardec rule***
-        if (a > 0) {
+        if (a) {
             println("Value of a is positive");
-        } else if (a < 0) {
+        } else if (0) {
             println("Value of a is negative");
         } else {
             println("Value of a is zero");
