@@ -25,8 +25,6 @@ def main():
                 Animal dog;
                 cat = new Cat();
                 dog = new Dog();
-                cat.speak();
-                dog.speak();
             """
     tokenizer = Tokenizer(code)
     tokens = tokenizer.tokenize()
@@ -36,6 +34,7 @@ def main():
     envSpace = TypeEnvironment()
     type_checker = Typechecker(envSpace)
     type_checker.typecheckProgram(string_exp, envSpace)
+    print(type_checker)
 
 # this conditional runs the program when exe context is command line or as a file, it will NOT run under import module
 if (__name__ == "__main__"):

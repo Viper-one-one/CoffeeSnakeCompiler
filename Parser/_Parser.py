@@ -1,3 +1,4 @@
+from turtle import position
 from Tokenizer.BooleanToken import BooleanToken
 from Tokenizer.AdditionToken import AdditionToken
 from Tokenizer.BreakToken import BreakToken
@@ -326,7 +327,7 @@ class Parser:
 
     def statement_parse(self):
          # Check the type of statement and parse accordingly
-        if isinstance(self.get_next_token(), IdentifierToken) and not isinstance(self.tokens[self.position + 1], SingleEqualsToken):
+        if isinstance(self.get_next_token(), IdentifierToken) and not isinstance(self.tokens[self.position + 1], SingleEqualsToken) and not isinstance(self.tokens[self.position + 1], DotToken):
             # Variable declaration statement with class name
             vardec = self.vardec_parse()
             self.match(SemiColonToken)  # Makes it a statement
@@ -336,7 +337,7 @@ class Parser:
             vardec = self.vardec_parse() # done
             self.match(SemiColonToken) # makes it a statement
             return vardec
-        elif isinstance(self.get_next_token(), IdentifierToken):
+        elif isinstance(self.get_next_token(), IdentifierToken) and isinstance(self.tokens[self.position + 1], SingleEqualsToken):
             return self.assignment_parse() # done
         elif isinstance(self.get_next_token(), WhileToken):
             # While loop statement
