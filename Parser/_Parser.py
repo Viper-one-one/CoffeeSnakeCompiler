@@ -93,7 +93,7 @@ class Parser:
                 if self.position != len(self.tokens) - 1:
                     self.position += 1
                 return current_token
-            else:
+            else:           # expected identifier but found dot token
                 raise ValueError(f"Syntax error: expected {expected_token}, but found {type(current_token).__name__}")
         else:
             # Match the current token to expected token instance
@@ -174,7 +174,7 @@ class Parser:
             exp = self.exp_parse()
             self.match(RightParenToken)
             return PrintlnExp(exp)
-        elif isinstance(token, NewToken):
+        elif isinstance(token, NewToken):       # problem here on new object expression
             self.match(NewToken)
             # need to add some way to check the name of the identifier in the parsing
             # "here's the identifier and it's name"
@@ -182,7 +182,7 @@ class Parser:
             classname = ClassName(classname_token.name)
             self.match(LeftParenToken)
             variables = []
-            if not isinstance(self.get_next_token, RightParenToken):
+            if not isinstance(self.get_next_token(), RightParenToken):
                 variables = self.comma_exp_parse()
             self.match(RightParenToken)
             return NewObjectExp(classname, variables) # added logic above
