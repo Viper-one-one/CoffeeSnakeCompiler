@@ -13,3 +13,6 @@ class ClassName:
     
     def __repr__(self):
         return f"ClassName({repr(self.name)})"
+    
+    def __hash__(self) -> int:
+        return hash(self.name)

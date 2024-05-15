@@ -14,3 +14,6 @@ class MethodName:
     
     def __repr__(self):
         return f"MethodName({repr(self.name)})"
+    
+    def __hash__(self) -> int:
+        return hash(self.name)

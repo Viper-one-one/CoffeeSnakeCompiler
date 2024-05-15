@@ -21,6 +21,12 @@ def main():
                 init() { super(); }
                 method speak() Void { return println(2); }
                 }
+                Animal cat;
+                Animal dog;
+                cat = new Cat();
+                dog = new Dog();
+                cat.speak();
+                dog.speak();
             """
     tokenizer = Tokenizer(code)
     tokens = tokenizer.tokenize()

@@ -37,7 +37,7 @@ class Typechecker:
         self.program = program
         # Note: Should begin type checking the classdefs/stmts in the program with initial empty env here
         self.getProgramClassDefs(program.classDef, envSpace) # add the class definitions to the environment space
-        self.typecheckStmt(program.stmt, envSpace) # Note: This is where we begin type checking the statements in the program
+        self.typecheckStmt(program.statements, envSpace) # Note: This is where we begin type checking the statements in the program
 
     #non-recursive
     # methoddef ::= 'method' methodname '(' comma_vardec ')' type '{' stmt* '}'
