@@ -1,5 +1,4 @@
 from Parser.CommaExp import CommaExp
-from Parser.Exp import Exp
 from Parser.AddExp import AdditionExp
 from Parser.AddExp import SubtractionExp
 from Parser.MethodDef import MethodDef
@@ -7,6 +6,7 @@ from Parser.MultExp import MultiplicationExp
 from Parser.MultExp import DivisionExp
 from Parser.Program import Program
 from Parser.ClassDef import ClassDef
+from Parser.Exp import Exp
 from Parser.Statement import Assignment, Block, Break, IfOptionalElse, Return, WhileLoop
 from Parser.PrimaryExp import PrimaryExp, IntegerLiteral, TrueExp, FalseExp, Variable, ParenExp, ThisExp, PrintlnExp, NewObjectExp
 from Parser.CallExp import CallExp
