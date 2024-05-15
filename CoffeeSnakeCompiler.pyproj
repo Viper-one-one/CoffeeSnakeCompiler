@@ -25,6 +25,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Parser\AddExp.py" />
+    <Compile Include="Parser\Exp.py" />
     <Compile Include="Parser\TypesAndNames\ClassName.py" />
     <Compile Include="Parser\TypesAndNames\MethodName.py" />
     <Compile Include="Parser\Program.py" />
