@@ -96,6 +96,7 @@ class Parser:
                 return current_token
             else:           # expected identifier but found dot token
                 raise ValueError(f"Syntax error: expected {expected_token}, but found {type(current_token).__name__}")
+            # breaking on Int a = 10, expects a semicolon but finds a single equals token
         else:
             # Match the current token to expected token instance
             if current_token == expected_token:
