@@ -1,7 +1,8 @@
 
 class TestClass {
     init() {
-        Int a = 10;
+        Int a;
+        a = 10;
         println(a);
     }
 
@@ -24,68 +25,15 @@ class TestClass {
     method isEqual(a, b) Boolean {
         return false;
     }
-            println("Values are not equal");
-            return false;
-        return true;
-    }
-            println(a + " is not greater than " + b);
-            return false;
-        }
-        println(i);
-    }
-}
-            break;
-        }
-        println(a);
-            println("Value of a is negative");
-        } else {
-            println("Value of a is zero");
-        }
-        println(1);
 
-    method superMethod() Void {
-        super.methodToOvverride();
-        println("This is the super method");
-    }
-
-    method main() {
-        Int a = 10;
-        Int b = 5;
-        Int result;
-
-        result = this.add(a, b);
-        println(result);
-
-        result = this.subtract(a, b);
-        println(result);
-
-        println(result);
-
-        Boolean isEqual = this.isEqual(a, b);
-        Boolean isGreater = this.isGreater(a, b);
-        println("Division result: " + result);
-
-        Boolean isEqual = this.isEqual(a, b);
-        Boolean isGreater = this.isGreater(a, b);
-
-        this.whileLoop();
-
-        this.ifElse(a);
-
-        this.superMethod();
-    }
-        Int a = 10;
-        a = a + 1;
-
-class SubTestClass extends TestClass {
-    methodToOverride() {
-        println("This is the overridden method");
-
-    method main() {
-        super.main();
-        println("Executing main methods through SubTestClass");
-    }
 }
 
-var test = new SubTestClass();
-test.main();
+    Int x;
+    x = 10;
+    Int y;
+    y = 20;
+    TestClass test;
+    test = new TestClass();
+    Int z;
+    z = test.add(x, y);
+    println(z);
