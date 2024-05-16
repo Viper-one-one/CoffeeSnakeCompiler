@@ -3,37 +3,34 @@ class TestClass {
     init() {
         Int a;
         a = 10;
-        println(a);
     }
 
-    method add(a, b) Int {
+    method add(Int a, Int b) Int {
         return a + b;
     }
 
-    method subtract(a, b) Int {
+    method subtract(Int a, Int b) Int {
         return a - b;
     }
 
-    method multiply(a, b) Int {
+    method multiply(Int a, Int b) Int {
         return a * b;
     }
 
-    method divide(a, b) Int {
+    method divide(Int a, Int b) Int {
         return a / b;
     }
 
-    method isEqual(a, b) Boolean {
+    method isEqual(Boolean a, Boolean b) Boolean {
         return false;
     }
-
 }
 
     Int x;
     x = 10;
-    Int y;
+    Boolean y;
     y = 20;
     TestClass test;
     test = new TestClass();
     Int z;
     z = test.add(x, y);
-    println(z);
