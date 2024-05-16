@@ -20,11 +20,13 @@ from Typechecker.TypeEnvironment import TypeEnvironment
 class Typechecker:
     program: Program
     envSpace: TypeEnvironment
+    position: int
     
 
     # Constructor 
     def __init__(self, envSpace: TypeEnvironment):
         self.envSpace = envSpace
+        self.position = 0
 
     def getProgramClassDefs(self, classdef_list: ClassDef, envSpace: TypeEnvironment):
         for classdef in classdef_list:
@@ -45,48 +47,49 @@ class Typechecker:
         self.envSpace.add(method_def.methodname, method_def.return_type, method_def.parameters)
         self.typecheckStmt(method_def.body, self.envSpace) # Note: Add the method name and type to the current environment)
 
-    # recursive
+    # recursive, now iterative bc statements are a list
     # stmt ::= vardec ';' | var '=' exp ';' | 'while' '(' exp ')' stmt | ..... | exp ';'
     def typecheckStmt(self, statement, currEnv):
-        if isinstance(statement, Vardec):
-            return self.typecheckVardec(statement, currEnv)
-        elif isinstance(statement, Assignment):
-            if statement.var in currEnv.envSpace:
-                raise Exception(f"Error. Variable {statement.var} already exists in the current scope")
-            else:
-                currEnv.envSpace.add(statement.var, self.typecheckExp(statement.exp, currEnv))
-                return # should return something?
-        elif isinstance(statement, WhileLoop):
-            if self.typecheckExp(statement.exp, currEnv) != BooleanType():
-                raise Exception(f"Error. Expected boolean type in while loop condition")
-            else:
-                return self.typecheckStmt(statement.stmt, currEnv)
-        elif isinstance(statement, Break):
-            pass
-        elif isinstance(statement, Return):
-            if statement.exp is None:
-                if currEnv.returnType != VoidType():
-                    raise Exception(f"Error. Expected return type {currEnv.returnType}")
+        while (self.position < len(statement)):
+            if isinstance(statement[self.position], Vardec):
+                self.typecheckVardec(statement[self.position], currEnv)
+            elif isinstance(statement[self.position], Assignment):
+                if statement[self.position].var in currEnv.envSpace:
+                    raise Exception(f"Error. Variable {statement[self.position].var} already exists in the current scope")
                 else:
-                    return
-            elif statement.exp is not None:
-                if self.typecheckExp(statement.exp, currEnv) != currEnv.returnType:
-                    raise Exception(f"Error. Expected return type {currEnv.returnType}")
+                    currEnv.add(statement[self.position].var, self.typecheckExp(statement[self.position].exp, currEnv))
+            elif isinstance(statement[self.position], WhileLoop):
+                if self.typecheckExp(statement[self.position].exp, currEnv) != BooleanType():
+                    raise Exception(f"Error. Expected boolean type in while loop condition")
                 else:
-                    return
-            else:
-                raise Exception("Error. Return statement not recognized")
-        elif isinstance(statement, IfOptionalElse):
-            if self.typecheckExp(statement.exp, currEnv) != BooleanType():
-                raise Exception(f"Error. Expected boolean type in if condition")
-            elif statement.statement is not None:
-                return self.typecheckStmt(statement.statement, currEnv)
-            elif statement.optionalStatement is not None:
-                return self.typecheckStmt(statement.optionalStatement, currEnv)
-            else:
-                raise Exception("Error. If statement not recognized")
-        elif isinstance(statement, Block):
-            return self.typecheckStmt(statement.stmt, currEnv)
+                    self.typecheckStmt(statement[self.position].stmt, currEnv)
+            elif isinstance(statement[self.position], Break):
+                pass
+            elif isinstance(statement[self.position], Return):
+                if statement[self.position].exp is None:
+                    if currEnv.returnType != VoidType():
+                        raise Exception(f"Error. Expected return type {currEnv.returnType}")
+                    else:
+                        pass
+                elif statement[self.position].exp is not None:
+                    if self.typecheckExp(statement[self.position].exp, currEnv) != currEnv.returnType:
+                        raise Exception(f"Error. Expected return type {currEnv.returnType}")
+                    else:
+                        pass
+                else:
+                    raise Exception("Error. Return statement not recognized")
+            elif isinstance(statement[self.position], IfOptionalElse):
+                if self.typecheckExp(statement[self.position].exp, currEnv) != BooleanType():
+                    raise Exception(f"Error. Expected boolean type in if condition")
+                elif statement[self.position].statement is not None:
+                    self.typecheckStmt(statement[self.position].statement, currEnv)
+                elif statement[self.position].optionalStatement is not None:
+                    self.typecheckStmt(statement[self.position].optionalStatement, currEnv)
+                else:
+                    raise Exception("Error. If statement not recognized")
+            elif isinstance(statement[self.position], Block):
+                self.typecheckStmt(statement[self.position].stmt, currEnv)
+            self.position += 1
 
     # make sure the vardec isn't trying to create a variable that already exists in the current environment
     # vardec ::= type var    
@@ -101,7 +104,7 @@ class Typechecker:
     # we recusrively call typecheckExp on the inner expressions as we move through the tree on ALL types of expressions, call, comma, primary, etc.
     # all exps ::= var | i | '(' exp ')' | 'this' | 'true' | 'false' | 'println' '(' exp ')' | 'new' classname '(' comma_exp ')' | [exp ( ',' exp)*] 
     # | primaryexp ('.' methodname '(' comma_exp ')')* | call_exp ((`*` | `/`) call_exp)* | mult_exp ((`+` | `-`) mult_exp)* | add_exp
-    def typecheckExp(self, exp: Exp, currEnv: TypeEnvironment) -> Type: 
+    def typecheckExp(self, exp, currEnv: TypeEnvironment) -> Type: 
         # base level expressions
         if isinstance(exp, IntegerLiteral):
             return IntType()
@@ -237,7 +240,7 @@ class Typechecker:
         if className in currEnv.envSpace:
             return currEnv.envSpace[className]
         else:
-            raise Exception(f"Error. Class {className} not found in current environment space")
+            raise Exception(f"Error. Class {className} not found in current environment space") # test not found in current environment space
     
 
     # must check if the variables are initialized before they are used, checking if void is used as a value, checking that a function returning NOT void always returns
