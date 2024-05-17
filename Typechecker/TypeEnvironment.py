@@ -24,7 +24,7 @@ class TypeEnvironment:
 
     def __init__(self):
         self.envSpace = dict() # dicts are maps in python
-        self.parentEnv = None # Might need pointer to a parent environment
+        self.parentEnv = None
 
     def extend(self, var: Variable, type: Type):
         self.envSpace[var] = type
@@ -36,4 +36,19 @@ class TypeEnvironment:
             raise Exception("Insertion failed.")
 
     def addParentEnv(self, newEnv: 'TypeEnvironment'):
-        self.parentEnv = newEnv
+        self.parentEnv = newEnv # Connect a parent environment to this current environment
+
+    # Recursive look up of values in the current environment (or parent env, if applicable)
+    # A child env has access to parent envSpace. 
+    # A parent env does not have access to child envSpace.
+    def lookUp(self, value, currEnv):
+        if value in currEnv.envSpace: # Check the current environment's envSpace
+            return currEnv.envSpace[value] 
+        
+        elif currEnv.parentEnv is not None: # If the current environemtn has a parent environment...
+                if value in currEnv.parentEnv.envSpace:
+                    return currEnv.parentEnv.envSpace[value]
+                else:  
+                    return self.lookUp(value, currEnv.parentEnv) # Recusively check the next environment
+        else:
+            raise Exception(f"Error. Could not find {value} in {currEnv}")
