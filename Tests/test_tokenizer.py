@@ -1,6 +1,6 @@
 import pytest
 
-from Tokenizer.Lexer import Tokenizer
+from Tokenizer._Lexer import Tokenizer
 from Tokenizer.Token import Token
 from Tokenizer.VarToken import VarToken
 from Tokenizer.BooleanToken import BooleanToken
@@ -11,6 +11,7 @@ from Tokenizer.CommaToken import CommaToken
 from Tokenizer.DivisionToken import DivisionToken
 from Tokenizer.DotToken import DotToken
 from Tokenizer.ElseToken import ElseToken
+from Tokenizer.ExtendsToken import ExtendsToken
 from Tokenizer.FalseToken import FalseToken
 from Tokenizer.IdentifierToken import IdentifierToken
 from Tokenizer.IfToken import IfToken
@@ -68,4 +69,76 @@ def testTokenizeIdentifier():
 def testTokenizeVarDeclaration():
     tokens = Tokenizer("var x = 7").tokenize()
     expected = [VarToken(), IdentifierToken("x"), SingleEqualsToken(), IntegerLiteralToken(7)]
+    assert expected == tokens
+
+def testTokenizeClass():
+    tokens = Tokenizer("class").tokenize()
+    expected = [ClassToken()]
+    actual = [type(token) for token in tokens]
+    actual_expected = [type(token) for token in expected]
+    print(actual)
+    print(actual_expected)
+    assert expected == tokens
+
+def testTokenizeBreak():
+    tokens = Tokenizer("break").tokenize()
+    expected = [BreakToken()]
+    assert expected == tokens
+
+def testTokenizeSampleCode():
+    code = """
+        class Animal {
+            init() {}
+            method speak() Void { return println(0); }
+            }
+            class Cat extends Animal {
+            init() { super(); }
+            method speak() Void { return println(1); }
+            }
+            class Dog extends Animal {
+            init() { super(); }
+            method speak() Void { return println(2); }
+            }
+
+            Animal cat;
+            Animal dog;
+            cat = new Cat();
+            dog = new Dog();
+            cat.speak();
+            dog.speak();
+    """
+    tokens = Tokenizer(code).tokenize()
+    expected = [ClassToken(), IdentifierToken("Animal"), LeftCurlyBraceToken(),
+                InitToken(), LeftParenToken(), RightParenToken(), LeftCurlyBraceToken(),
+                RightCurlyBraceToken(), MethodToken(), IdentifierToken("speak"), 
+                LeftParenToken(), RightParenToken(), VoidToken(), 
+                LeftCurlyBraceToken(), ReturnToken(), PrintlnToken(), LeftParenToken(), 
+                IntegerLiteralToken(0), RightParenToken(), SemiColonToken(), 
+                RightCurlyBraceToken(), RightCurlyBraceToken(), ClassToken(), 
+                IdentifierToken("Cat"), ExtendsToken(), IdentifierToken("Animal"), 
+                LeftCurlyBraceToken(), InitToken(), LeftParenToken(), RightParenToken(), 
+                LeftCurlyBraceToken(), SuperToken(), LeftParenToken(), RightParenToken(), 
+                SemiColonToken(), RightCurlyBraceToken(), MethodToken(), 
+                IdentifierToken("speak"), LeftParenToken(), RightParenToken(), 
+                VoidToken(), LeftCurlyBraceToken(), ReturnToken(), 
+                PrintlnToken(), LeftParenToken(), IntegerLiteralToken(1), 
+                RightParenToken(), SemiColonToken(), RightCurlyBraceToken(), 
+                RightCurlyBraceToken(), ClassToken(), IdentifierToken("Dog"), 
+                ExtendsToken(), IdentifierToken("Animal"), LeftCurlyBraceToken(), 
+                InitToken(), LeftParenToken(), RightParenToken(), LeftCurlyBraceToken(), 
+                SuperToken(), LeftParenToken(), RightParenToken(), SemiColonToken(), 
+                RightCurlyBraceToken(), MethodToken(), IdentifierToken("speak"), 
+                LeftParenToken(), RightParenToken(), VoidToken(), 
+                LeftCurlyBraceToken(), ReturnToken(), PrintlnToken(), LeftParenToken(), 
+                IntegerLiteralToken(2), RightParenToken(), SemiColonToken(), 
+                RightCurlyBraceToken(), RightCurlyBraceToken(), IdentifierToken("Animal"),
+                IdentifierToken("cat"), SemiColonToken(), IdentifierToken("Animal"), 
+                IdentifierToken("dog"), SemiColonToken(), IdentifierToken("cat"), 
+                SingleEqualsToken(), NewToken(), IdentifierToken("Cat"), LeftParenToken(), 
+                RightParenToken(), SemiColonToken(), IdentifierToken("dog"), 
+                SingleEqualsToken(), NewToken(), IdentifierToken("Dog"), LeftParenToken(), 
+                RightParenToken(), SemiColonToken(), IdentifierToken("cat"), DotToken(), 
+                IdentifierToken("speak"), LeftParenToken(), RightParenToken(), 
+                SemiColonToken(), IdentifierToken("dog"), DotToken(), IdentifierToken("speak"), 
+                LeftParenToken(), RightParenToken(), SemiColonToken()]
     assert expected == tokens

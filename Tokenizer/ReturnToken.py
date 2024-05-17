@@ -8,8 +8,5 @@ class ReturnToken(Token):
     def __str__(self):
         return "ReturnToken"
 
-    def __repr__(self):
-        return "ReturnToken"
-
     def __hash__(self):
-        return 21
+        return 22

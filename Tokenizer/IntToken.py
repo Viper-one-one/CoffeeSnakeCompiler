@@ -7,9 +7,6 @@ class IntToken(Token):
 
     def __str__(self):
         return "IntToken"
-    
-    def __repr__(self):
-        return "IntToken"
 
     def __hash__(self):
-        return 14
+        return 15

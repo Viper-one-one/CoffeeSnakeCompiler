@@ -7,9 +7,6 @@ class DivisionToken(Token):
 
     def __str__(self):
         return "DivisionToken"
-    
-    def __repr__(self):
-        return "DivisionToken"  
 
     def __hash__(self):
         return 6
