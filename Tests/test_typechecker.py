@@ -9,6 +9,7 @@ from Parser.MultExp import MultiplicationExp, DivisionExp
 from Parser.AddExp import AdditionExp, SubtractionExp
 from Parser.CallExp import CallExp
 from Parser.CommaExp import CommaExp
+from Parser.Statement import Block,WhileLoop,Return,IfOptionalElse,Assignment,Statement,Break
 from Typechecker.TypeEnvironment import TypeEnvironment
 from Typechecker._Typechecker import Typechecker
 
@@ -141,5 +142,47 @@ def test_typeofCallExp(): #TODO this is a simple test case of CallExp
     #                        |            |
     #                        |            |
     #                       int          int
+def test_typeOfStmt():
+    code1 = TrueExp()
+    code2 = Return(IntegerLiteral(5))
+    code = WhileLoop(code1, code2)
+    statement = [code]
+    envSpace = TypeEnvironment()
+    myTypechecker = Typechecker(envSpace=envSpace)
 
+    with pytest.raises(Exception):
+        myTypechecker.typecheckStmt(statement, envSpace)
+
+    statement = [code2]
+    envSpace = TypeEnvironment()
+    myTypechecker = Typechecker(envSpace=envSpace)
+
+    with pytest.raises(Exception):
+        myTypechecker.typecheckStmt(statement, envSpace)
+
+    code = IfOptionalElse(TrueExp(), Return(IntegerLiteral(5)), Return(IntegerLiteral(2)))
+    statement = [code]
+    envSpace = TypeEnvironment()
+    myTypechecker = Typechecker(envSpace=envSpace)
+
+    with pytest.raises(Exception):
+        myTypechecker.typecheckStmt(statement, envSpace)
+
+
+    code = IfOptionalElse(TrueExp(), None, Return(IntegerLiteral(5)))
+    statement = [code]
+    envSpace = TypeEnvironment()
+    myTypechecker = Typechecker(envSpace=envSpace)
+
+    with pytest.raises(Exception):
+        myTypechecker.typecheckStmt(statement, envSpace)
+
+
+    code = Block([Return(IntegerLiteral(1)), Return(IntegerLiteral(2))])
+    statement = [code]
+    envSpace = TypeEnvironment()
+    myTypechecker = Typechecker(envSpace=envSpace)
+
+    with pytest.raises(Exception):
+        myTypechecker.typecheckStmt(statement, envSpace)
 
