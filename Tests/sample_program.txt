@@ -1,8 +1,6 @@
 
 class TestClass {
     init() {
-        Int a;
-        a = 10;
     }
 
     method add(Int a, Int b) Int {

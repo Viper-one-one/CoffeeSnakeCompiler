@@ -117,6 +117,7 @@ class Typechecker:
 
         elif isinstance(exp, Variable):
             return self.typecheckVariable(exp.name, currEnv) 
+        # something is going wrong with test being setup as a totally new variable in the environment space
         
         elif isinstance(exp, ParenExp):
             return self.typecheckExp(exp.inner, currEnv) 

@@ -27,6 +27,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeGenerator\_CodeGen.py" />
     <Compile Include="Parser\AddExp.py" />
     <Compile Include="Parser\Exp.py" />
     <Compile Include="Parser\TypesAndNames\ClassName.py" />
@@ -89,6 +90,7 @@
     <Compile Include="Typechecker\_Typechecker.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CodeGenerator\" />
     <Folder Include="Parser\" />
     <Folder Include="Parser\TypesAndNames\" />
     <Folder Include="Tests\" />
